@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import { StatusBar } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import PrimaryButton from '../components/PrimaryButton';
-
+import LinearGradient from 'react-native-linear-gradient';
 // Define RootStackParamList (ensure it matches the one in other screens)
 type RootStackParamList = {
     Home: undefined;
@@ -144,25 +144,45 @@ const DetailsScreen: React.FC = () => {
                     </View>
                     {/* Countdown Timer */}
                     <View style={styles.countdownContainer}>
-                        <View style={styles.timeBox}>
+                        <LinearGradient
+                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                            start={{ x: 1, y: 0 }}            // Top-left
+                            end={{ x: 0, y: 1 }}              // Bottom-right
+                            style={styles.timeBox}
+                        >
                             <Text style={styles.timeValue}>{timeLeft.days}</Text>
                             <Text style={styles.timeUnit}>Days</Text>
-                        </View>
+                        </LinearGradient>
                         <Text style={styles.colon}>:</Text>
-                        <View style={styles.timeBox}>
+                        <LinearGradient
+                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                            start={{ x: 0, y: 0 }}            // Top-left
+                            end={{ x: 1, y: 1 }}              // Bottom-right
+                            style={styles.timeBox}
+                        >
                             <Text style={styles.timeValue}>{timeLeft.hours}</Text>
                             <Text style={styles.timeUnit}>Hours</Text>
-                        </View>
+                        </LinearGradient>
                         <Text style={styles.colon}>:</Text>
-                        <View style={styles.timeBox}>
+                        <LinearGradient
+                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                            start={{ x: 0, y: 0 }}            // Top-left
+                            end={{ x: 1, y: 1 }}              // Bottom-right
+                            style={styles.timeBox}
+                        >
                             <Text style={styles.timeValue}>{timeLeft.minutes}</Text>
                             <Text style={styles.timeUnit}>Mins</Text>
-                        </View>
+                        </LinearGradient>
                         <Text style={styles.colon}>:</Text>
-                        <View style={styles.timeBox}>
+                        <LinearGradient
+                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                            start={{ x: 0, y: 0 }}            // Top-left
+                            end={{ x: 1, y: 1 }}              // Bottom-right
+                            style={styles.timeBox}
+                        >
                             <Text style={styles.timeValue}>{timeLeft.seconds}</Text>
                             <Text style={styles.timeUnit}>Secs</Text>
-                        </View>
+                        </LinearGradient>
                     </View>
 
                     {/* Starting Price */}
@@ -236,9 +256,14 @@ const DetailsScreen: React.FC = () => {
                     <View style={styles.scheduleContainer}>
                         {/* Timeline item 1 */}
                         <View style={styles.timelineItem}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>1</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Gates Open – 4:30 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -249,9 +274,14 @@ const DetailsScreen: React.FC = () => {
 
                         {/* Timeline item 2 */}
                         <View style={[styles.timelineItem, styles.timelineItemRight]}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>2</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={[styles.timelineContent, styles.timelineContentRight]}>
                                 <Text style={[styles.timelineTitle, styles.textRight]}>Pre-Show Vibes – 5:00 PM</Text>
                                 <Text style={[styles.timelineDescription, styles.textRight]}>
@@ -262,9 +292,14 @@ const DetailsScreen: React.FC = () => {
 
                         {/* Timeline item 3 */}
                         <View style={styles.timelineItem}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>3</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Opening Act – 6:00 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -275,9 +310,14 @@ const DetailsScreen: React.FC = () => {
 
                         {/* Timeline item 4 */}
                         <View style={[styles.timelineItem, styles.timelineItemRight]}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>4</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={[styles.timelineContent, styles.timelineContentRight]}>
                                 <Text style={[styles.timelineTitle, styles.textRight]}>Golden Hour Begins – 7:00 PM</Text>
                                 <Text style={[styles.timelineDescription, styles.textRight]}>
@@ -288,9 +328,14 @@ const DetailsScreen: React.FC = () => {
 
                         {/* Timeline item 5 */}
                         <View style={styles.timelineItem}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>5</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Main Performance – 7:15 PM to 9:00 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -301,9 +346,14 @@ const DetailsScreen: React.FC = () => {
 
                         {/* Timeline item 6 */}
                         <View style={[styles.timelineItem, styles.timelineItemRight]}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>6</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={[styles.timelineContent, styles.timelineContentRight]}>
                                 <Text style={[styles.timelineTitle, styles.textRight]}>Encore + Crowd Moments – 9:00 PM</Text>
                                 <Text style={[styles.timelineDescription, styles.textRight]}>
@@ -318,9 +368,14 @@ const DetailsScreen: React.FC = () => {
                         }} ></View>
                         {/* Timeline item 7 */}
                         <View style={styles.timelineItem}>
-                            <View style={styles.timelineCircle}>
+                            <LinearGradient
+                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                start={{ x: 1, y: 0 }}            // Top-left
+                                end={{ x: 0, y: 1 }}              // Bottom-right
+                                style={styles.timelineCircle}
+                            >
                                 <Text style={styles.timelineNumber}>7</Text>
-                            </View>
+                            </LinearGradient>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Closing Ceremony – 9:30 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -347,9 +402,14 @@ const DetailsScreen: React.FC = () => {
                                             </View>
                                         )}
                                     </View>
-                                    <View style={styles.stageLabel}>
+                                    <LinearGradient
+                                        colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                                        start={{ x: 1, y: 0 }}            // Top-left
+                                        end={{ x: 0, y: 1 }}                // Bottom-right
+                                        style={styles.stageLabel}
+                                    >
                                         <Text style={styles.stageLabelText}>Stage</Text>
-                                    </View>
+                                    </LinearGradient>
 
                                     <View style={styles.vipSection}>
                                         {Array(5).fill(0).map((_, r) =>

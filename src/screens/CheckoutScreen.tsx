@@ -15,6 +15,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Header from '../components/Header';
 import PrimaryButton from '../components/PrimaryButton';
+import LinearGradient from 'react-native-linear-gradient';
 
 // Re-add or define your RootStackParamList including PaymentSuccess
 type RootStackParamList = {
@@ -105,7 +106,13 @@ const CheckoutScreen = () => {
             <Text style={styles.title}>Checkout</Text>
 
             {/* Ticket Selection */}
-            <View style={styles.section}>
+            {/* <View style={styles.section}> */}
+            <LinearGradient
+                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
+                start={{ x: 1, y: 0 }}            // Top-left
+                end={{ x: 0, y: 1 }}              // Bottom-right
+                style={styles.section}
+            >
                 <TicketItem
                     name="VIP Tickets"
                     price={vipPrice}
@@ -129,7 +136,8 @@ const CheckoutScreen = () => {
                     onDecrease={() => handleQuantityChange(setStartingTickets, startingTickets, -1)}
                     onIncrease={() => handleQuantityChange(setStartingTickets, startingTickets, 1)}
                 />
-            </View>
+            </LinearGradient>
+            {/* </View> */}
 
             {/* Payment Method */}
             <View style={[styles.section, { backgroundColor: "#2E1D3B", borderWidth: 0 }]}>
@@ -295,13 +303,13 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
     section: {
-        backgroundColor: '#3E2A5A', // Slightly lighter purple section background
+        // backgroundColor: '#3E2A5A', // Slightly lighter purple section background
         marginHorizontal: 15,
         marginBottom: 20,
         paddingVertical: 15, // Adjusted padding
         paddingHorizontal: 20,
         borderWidth: 1,
-        borderColor: '#c061ff',
+        borderColor: '#CC7BFF',
     },
     divider: {
         height: 1,
@@ -533,6 +541,9 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    gradient: {
+        borderRadius: 15,
     },
 });
 
