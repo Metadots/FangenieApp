@@ -9,6 +9,7 @@ import {
     StatusBar,
     TextInput,
     Keyboard,
+    Image
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -45,8 +46,8 @@ type VerifyEmailScreenRouteProp = RouteProp<
 const OTP_LENGTH = 5; // Match the image (5 boxes)
 
 const VerifyEmailScreen: React.FC = () => {
-    const navigation = useNavigation<VerifyEmailScreenNavigationProp>();
-    const route = useRoute<VerifyEmailScreenRouteProp>();
+    const navigation = useNavigation();
+    const route = useRoute();
     const { email } = route.params; // Get email passed from ForgotPassword
 
     const [otp, setOtp] = useState<string[]>(new Array(OTP_LENGTH).fill(''));
@@ -92,13 +93,9 @@ const VerifyEmailScreen: React.FC = () => {
         // TODO: Implement API call to verify OTP
         console.log('Verifying OTP:', enteredOtp, 'for email:', email);
 
-        if (enteredOtp.length === OTP_LENGTH) {
-            // On success, navigate to ResetPassword, passing email and OTP
-            navigation.navigate('ResetPassword', { email, otp: enteredOtp });
-        } else {
-            // TODO: Show error message (OTP incomplete)
-            console.error('OTP is incomplete');
-        }
+
+        navigation.navigate('ResetPassword', { email, otp: enteredOtp });
+
     };
 
     return (
@@ -107,12 +104,15 @@ const VerifyEmailScreen: React.FC = () => {
 
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
-                <Text style={styles.logoText}>FanGenie</Text>
+                <Image
+                    source={require('../assets/images/Logo.png')}
+                    style={styles.logoImage}
+                    resizeMode="contain"
+                />
             </View>
 
-            <Text style={styles.title}>Verify Email</Text>
             <Text style={styles.instructionText}>
-                Enter the OTP sent to {email}
+                Verify Email
             </Text>
             <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>Back to </Text>
@@ -160,11 +160,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         alignItems: 'center',
         marginBottom: hp(6),
+        marginTop: hp(15)
     },
-    logoText: {
-        color: '#FFF',
-        fontSize: hp(4),
-        fontWeight: 'bold',
+    logoImage: {
+        width: wp(40),
+        height: hp(6),
     },
     title: {
         color: '#FFF',
@@ -174,18 +174,21 @@ const styles = StyleSheet.create({
         marginBottom: hp(1),
     },
     instructionText: {
-        color: '#B0A0C0',
-        fontSize: hp(1.8),
+        color: '#FFF',
+        fontSize: hp(3),
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: hp(1), // Space below instruction
+        marginBottom: hp(1),
+        alignSelf: "flex-start"
     },
     subtitleContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: hp(6),
+        alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.8),
     },
     linkText: {
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     otpLabel: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.8),
         marginBottom: hp(1),
         alignSelf: 'flex-start', // Align label to left
@@ -204,19 +207,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%', // Take full width to space out boxes
-        marginBottom: hp(4),
     },
     otpInput: {
         width: wp(14), // Adjust width based on screen size and number of inputs
         height: hp(7),
-        borderWidth: 1,
-        borderColor: '#5A4573',
-        borderRadius: 10,
         textAlign: 'center',
         fontSize: hp(2.5),
         fontWeight: 'bold',
         color: '#FFF',
-        backgroundColor: '#2C1D3E',
+        backgroundColor: '#353535',
     },
     actionButton: {
         marginTop: hp(3),

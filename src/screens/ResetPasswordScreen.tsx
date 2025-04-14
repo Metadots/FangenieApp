@@ -7,6 +7,7 @@ import {
     ScrollView,
     Platform,
     StatusBar,
+    Image
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -75,7 +76,11 @@ const ResetPasswordScreen: React.FC = () => {
 
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
-                <Text style={styles.logoText}>FanGenie</Text>
+                <Image
+                    source={require('../assets/images/Logo.png')}
+                    style={styles.logoImage}
+                    resizeMode="contain"
+                />
             </View>
 
             <Text style={styles.title}>Reset Password</Text>
@@ -130,11 +135,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         alignItems: 'center',
         marginBottom: hp(6),
+        marginTop: hp(15)
     },
-    logoText: {
-        color: '#FFF',
-        fontSize: hp(4),
-        fontWeight: 'bold',
+    logoImage: {
+        width: wp(40),
+        height: hp(6),
     },
     title: {
         color: '#FFF',
@@ -142,14 +147,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: hp(1),
+        alignSelf: "flex-start"
     },
     subtitleContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: hp(6),
+        marginBottom: hp(5),
+        alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.8),
     },
     linkText: {
@@ -161,7 +168,7 @@ const styles = StyleSheet.create({
         // Styles for the form area
     },
     actionButton: {
-        marginTop: hp(3),
+        marginTop: hp(1),
     },
     // Optional style for general errors
     // generalErrorText: {

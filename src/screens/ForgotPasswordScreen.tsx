@@ -49,36 +49,40 @@ const ForgotPasswordScreen: React.FC = () => {
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <StatusBar barStyle="light-content" backgroundColor="#190F20" />
+            <View style={{ marginTop: hp(15) }}>
+                {/* Header/Logo */}
+                <View style={styles.headerContainer}>
+                    <Image
+                        source={require('../assets/images/Logo.png')}
+                        style={styles.logoImage}
+                        resizeMode="contain"
+                    />
+                </View>
 
-            {/* Header/Logo */}
-            <View style={styles.headerContainer}>
-                {/* Replace with your actual logo */}
-                <Text style={styles.logoText}>FanGenie</Text>
+                <Text style={styles.title}>Forgot Password</Text>
+                <View style={styles.subtitleContainer}>
+                    <Text style={styles.subtitleText}>Back to </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                        <Text style={styles.linkText}>Login</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Form */}
+                <View style={styles.formContainer}>
+                    <CustomInput
+                        label="Email"
+                        placeholder="example@domain.com"
+                        value={email}
+                        onChangeText={setEmail}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        textContentType="emailAddress"
+                    />
+
+                    <PrimaryButton title="Send Email" onPress={handleSendEmail} style={styles.actionButton} />
+                </View>
+
             </View>
-
-            <Text style={styles.title}>Forgot Password</Text>
-            <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Back to </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={styles.linkText}>Login</Text>
-                </TouchableOpacity>
-            </View>
-
-            {/* Form */}
-            <View style={styles.formContainer}>
-                <CustomInput
-                    label="Email"
-                    placeholder="example@domain.com"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    textContentType="emailAddress"
-                />
-
-                <PrimaryButton title="Send Email" onPress={handleSendEmail} style={styles.actionButton} />
-            </View>
-
         </ScrollView>
     );
 };
@@ -98,25 +102,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: hp(6),
     },
-    logoText: { // Placeholder
-        color: '#FFF',
-        fontSize: hp(4),
-        fontWeight: 'bold',
+    logoImage: {
+        width: wp(40),
+        height: hp(6),
     },
     title: {
         color: '#FFF',
         fontSize: hp(3),
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'left',
         marginBottom: hp(1),
     },
     subtitleContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: hp(6),
+        alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.8),
     },
     linkText: {

@@ -69,8 +69,11 @@ const SignupScreen: React.FC = () => {
 
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
-                {/* Replace with your actual logo */}
-                <Text style={styles.logoText}>FanGenie</Text>
+                <Image
+                    source={require('../assets/images/Logo.png')}
+                    style={styles.logoImage}
+                    resizeMode="contain"
+                />
             </View>
 
             <Text style={styles.title}>Create an account</Text>
@@ -144,12 +147,12 @@ const SignupScreen: React.FC = () => {
             <View style={styles.socialLoginContainer}>
                 <TouchableOpacity style={styles.socialButton} onPress={handleGoogleLogin}>
                     {/* @ts-ignore */}
-                    <Icon name="google" size={hp(2.5)} color="#FFF" style={styles.socialIcon} />
+                    <Image source={require('../assets/images/google.png')} style={styles.socialIcon} />
                     <Text style={styles.socialButtonText}>Google</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.socialButton} onPress={handleFacebookLogin}>
                     {/* @ts-ignore */}
-                    <Icon name="facebook" size={hp(2.5)} color="#FFF" style={styles.socialIcon} />
+                    <Image source={require('../assets/images/facebook.png')} style={styles.socialIcon} />
                     <Text style={styles.socialButtonText}>Facebook</Text>
                 </TouchableOpacity>
             </View>
@@ -173,25 +176,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: hp(4),
     },
-    logoText: { // Placeholder - use Image component for actual logo
-        color: '#FFF',
-        fontSize: hp(4),
-        fontWeight: 'bold',
+    logoImage: {
+        width: wp(40),
+        height: hp(6),
+        marginBottom: hp(2),
     },
     title: {
         color: '#FFF',
         fontSize: hp(3),
         fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'left',
         marginBottom: hp(1),
     },
     subtitleContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: hp(4),
+        alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.8),
     },
     linkText: {
@@ -219,7 +223,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start', // Align to left
     },
     termsText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.7),
         marginLeft: wp(2),
     },
@@ -237,7 +241,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#5A4573', // Divider color
     },
     dividerText: {
-        color: '#B0A0C0',
+        color: '#fff',
         marginHorizontal: wp(4),
         fontSize: hp(1.7),
         fontWeight: 'bold',
@@ -249,15 +253,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#2C1D3E', // Darker button background
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#5A4573',
+        borderColor: '#353535',
         paddingVertical: hp(1.8),
         marginBottom: hp(2),
     },
     socialIcon: {
-        marginRight: wp(3),
+        width: hp(2.5),
+        height: hp(2.5),
+        marginRight: wp(1),
     },
     socialButtonText: {
         color: '#FFF',

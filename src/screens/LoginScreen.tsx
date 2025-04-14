@@ -22,8 +22,11 @@ type RootStackParamList = {
     Details: undefined;
     Checkout: undefined;
     PaymentSuccess: undefined;
-    Login: undefined; // Add Login
-    Signup: undefined; // Add Signup
+    Login: undefined;
+    Signup: undefined;
+    ForgotPassword: undefined; // Ensure this is present
+    VerifyEmail: { email: string }; // Ensure this is present
+    ResetPassword: { email: string; otp: string }; // Ensure this is present
     // Add other screens here
 };
 
@@ -47,9 +50,10 @@ const LoginScreen: React.FC = () => {
     };
 
     const handleForgotPassword = () => {
-        navigation.navigate('ForgotPassword');
         // TODO: Implement forgot password navigation/logic
         console.log('Forgot Password pressed');
+        // Navigate to ForgotPassword screen
+        navigation.navigate('ForgotPassword'); // This should now be type-safe
     };
 
     const handleGoogleLogin = () => {
@@ -68,8 +72,11 @@ const LoginScreen: React.FC = () => {
 
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
-                {/* Replace with your actual logo */}
-                <Text style={styles.logoText}>FanGenie</Text>
+                <Image
+                    source={require('../assets/images/Logo.png')}
+                    style={styles.logoImage}
+                    resizeMode="contain"
+                />
             </View>
 
             <Text style={styles.title}>Login to your account</Text>
@@ -100,16 +107,27 @@ const LoginScreen: React.FC = () => {
                     textContentType="password" // Help with autofill
                 />
 
-                <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotPasswordContainer}>
+                <TouchableOpacity
+                    onPress={handleForgotPassword}
+                    style={styles.forgotPasswordContainer}>
                     <Text style={styles.linkText}>Forgot Password?</Text>
                 </TouchableOpacity>
 
                 <PrimaryButton title="Login" onPress={handleLogin} style={styles.loginButton} />
 
-                <TouchableOpacity onPress={() => setKeepLoggedIn(!keepLoggedIn)} style={styles.keepLoggedInContainer}>
+                <TouchableOpacity
+                    onPress={() => setKeepLoggedIn(!keepLoggedIn)}
+                    style={styles.keepLoggedInContainer}>
                     {/* @ts-ignore */}
-                    <Icon name={keepLoggedIn ? "checkbox-marked" : "checkbox-blank-outline"} size={hp(2.5)} color={keepLoggedIn ? '#A050F0' : '#5A5A5A'} />
-                    <Text style={styles.keepLoggedInText}>Keep me Logged in</Text>
+                    <Icon
+                        name={keepLoggedIn
+                            ? "checkbox-marked"
+                            : "checkbox-blank-outline"}
+                        size={hp(2.5)}
+                        color={keepLoggedIn
+                            ? '#A050F0'
+                            : '#fff'} />
+                    <Text style={styles.keepLoggedInText}>Keep me <Text style={{ color: '#A050F0' }} >Logged in</Text></Text>
                 </TouchableOpacity>
             </View>
 
@@ -122,14 +140,18 @@ const LoginScreen: React.FC = () => {
 
             {/* Social Logins */}
             <View style={styles.socialLoginContainer}>
-                <TouchableOpacity style={styles.socialButton} onPress={handleGoogleLogin}>
+                <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={handleGoogleLogin}>
                     {/* @ts-ignore */}
-                    <Icon name="google" size={hp(2.5)} color="#FFF" style={styles.socialIcon} />
+                    <Image source={require('../assets/images/google.png')} style={styles.socialIcon} />
                     <Text style={styles.socialButtonText}>Google</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton} onPress={handleFacebookLogin}>
+                <TouchableOpacity
+                    style={styles.socialButton}
+                    onPress={handleFacebookLogin}>
                     {/* @ts-ignore */}
-                    <Icon name="facebook" size={hp(2.5)} color="#FFF" style={styles.socialIcon} />
+                    <Image source={require('../assets/images/facebook.png')} style={styles.socialIcon} />
                     <Text style={styles.socialButtonText}>Facebook</Text>
                 </TouchableOpacity>
             </View>
@@ -153,26 +175,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: hp(4),
     },
-    logoText: { // Placeholder - use Image component for actual logo
-        color: '#FFF',
-        fontSize: hp(4),
-        fontWeight: 'bold',
-        // Replace with <Image source={require('../assets/logo.png')} ... />
+    logoImage: {
+        width: wp(40),
+        height: hp(6),
+        marginBottom: hp(2),
     },
     title: {
         color: '#FFF',
         fontSize: hp(3),
-        fontWeight: 'bold',
-        textAlign: 'center',
+        textAlign: 'left', // Changed from 'flex-start' to 'left'
         marginBottom: hp(1),
     },
     subtitleContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: hp(4),
+        alignSelf: "flex-start",
     },
     subtitleText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.8),
     },
     linkText: {
@@ -198,7 +219,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start', // Align to left
     },
     keepLoggedInText: {
-        color: '#B0A0C0',
+        color: '#fff',
         fontSize: hp(1.7),
         marginLeft: wp(2),
     },
@@ -213,7 +234,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#5A4573', // Divider color
     },
     dividerText: {
-        color: '#B0A0C0',
+        color: '#fff',
         marginHorizontal: wp(4),
         fontSize: hp(1.7),
         fontWeight: 'bold',
@@ -225,15 +246,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#2C1D3E', // Darker button background
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#5A4573',
+        borderColor: '#353535',
         paddingVertical: hp(1.8),
         marginBottom: hp(2),
     },
     socialIcon: {
-        marginRight: wp(3),
+        width: hp(2.5),
+        height: hp(2.5),
+        marginRight: wp(1),
     },
     socialButtonText: {
         color: '#FFF',

@@ -46,14 +46,17 @@ const CustomInput: React.FC<CustomInputProps> = ({
     return (
         <View style={[styles.outerContainer, containerStyle]}>
             <Text style={styles.label}>{label}</Text>
-            <View style={[styles.inputContainer, isFocused && styles.inputContainerFocused, error ? styles.inputContainerError : null]}>
+            <View style={[
+                styles.inputContainer,
+                isFocused && styles.inputContainerFocused,
+                error ? styles.inputContainerError : null]}>
                 <TextInput
                     style={[styles.input, inputStyle]}
-                    placeholderTextColor="#5A5A5A" // Consistent placeholder color
-                    secureTextEntry={internalSecureTextEntry} // Use internal state
+                    placeholderTextColor="#fff"
+                    secureTextEntry={internalSecureTextEntry}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
-                    {...props} // Spread the rest of the props
+                    {...props}
                 />
                 {dynamicIconName && (
                     <TouchableOpacity onPress={handleIconPress} style={styles.iconContainer}>
@@ -69,39 +72,37 @@ const CustomInput: React.FC<CustomInputProps> = ({
 
 const styles = StyleSheet.create({
     outerContainer: {
-        marginBottom: hp(2), // Space between inputs
-        width: '100%', // Default to full width
+        marginBottom: hp(2),
+        width: '100%',
     },
     label: {
-        color: '#B0A0C0', // Light grey label
+        color: '#fff',
         fontSize: hp(1.8),
         marginBottom: hp(1),
-        marginLeft: wp(1), // Slight indent
+        marginLeft: wp(1),
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#2C1D3E', // Dark input background like in the image
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#5A4573', // Subtle border
+        backgroundColor: '#353535',
+        borderColor: '#5A4573',
         paddingHorizontal: wp(4),
-        height: hp(6.5), // Fixed height for consistency
+        height: hp(6.5),
     },
     inputContainerFocused: {
-        borderColor: '#A050F0', // Highlight border on focus (purple)
+        borderColor: '#A050F0',
     },
     inputContainerError: {
-        borderColor: '#FF6B6B', // Red border for errors
+        borderColor: '#FF6B6B',
     },
     input: {
         flex: 1,
         color: '#FFF',
-        fontSize: hp(1.9),
-        paddingVertical: Platform.OS === 'ios' ? hp(1.5) : hp(1), // Adjust padding for platform
+        fontSize: hp(1.6),
+        paddingVertical: Platform.OS === 'ios' ? hp(1.5) : hp(1),
     },
     iconContainer: {
-        paddingLeft: wp(2), // Space between input text and icon
+        paddingLeft: wp(2),
     },
     errorText: {
         color: '#FF6B6B',
