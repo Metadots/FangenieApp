@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PaperProvider } from 'react-native-paper';
 import { theme } from '../constants/theme';
 import HomeScreen from '../screens/HomeScreen';
-import Header from '../components/Header';
+import DetailsScreen from '../screens/Details';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +20,10 @@ export const AppNavigator = () => {
                     <Stack.Screen
                         name="Home"
                         component={HomeScreen}
+                    />
+                    <Stack.Screen
+                        name="Details"
+                        component={DetailsScreen}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

@@ -41,27 +41,13 @@
 			<string>arm64</string>
 		</array>
 		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
 		<key>UIAppFonts</key>
 		<array>
-			<string>SF-Pro-Text-Bold.otf</string>
-			<string>SF-Pro-Text-BoldItalic.otf</string>
-			<string>SF-Pro-Text-Heavy.otf</string>
-			<string>SF-Pro-Text-HeavyItalic.otf</string>
-			<string>SF-Pro-Text-Light.otf</string>
-			<string>SF-Pro-Text-LightItalic.otf</string>
-			<string>SF-Pro-Text-Medium.otf</string>
-			<string>SF-Pro-Text-MediumItalic.otf</string>
-			<string>SF-Pro-Text-Regular.otf</string>
-			<string>SF-Pro-Text-RegularItalic.otf</string>
-			<string>SF-Pro-Text-Semibold.otf</string>
-			<string>SF-Pro-Text-SemiboldItalic.otf</string>
-			<string>manrope-bold.otf</string>
-			<string>manrope-extrabold.otf</string>
-			<string>manrope-light.otf</string>
-			<string>manrope-medium.otf</string>
-			<string>manrope-regular.otf</string>
-			<string>manrope-semibold.otf</string>
-			<string>manrope-thin.otf</string>
 			<string>AntDesign.ttf</string>
 			<string>Entypo.ttf</string>
 			<string>EvilIcons.ttf</string>
@@ -81,11 +67,6 @@
 			<string>Octicons.ttf</string>
 			<string>Zocial.ttf</string>
 			<string>Fontisto.ttf</string>
-		</array>
-		<array>
-			<string>UIInterfaceOrientationPortrait</string>
-			<string>UIInterfaceOrientationLandscapeLeft</string>
-			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false />

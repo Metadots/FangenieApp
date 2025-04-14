@@ -7,9 +7,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Acoustic Sessions');
+    const navigation = useNavigation();
 
     const events = [
         {
@@ -47,7 +49,7 @@ const HomeScreen = () => {
                     <EventCard
                         key={index}
                         {...event}
-                        onPress={() => console.log('Event pressed:', event.title)}
+                        onPress={() => navigation.navigate('Details')}
                     />
                 ))}
             </ScrollView>
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'ios' ? hp(6) : hp(1),
-        backgroundColor: '#121212',
+        backgroundColor: '#190F20',
     },
     categoryContainer: {
         paddingHorizontal: 16,
