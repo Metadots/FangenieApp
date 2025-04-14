@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground, Image } from 'react-native';
 import { Text, Card, useTheme, IconButton } from 'react-native-paper';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 interface EventCardProps {
     title: string;
     date: string;
@@ -32,20 +34,15 @@ const EventCard = ({
             >
                 <View style={styles.overlay}>
                     <View style={styles.dateContainer}>
-                        <IconButton
-                            icon="calendar"
-                            iconColor="#fff"
-                            size={16}
-                            style={styles.icon}
-                        />
-                        <Text style={styles.dateText}>{date}</Text>
+                        <View style={styles.dateIconContainer}>
+                            <Feather name="calendar" size={16} color="grey" />
+                            <Text style={styles.dateText}>{date}</Text>
+                        </View>
+
                         <View style={styles.ticketsContainer}>
-                            <IconButton
-                                icon="ticket-outline"
-                                iconColor="#fff"
-                                size={16}
-                                style={styles.icon}
-                            />
+                            <Image source={require('../assets/images/ticket-white.png')}
+                                style={styles.ticketIcon} />
+
                             <Text style={styles.ticketsText}>{ticketsCount}</Text>
                         </View>
                     </View>
@@ -53,21 +50,18 @@ const EventCard = ({
                         <Text style={styles.title}>{title}</Text>
                         <View style={styles.detailsContainer}>
                             <View style={styles.detail}>
-                                <IconButton
-                                    icon="music"
-                                    iconColor="#fff"
-                                    size={16}
-                                    style={styles.icon}
-                                />
+                                <Image source={require('../assets/images/mic-white.png')}
+                                    style={{ height: 18, width: 18, marginRight: 5 }} />
                                 <Text style={styles.detailText}>{category}</Text>
                             </View>
                             <View style={styles.detail}>
-                                <IconButton
-                                    icon="map-marker"
-                                    iconColor="#fff"
-                                    size={16}
-                                    style={styles.icon}
-                                />
+                                <EvilIcons
+                                    name="location"
+                                    size={18}
+                                    color="white"
+                                    style={{
+                                        marginRight: 5
+                                    }} />
                                 <Text style={styles.detailText}>{venue}</Text>
                             </View>
                         </View>
@@ -86,7 +80,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     imageBackground: {
-        height: 200,
+        height: 350,
         justifyContent: 'space-between',
     },
     imageStyle: {
@@ -101,24 +95,36 @@ const styles = StyleSheet.create({
     dateContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        justifyContent: 'space-between',
+        height: 60,
         padding: 8,
-        borderRadius: 20,
-        alignSelf: 'flex-start',
+        borderRadius: 30,
+        width: '100%',
     },
     dateText: {
-        color: '#fff',
+        color: 'grey',
         marginLeft: 8,
         fontSize: 12,
+
+    },
+    ticketIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 4,
+    },
+    dateIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: "#FFF", height: "100%", width: "65%",
+        justifyContent: "center", borderRadius: 30,
     },
     ticketsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 16,
+        height: 30
     },
     ticketsText: {
         color: '#fff',
-        marginLeft: 4,
         fontSize: 12,
     },
     bottomContent: {
@@ -132,11 +138,12 @@ const styles = StyleSheet.create({
     detailsContainer: {
         flexDirection: 'row',
         gap: 16,
+        alignItems: 'center',
+        height: 22
     },
     detail: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 4,
     },
     detailText: {
         color: '#fff',

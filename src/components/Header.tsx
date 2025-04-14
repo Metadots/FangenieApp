@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { IconButton } from 'react-native-paper';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { IconButton, Text } from 'react-native-paper';
+import SignInButton from './SignInButton';
+
 
 interface HeaderProps {
     onProfilePress?: () => void;
@@ -14,12 +16,8 @@ const Header = ({ onProfilePress }) => {
                 style={styles.logo}
                 resizeMode="contain"
             />
-            <IconButton
-                icon="account"
-                iconColor="#fff"
-                size={24}
-                onPress={onProfilePress}
-            />
+            <SignInButton />
+
         </View>
     );
 };
@@ -31,12 +29,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 16,
         paddingVertical: 8,
-        backgroundColor: '#1a1a1a',
+        backgroundColor: '#121212',
     },
     logo: {
         height: 32,
         width: 120,
     },
+
 });
 
 export default Header; 
