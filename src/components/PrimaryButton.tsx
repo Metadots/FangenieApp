@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#CC7BFF', // Base purple color
         paddingVertical: hp(1.8),
-        borderRadius: 25,
+        borderRadius: 15,
         alignItems: 'center',
         width: wp(80), // Default width, can be overridden by style prop
         alignSelf: 'center', // Center the button by default

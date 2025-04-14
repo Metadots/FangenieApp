@@ -1,25 +1,38 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform, ImageBackground } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native'; // Assuming you use React Navigation
-import { SafeAreaView } from 'react-native-safe-area-context'; // For safe area views
+import { useNavigation, useRoute } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'; // <-- Import type
+import type { RouteProp } from '@react-navigation/native'; // <-- Import type
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // <-- Import Icon
 import Header from '../components/Header';
 import { StatusBar } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import PrimaryButton from '../components/PrimaryButton'; // Import the new component
+import PrimaryButton from '../components/PrimaryButton';
 
-// Placeholder types - replace with your actual types
-type DetailsScreenRouteProp = {
-    key: string;
-    name: string;
-    params: {
-        // Define parameters you expect to receive, e.g., eventId: string;
-    };
+// Define RootStackParamList (ensure it matches the one in other screens)
+type RootStackParamList = {
+    Home: undefined;
+    Details: { eventId?: string }; // Added optional eventId param example
+    Checkout: undefined;
+    PaymentSuccess: undefined;
 };
 
+// Type for the Details screen's navigation prop
+type DetailsScreenNavigationProp = NativeStackNavigationProp<
+    RootStackParamList,
+    'Details'
+>;
+
+// Type for the Details screen's route prop
+type DetailsScreenRouteProp = RouteProp<
+    RootStackParamList,
+    'Details'
+>;
+
 const DetailsScreen: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<DetailsScreenNavigationProp>();
     const route = useRoute<DetailsScreenRouteProp>();
 
     // Example: Get event details based on route.params.eventId if passed
@@ -81,11 +94,14 @@ const DetailsScreen: React.FC = () => {
         });
     };
 
+    const handleCheckout = () => {
+        navigation.navigate('Checkout');
+    };
 
     return (
         <View style={styles.safeArea}>
             <StatusBar barStyle="light-content" backgroundColor={"#190F20"} />
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.scrollViewContainer}>
                 {/* Header with Background Image */}
                 <ImageBackground
                     blurRadius={3}
@@ -490,7 +506,7 @@ const DetailsScreen: React.FC = () => {
                             {/* Checkout Button - Replaced with PrimaryButton */}
                             <PrimaryButton
                                 title="Checkout (800$)"
-                                onPress={() => console.log('Checkout pressed')}
+                                onPress={() => { navigation.navigate('Checkout') }}
                             />
                         </View>
                     </View>
@@ -504,11 +520,13 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: '#190F20',
-
+    },
+    scrollViewContainer: {
+        flex: 1,
+        backgroundColor: '#190F20',
     },
     container: {
-        flex: 1,
-
+        backgroundColor: '#190F20',
     },
     header: {
         paddingTop: Platform.OS === 'ios' ? hp(6) : hp(1),
@@ -879,6 +897,20 @@ const styles = StyleSheet.create({
     categoryAvailability: {
         color: '#aaa', // Greyish color for availability
         fontSize: hp(1.7),
+    },
+    fixedBottomBar: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: hp(10),
+        backgroundColor: '#190F20',
+        borderTopWidth: 1,
+        borderTopColor: '#333',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: wp(5),
     },
 });
 
