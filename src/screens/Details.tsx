@@ -120,6 +120,7 @@ const DetailsScreen: React.FC = () => {
                         {/* Date Chip */}
                         <View style={styles.dateChip}>
                             {/* Replace with actual icon */}
+                            {/* @ts-ignore */}
                             <Feather name="calendar" size={16} color="grey" style={styles.iconStyle} />
                             <Text style={styles.dateChipText}>{formatDate(event.date)}</Text>
                         </View>
@@ -135,6 +136,7 @@ const DetailsScreen: React.FC = () => {
                                 <Text style={styles.infoText}>{event.artist}</Text>
                             </View>
                             <View style={styles.infoItem}>
+                                {/* @ts-ignore */}
                                 <Feather name="map-pin" size={16} color="#eee" style={styles.iconStyle} />
                                 <Text style={styles.infoText}>{event.location}</Text>
                             </View>

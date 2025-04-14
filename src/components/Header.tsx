@@ -3,12 +3,14 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { IconButton, Text } from 'react-native-paper';
 import SignInButton from './SignInButton';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
 
 interface HeaderProps {
     onProfilePress?: () => void;
 }
 
 const Header = ({ onProfilePress }) => {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <Image
@@ -16,8 +18,7 @@ const Header = ({ onProfilePress }) => {
                 style={styles.logo}
                 resizeMode="contain"
             />
-            <SignInButton />
-
+            <SignInButton onPress={() => navigation.navigate('Login')} />
         </View>
     );
 };

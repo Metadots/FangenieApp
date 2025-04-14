@@ -1,0 +1,135 @@
+import React, { useState } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ScrollView,
+    Platform,
+    StatusBar,
+    Image
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import CustomInput from '../components/CustomInput';
+import PrimaryButton from '../components/PrimaryButton';
+
+// Define RootStackParamList including ForgotPassword
+type RootStackParamList = {
+    Home: undefined;
+    Details: undefined;
+    Checkout: undefined;
+    PaymentSuccess: undefined;
+    Login: undefined;
+    Signup: undefined;
+    ForgotPassword: undefined; // Add this
+    VerifyEmail: { email: string }; // Add this, needs email
+    ResetPassword: { email: string; otp: string }; // Add this, needs email & otp
+    // Add other screens here
+};
+
+// Type for the navigation prop
+type ForgotPasswordScreenNavigationProp = NativeStackNavigationProp<
+    RootStackParamList,
+    'ForgotPassword'
+>;
+
+const ForgotPasswordScreen: React.FC = () => {
+    const navigation = useNavigation<ForgotPasswordScreenNavigationProp>();
+    const [email, setEmail] = useState('');
+
+    const handleSendEmail = () => {
+        // TODO: Implement API call to send password reset email
+        console.log('Sending password reset email to:', email);
+        // On success, navigate to VerifyEmail screen, passing the email
+        navigation.navigate('VerifyEmail', { email });
+    };
+
+    return (
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+            <StatusBar barStyle="light-content" backgroundColor="#190F20" />
+
+            {/* Header/Logo */}
+            <View style={styles.headerContainer}>
+                {/* Replace with your actual logo */}
+                <Text style={styles.logoText}>FanGenie</Text>
+            </View>
+
+            <Text style={styles.title}>Forgot Password</Text>
+            <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Back to </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={styles.linkText}>Login</Text>
+                </TouchableOpacity>
+            </View>
+
+            {/* Form */}
+            <View style={styles.formContainer}>
+                <CustomInput
+                    label="Email"
+                    placeholder="example@domain.com"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    textContentType="emailAddress"
+                />
+
+                <PrimaryButton title="Send Email" onPress={handleSendEmail} style={styles.actionButton} />
+            </View>
+
+        </ScrollView>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#190F20', // Dark background
+    },
+    contentContainer: {
+        flexGrow: 1,
+        paddingHorizontal: wp(8),
+        paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
+        paddingBottom: hp(5),
+    },
+    headerContainer: {
+        alignItems: 'center',
+        marginBottom: hp(6),
+    },
+    logoText: { // Placeholder
+        color: '#FFF',
+        fontSize: hp(4),
+        fontWeight: 'bold',
+    },
+    title: {
+        color: '#FFF',
+        fontSize: hp(3),
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: hp(1),
+    },
+    subtitleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: hp(6),
+    },
+    subtitleText: {
+        color: '#B0A0C0',
+        fontSize: hp(1.8),
+    },
+    linkText: {
+        color: '#A050F0', // Purple link
+        fontSize: hp(1.8),
+        fontWeight: 'bold',
+    },
+    formContainer: {
+        // Container for the input and button
+    },
+    actionButton: {
+        marginTop: hp(3),
+    },
+});
+
+export default ForgotPasswordScreen; 

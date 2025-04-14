@@ -510,9 +510,9 @@ const styles = StyleSheet.create({
     },
     applyButton: {
         backgroundColor: '#A050F0',
-        height: hp(),
+        height: hp(4),
         paddingHorizontal: 20,
-        borderRadius: 20, // More rounded,
+        borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
     },

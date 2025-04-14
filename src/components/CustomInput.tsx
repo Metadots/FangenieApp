@@ -1,0 +1,114 @@
+import React, { useState } from 'react';
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    TextInputProps, // Import TextInputProps
+    Platform,
+} from 'react-native';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or your preferred icon set
+
+interface CustomInputProps extends TextInputProps {
+    label: string;
+    iconName?: string; // Optional icon name
+    onIconPress?: () => void; // Optional icon action
+    containerStyle?: object; // Optional style for the outer container
+    inputStyle?: object; // Optional style for the TextInput itself
+    error?: string; // Optional error message
+}
+
+const CustomInput: React.FC<CustomInputProps> = ({
+    label,
+    iconName,
+    onIconPress,
+    containerStyle,
+    inputStyle,
+    secureTextEntry,
+    error,
+    ...props // Pass remaining TextInput props
+}) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [internalSecureTextEntry, setInternalSecureTextEntry] = useState(secureTextEntry);
+
+    const handleIconPress = () => {
+        if (secureTextEntry && onIconPress) {
+            onIconPress(); // Allow custom handler
+        } else if (secureTextEntry) {
+            setInternalSecureTextEntry(!internalSecureTextEntry); // Toggle secure text entry
+        }
+    };
+
+    const dynamicIconName = secureTextEntry ? (internalSecureTextEntry ? 'eye-off-outline' : 'eye-outline') : iconName;
+
+    return (
+        <View style={[styles.outerContainer, containerStyle]}>
+            <Text style={styles.label}>{label}</Text>
+            <View style={[styles.inputContainer, isFocused && styles.inputContainerFocused, error ? styles.inputContainerError : null]}>
+                <TextInput
+                    style={[styles.input, inputStyle]}
+                    placeholderTextColor="#5A5A5A" // Consistent placeholder color
+                    secureTextEntry={internalSecureTextEntry} // Use internal state
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    {...props} // Spread the rest of the props
+                />
+                {dynamicIconName && (
+                    <TouchableOpacity onPress={handleIconPress} style={styles.iconContainer}>
+                        {/* @ts-ignore */}
+                        <Icon name={dynamicIconName} size={hp(2.5)} color="#B0A0C0" />
+                    </TouchableOpacity>
+                )}
+            </View>
+            {error && <Text style={styles.errorText}>{error}</Text>}
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    outerContainer: {
+        marginBottom: hp(2), // Space between inputs
+        width: '100%', // Default to full width
+    },
+    label: {
+        color: '#B0A0C0', // Light grey label
+        fontSize: hp(1.8),
+        marginBottom: hp(1),
+        marginLeft: wp(1), // Slight indent
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#2C1D3E', // Dark input background like in the image
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#5A4573', // Subtle border
+        paddingHorizontal: wp(4),
+        height: hp(6.5), // Fixed height for consistency
+    },
+    inputContainerFocused: {
+        borderColor: '#A050F0', // Highlight border on focus (purple)
+    },
+    inputContainerError: {
+        borderColor: '#FF6B6B', // Red border for errors
+    },
+    input: {
+        flex: 1,
+        color: '#FFF',
+        fontSize: hp(1.9),
+        paddingVertical: Platform.OS === 'ios' ? hp(1.5) : hp(1), // Adjust padding for platform
+    },
+    iconContainer: {
+        paddingLeft: wp(2), // Space between input text and icon
+    },
+    errorText: {
+        color: '#FF6B6B',
+        fontSize: hp(1.5),
+        marginTop: hp(0.5),
+        marginLeft: wp(1),
+    }
+});
+
+export default CustomInput; 

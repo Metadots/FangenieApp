@@ -1,8 +1,8 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export const SignInButton = () => {
+export const SignInButton = ({ onPress }) => {
     return (
-        <TouchableOpacity style={styles.signInButton}>
+        <TouchableOpacity style={styles.signInButton} onPress={onPress} >
             <Text style={styles.signInButtonText}>Sign In</Text>
         </TouchableOpacity>
     );

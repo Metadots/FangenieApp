@@ -60,6 +60,7 @@ const PaymentSuccessScreen: React.FC<Props> = ({ navigation }) => {
 
             <View style={styles.mainContent}>
                 <View style={styles.iconContainer}>
+                    {/* @ts-ignore */}
                     <AntDesign name="checkcircleo" size={hp(8)} color="#4CAF50" />
                 </View>
 
