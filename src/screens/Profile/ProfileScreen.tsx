@@ -8,7 +8,7 @@ import {
     ScrollView,
     Image,
 } from 'react-native';
-import CustomInput from '../components/CustomInput';
+import CustomInput from '../../components/CustomInput';
 
 const ProfileScreen = () => {
     // State for input fields could be added here later

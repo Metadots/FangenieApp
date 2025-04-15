@@ -13,9 +13,9 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Using Material Community Icons
-import CustomInput from '../components/CustomInput';
-import PrimaryButton from '../components/PrimaryButton'; // Assuming you have this
 
+import PrimaryButton from '../../components/PrimaryButton';
+import CustomInput from '../../components/CustomInput';
 // Re-use or define RootStackParamList
 type RootStackParamList = {
     Home: undefined;
@@ -70,7 +70,7 @@ const SignupScreen: React.FC = () => {
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
                 <Image
-                    source={require('../assets/images/Logo.png')}
+                    source={require('../../assets/images/Logo.png')}
                     style={styles.logoImage}
                     resizeMode="contain"
                 />
@@ -147,12 +147,12 @@ const SignupScreen: React.FC = () => {
             <View style={styles.socialLoginContainer}>
                 <TouchableOpacity style={styles.socialButton} onPress={handleGoogleLogin}>
                     {/* @ts-ignore */}
-                    <Image source={require('../assets/images/google.png')} style={styles.socialIcon} />
+                    <Image source={require('../../assets/images/google.png')} style={styles.socialIcon} />
                     <Text style={styles.socialButtonText}>Google</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.socialButton} onPress={handleFacebookLogin}>
                     {/* @ts-ignore */}
-                    <Image source={require('../assets/images/facebook.png')} style={styles.socialIcon} />
+                    <Image source={require('../../assets/images/facebook.png')} style={styles.socialIcon} />
                     <Text style={styles.socialButtonText}>Facebook</Text>
                 </TouchableOpacity>
             </View>

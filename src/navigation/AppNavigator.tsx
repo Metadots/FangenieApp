@@ -10,19 +10,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ReferralScreen from '../screens/ReferralScreen';
-import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/Details';
+
 import CheckoutScreen from '../screens/CheckoutScreen';
 import PaymentSuccessScreen from '../screens/PaymentSuccessScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignupScreen from '../screens/SignupScreen';
-import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
-import VerifyEmailScreen from '../screens/VerifyEmailScreen';
-import ResetPasswordScreen from '../screens/ResetPasswordScreen';
+import SignupScreen from '../screens/Auth/SignupScreen';
+import ForgotPasswordScreen from '../screens/Auth/ForgotPasswordScreen';
+import VerifyEmailScreen from '../screens/Auth/VerifyEmailScreen';
+import ResetPasswordScreen from '../screens/Auth/ResetPasswordScreen';
 import TicketsScreen from '../screens/TicketsScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
-import ProfileScreen from '../screens/ProfileScreen';
+
+import HomeScreen from '../screens/Home/HomeScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+import LoginScreen from '../screens/Auth/LoginScreen';
+import DetailsScreen from '../screens/Home/Details';
 // Placeholder Screens for Tabs (Create these later)
 // const TicketsScreen = () => <View />;
 const NotificationsScreen = () => <View />;

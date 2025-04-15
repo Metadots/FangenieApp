@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Platform, Touchable, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
-import EventCard from '../components/EventCard';
-import Header from '../components/Header';
+import EventCard from '../../components/EventCard';
+import Header from '../../components/Header';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Feather from 'react-native-vector-icons/Feather';

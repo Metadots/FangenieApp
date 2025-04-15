@@ -12,8 +12,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import CustomInput from '../components/CustomInput';
-import PrimaryButton from '../components/PrimaryButton';
+import CustomInput from '../../components/CustomInput';
+import PrimaryButton from '../../components/PrimaryButton';
 
 // Define RootStackParamList including ForgotPassword
 type RootStackParamList = {
@@ -53,7 +53,7 @@ const ForgotPasswordScreen: React.FC = () => {
                 {/* Header/Logo */}
                 <View style={styles.headerContainer}>
                     <Image
-                        source={require('../assets/images/Logo.png')}
+                        source={require('../../assets/images/Logo.png')}
                         style={styles.logoImage}
                         resizeMode="contain"
                     />

@@ -6,59 +6,38 @@ import type { RouteProp } from '@react-navigation/native'; // <-- Import type
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // <-- Import Icon
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import { StatusBar } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import PrimaryButton from '../components/PrimaryButton';
+import CustomInput from '../../components/CustomInput';
+import PrimaryButton from '../../components/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
-// Define RootStackParamList (ensure it matches the one in other screens)
-type RootStackParamList = {
-    Home: undefined;
-    Details: { eventId?: string }; // Added optional eventId param example
-    Checkout: undefined;
-    PaymentSuccess: undefined;
-};
 
-// Type for the Details screen's navigation prop
-type DetailsScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'Details'
->;
 
-// Type for the Details screen's route prop
-type DetailsScreenRouteProp = RouteProp<
-    RootStackParamList,
-    'Details'
->;
 
-const DetailsScreen: React.FC = () => {
-    const navigation = useNavigation<DetailsScreenNavigationProp>();
-    const route = useRoute<DetailsScreenRouteProp>();
+const DetailsScreen = () => {
 
-    // Example: Get event details based on route.params.eventId if passed
+    const navigation = useNavigation();
+    const route = useRoute();
 
-    // --- Mock Data - Replace with data fetched based on params ---
     const event = {
         title: 'Golden Hour',
         artist: 'Coldplay',
-        date: new Date(), // Fri 29 Mar, 2025 10:00 PM
+        date: new Date(),
         location: 'New York',
         attendees: 190,
         price: 350,
         description: "Step Into A World Where Music And Atmosphere Become One With Coldplay's Golden Hour Party! An Event Designed To Mesmerize And Captivate, The Golden Hour Party Promises An Evening Filled With The Soulful Melodies And Vibrant Energy That Coldplay Is Renowned For.",
-        imageUrl: 'https://via.placeholder.com/400x250', // Replace with your actual image URL
-        artistImages: [ // Replace with actual artist images
-            require('../assets/images/image.png'),
-            require('../assets/images/image-1.png'),
-            require('../assets/images/image-2.png'),
-            require('../assets/images/image-3.png'),
-            require('../assets/images/image-4.png'),
+        imageUrl: 'https://via.placeholder.com/400x250',
+        artistImages: [
+            require('../../assets/images/image.png'),
+            require('../../assets/images/image-1.png'),
+            require('../../assets/images/image-2.png'),
+            require('../../assets/images/image-3.png'),
+            require('../../assets/images/image-4.png'),
         ],
     };
-    // --- End Mock Data ---
 
-
-    // Countdown logic (simplified example)
     const calculateTimeLeft = () => {
         const difference = +event.date - +new Date();
         let timeLeft = {
@@ -79,7 +58,7 @@ const DetailsScreen: React.FC = () => {
         return timeLeft;
     };
 
-    const timeLeft = calculateTimeLeft(); // In a real app, use state and useEffect for a live countdown
+    const timeLeft = calculateTimeLeft();
 
     const formatDate = (date: Date) => {
         return date.toLocaleTimeString('en-US', {
@@ -95,6 +74,7 @@ const DetailsScreen: React.FC = () => {
     };
 
     const handleCheckout = () => {
+        //@ts-ignore
         navigation.navigate('Checkout');
     };
 
@@ -102,52 +82,51 @@ const DetailsScreen: React.FC = () => {
         <View style={styles.safeArea}>
             <StatusBar barStyle="light-content" backgroundColor={"#190F20"} />
             <ScrollView style={styles.scrollViewContainer}>
-                {/* Header with Background Image */}
+
                 <ImageBackground
                     blurRadius={3}
                     style={styles.header}
-                    source={{ uri: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1000&auto=format&fit=crop" }}
+                    source={{
+                        uri: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1000&auto=format&fit=crop"
+                    }}
                 >
                     <Header onProfilePress={() => { }} />
-                    {/* <Header onProfilePress={() => { }} /> */}
-                    {/* Top Bar */}
-                    {/* Event Title */}
+
                     <View style={{ alignSelf: 'flex-start', padding: 10 }}>
                         <Text style={styles.eventTitle}>{event.title}</Text>
                         <Text style={styles.eventTitleHighlight}>Party</Text>
                     </View>
+
                     <View style={{ marginTop: 15, alignSelf: 'flex-start', paddingLeft: 15 }}>
-                        {/* Date Chip */}
+
                         <View style={styles.dateChip}>
-                            {/* Replace with actual icon */}
-                            {/* @ts-ignore */}
+
                             <Feather name="calendar" size={16} color="grey" style={styles.iconStyle} />
                             <Text style={styles.dateChipText}>{formatDate(event.date)}</Text>
                         </View>
-                        {/* Info Row */}
+
                         <View style={styles.infoRow}>
-                            {/* Replace with actual icons */}
                             <View style={styles.infoItem}>
-                                <Image source={require('../assets/images/ticket-white.png')} style={{ height: 18, width: 18, marginRight: 5 }} />
+                                <Image source={require('../../assets/images/ticket-white.png')} style={{ height: 18, width: 18, marginRight: 5 }} />
                                 <Text style={styles.infoText}>{event.attendees}</Text>
                             </View>
                             <View style={styles.infoItem}>
-                                <Image source={require('../assets/images/mic-white.png')} style={{ height: 18, width: 18, marginRight: 5 }} />
+                                <Image source={require('../../assets/images/mic-white.png')} style={{ height: 18, width: 18, marginRight: 5 }} />
                                 <Text style={styles.infoText}>{event.artist}</Text>
                             </View>
                             <View style={styles.infoItem}>
-                                {/* @ts-ignore */}
+
                                 <Feather name="map-pin" size={16} color="#eee" style={styles.iconStyle} />
                                 <Text style={styles.infoText}>{event.location}</Text>
                             </View>
                         </View>
                     </View>
-                    {/* Countdown Timer */}
+
                     <View style={styles.countdownContainer}>
                         <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                            start={{ x: 1, y: 0 }}            // Top-left
-                            end={{ x: 0, y: 1 }}              // Bottom-right
+                            colors={['#CC7BFF4D', '#200034']}
+                            start={{ x: 1, y: 0 }}
+                            end={{ x: 0, y: 1 }}
                             style={styles.timeBox}
                         >
                             <Text style={styles.timeValue}>{timeLeft.days}</Text>
@@ -155,9 +134,9 @@ const DetailsScreen: React.FC = () => {
                         </LinearGradient>
                         <Text style={styles.colon}>:</Text>
                         <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                            start={{ x: 0, y: 0 }}            // Top-left
-                            end={{ x: 1, y: 1 }}              // Bottom-right
+                            colors={['#CC7BFF4D', '#200034']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
                             style={styles.timeBox}
                         >
                             <Text style={styles.timeValue}>{timeLeft.hours}</Text>
@@ -165,9 +144,9 @@ const DetailsScreen: React.FC = () => {
                         </LinearGradient>
                         <Text style={styles.colon}>:</Text>
                         <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                            start={{ x: 0, y: 0 }}            // Top-left
-                            end={{ x: 1, y: 1 }}              // Bottom-right
+                            colors={['#CC7BFF4D', '#200034']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
                             style={styles.timeBox}
                         >
                             <Text style={styles.timeValue}>{timeLeft.minutes}</Text>
@@ -175,9 +154,9 @@ const DetailsScreen: React.FC = () => {
                         </LinearGradient>
                         <Text style={styles.colon}>:</Text>
                         <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                            start={{ x: 0, y: 0 }}            // Top-left
-                            end={{ x: 1, y: 1 }}              // Bottom-right
+                            colors={['#CC7BFF4D', '#200034']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
                             style={styles.timeBox}
                         >
                             <Text style={styles.timeValue}>{timeLeft.seconds}</Text>
@@ -185,14 +164,14 @@ const DetailsScreen: React.FC = () => {
                         </LinearGradient>
                     </View>
 
-                    {/* Starting Price */}
+
                     <Text style={styles.startingPrice}>{event.price}$/Starting From</Text>
 
                 </ImageBackground>
 
-                {/* Content Area */}
+
                 <View style={styles.contentArea}>
-                    {/* Performing Artist */}
+
 
                     <View style={styles.artistImageContainer}>
                         {event.artistImages.map((imgUrl, index) => (
@@ -242,9 +221,9 @@ const DetailsScreen: React.FC = () => {
                         width: wp(100),
                     }}>
                         <ScrollView style={{}} horizontal={true} showsHorizontalScrollIndicator={false}>
-                            <Image source={require('../assets/images/reel1.png')} style={{ height: hp(35), width: wp(45) }} />
-                            <Image source={require('../assets/images/reel2.png')} style={{ height: hp(35), width: wp(45) }} />
-                            <Image source={require('../assets/images/reel1.png')} style={{ height: hp(35), width: wp(45) }} />
+                            <Image source={require('../../assets/images/reel1.png')} style={{ height: hp(35), width: wp(45) }} />
+                            <Image source={require('../../assets/images/reel2.png')} style={{ height: hp(35), width: wp(45) }} />
+                            <Image source={require('../../assets/images/reel1.png')} style={{ height: hp(35), width: wp(45) }} />
                             <View style={{ width: wp(10) }} />
                         </ScrollView>
                     </View>
@@ -536,7 +515,7 @@ const DetailsScreen: React.FC = () => {
                                 </View>
 
                                 <View style={styles.categoryColumn}>
-                                    {/* Right Column Categories */}
+
                                     <View style={styles.ticketCategory}>
                                         <Text style={styles.categoryTitle}>Premium</Text>
                                         <View style={styles.categoryDetails}>
@@ -561,13 +540,14 @@ const DetailsScreen: React.FC = () => {
                                             <Text style={styles.categoryAvailability}>(0)</Text>
                                         </View>
                                     </View>
-                                    {/* Add spacer or adjust if needed for alignment */}
+
                                 </View>
                             </View>
 
-                            {/* Checkout Button - Replaced with PrimaryButton */}
+
                             <PrimaryButton
                                 title="Checkout (800$)"
+                                //@ts-ignore
                                 onPress={() => { navigation.navigate('Checkout') }}
                             />
                         </View>
@@ -614,16 +594,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
-        marginBottom: 20, // Space below top bar
+        marginBottom: 20,
     },
     logo: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#fff',
-        // Add your FanGenie logo styles or use an <Image> component
     },
     signInButton: {
-        backgroundColor: '#c061ff', // Purple color from image
+        backgroundColor: '#c061ff',
         paddingVertical: 10,
         paddingHorizontal: 25,
         borderRadius: 25,
@@ -637,14 +616,13 @@ const styles = StyleSheet.create({
         fontSize: hp(4),
         fontWeight: 'bold',
         color: '#fff',
-        textAlign: 'left', // Align to left as per image
-        marginTop: 10, // Adjust spacing
-        // lineHeight: 50,
+        textAlign: 'left',
+        marginTop: 10,
     },
     eventTitleHighlight: {
         fontSize: hp(4),
         fontWeight: 'bold',
-        color: '#c061ff', // Purple highlight
+        color: '#c061ff',
         textAlign: 'left',
     },
     dateChip: {
@@ -663,24 +641,24 @@ const styles = StyleSheet.create({
     infoRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'flex-start', // Align items to start
+        justifyContent: 'flex-start',
         marginTop: 15,
     },
     infoText: {
-        color: '#eee', // Lighter grey/white
+        color: '#eee',
         fontSize: 12,
     },
-    infoItem: { // New style for icon + text group
+    infoItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: 15, // Space between info items
+        marginRight: 15,
     },
-    iconStyle: { // Common style for icons
-        marginRight: 5, // Space between icon and text
+    iconStyle: {
+        marginRight: 5,
     },
     countdownContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-start', // Align to left
+        justifyContent: 'flex-start',
         alignItems: 'center',
         marginBottom: 15,
         marginTop: 20,
@@ -688,13 +666,13 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     timeBox: {
-        borderColor: '#a040d0', // Darker purple from image
+        borderColor: '#a040d0',
         borderWidth: 1,
         padding: 10,
         borderRadius: 8,
         alignItems: 'center',
-        minWidth: 50, // Ensure boxes have some width
-        marginHorizontal: 5, // Space around boxes
+        minWidth: 50,
+        marginHorizontal: 5,
         backgroundColor: "rgba(200, 100, 255, 0.3)",
 
     },
@@ -704,7 +682,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     timeUnit: {
-        color: '#eee', // Lighter text
+        color: '#eee',
         fontSize: 12,
         marginTop: 2,
     },
@@ -712,22 +690,21 @@ const styles = StyleSheet.create({
         color: '#eee',
         fontSize: 20,
         fontWeight: 'bold',
-        marginHorizontal: 2, // Reduced space around colons
+        marginHorizontal: 2,
     },
     startingPrice: {
         color: '#fff',
         fontSize: 12,
         fontWeight: '500',
-        alignSelf: 'flex-start', // Align to left
-        marginTop: 5, // Space above price
+        alignSelf: 'flex-start',
+        marginTop: 5,
         marginLeft: 15,
         marginBottom: 20
     },
     contentArea: {
         padding: 20,
-        // Ensure background continues
-        marginTop: -20, // Slightly overlap the header gradient if needed, adjust carefully
-        borderTopLeftRadius: 20, // Optional: rounded corners for the content area
+        marginTop: -20,
+        borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
     sectionTitle: {
@@ -738,16 +715,16 @@ const styles = StyleSheet.create({
     },
     artistImageContainer: {
         flexDirection: 'row',
-        justifyContent: 'center', // Center the images
-        alignItems: 'center', // Align vertically
+        justifyContent: 'center',
+        alignItems: 'center',
         marginBottom: 30,
         marginTop: 10,
-        height: 120, // Adjust height as needed to contain tilted images
-        position: 'relative', // Needed for absolute positioning of overlapping images
+        height: 120,
+        position: 'relative',
     },
     artistImage: {
-        width: 80, // Adjust size
-        height: '100%', // Adjust size
+        width: 80,
+        height: '100%',
         borderRadius: 10,
     },
     overlappingImage: {
@@ -763,13 +740,12 @@ const styles = StyleSheet.create({
     descriptionSubtitle: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#c061ff', // Purple highlight
+        color: '#c061ff',
         textAlign: 'left',
-
     },
     descriptionText: {
         fontSize: 14,
-        color: '#ccc', // Light grey text
+        color: '#ccc',
         lineHeight: 20,
         textAlign: 'left',
         marginBottom: 10
@@ -839,13 +815,12 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         paddingLeft: wp(3)
     },
-    // Seating Map styles - Revised
     seatingMapContainer: {
         marginTop: hp(1),
         alignItems: 'center',
     },
     stageLabel: {
-        backgroundColor: 'rgba(192, 97, 255, 0.7)', // Purple with transparency
+        backgroundColor: 'rgba(192, 97, 255, 0.7)',
         paddingVertical: hp(0.8),
         paddingHorizontal: wp(6),
         borderRadius: 15,
@@ -884,52 +859,50 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     vipSection: {
-        // width: wp(20),
+
     },
     premiumSectionLeft: {
-        // width: wp(25),
+
     },
     executiveSection: {
-        // width: wp(30),
         alignItems: 'center'
     },
     premiumSectionRight: {
-        // width: wp(25),
+
     },
     lowerCenterSection: {
         alignItems: 'center'
     },
     mediumSection: {
-        // width: wp(20),
+
     },
     seatRowH: {
         flexDirection: 'row',
-        marginVertical: 1, // Tiny vertical space between rows
+        marginVertical: 1,
     },
     seat: {
-        width: wp(1.2), // Slightly larger seats
+        width: wp(1.2),
         height: hp(0.6),
-        margin: 0.5, // Minimal margin
+        margin: 0.5,
         borderRadius: 1,
     },
     // Seat Colors (match the image)
-    seatVip: { backgroundColor: '#f0c27a' }, // Orange/Gold
-    seatPremium: { backgroundColor: '#89cff0' }, // Light Blue
-    seatExecutive: { backgroundColor: '#98fb98' }, // Light Green
-    seatPlatinum: { backgroundColor: '#c3aed6' }, // Light Purple
-    seatGolden: { backgroundColor: '#ffb6c1' }, // Light Pink
-    seatMedium: { backgroundColor: '#afeeee' }, // Light Teal/Turquoise
+    seatVip: { backgroundColor: '#f0c27a' },
+    seatPremium: { backgroundColor: '#89cff0' },
+    seatExecutive: { backgroundColor: '#98fb98' },
+    seatPlatinum: { backgroundColor: '#c3aed6' },
+    seatGolden: { backgroundColor: '#ffb6c1' },
+    seatMedium: { backgroundColor: '#afeeee' },
 
-    // Ticket Categories - Revised
     ticketCategoriesContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: wp(90),
         marginTop: hp(2),
-        paddingHorizontal: wp(2), // Add some padding
+        paddingHorizontal: wp(2),
     },
     categoryColumn: {
-        width: '48%', // Create two columns
+        width: '48%',
     },
     ticketCategory: {
         marginBottom: hp(1.5),
@@ -957,7 +930,7 @@ const styles = StyleSheet.create({
         marginRight: wp(2),
     },
     categoryAvailability: {
-        color: '#aaa', // Greyish color for availability
+        color: '#aaa',
         fontSize: hp(1.7),
     },
     fixedBottomBar: {
