@@ -15,6 +15,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Using Material Community Icons
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
+import { colors } from '../../constants/colors';
 
 // Define RootStackParamList including Login and Signup
 type RootStackParamList = {
@@ -163,12 +164,12 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#190F20', // Dark background
+        backgroundColor: colors.background.dark,
     },
     contentContainer: {
         flexGrow: 1,
         paddingHorizontal: wp(8),
-        paddingTop: Platform.OS === 'android' ? hp(2) : hp(8), // Adjust top padding
+        paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
         paddingBottom: hp(5),
     },
     headerContainer: {
@@ -181,9 +182,9 @@ const styles = StyleSheet.create({
         marginBottom: hp(2),
     },
     title: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3),
-        textAlign: 'left', // Changed from 'flex-start' to 'left'
+        textAlign: 'left',
         marginBottom: hp(1),
     },
     subtitleContainer: {
@@ -193,11 +194,11 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
     },
     subtitleText: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: hp(1.8),
     },
     linkText: {
-        color: '#A050F0', // Purple link
+        color: colors.accent,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },
@@ -206,20 +207,20 @@ const styles = StyleSheet.create({
     },
     forgotPasswordContainer: {
         alignSelf: 'flex-end',
-        marginTop: -hp(1), // Pull up slightly
+        marginTop: -hp(1),
         marginBottom: hp(3),
     },
     loginButton: {
-        marginTop: hp(1), // Add some space above button
+        marginTop: hp(1),
     },
     keepLoggedInContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: hp(2),
-        alignSelf: 'flex-start', // Align to left
+        alignSelf: 'flex-start',
     },
     keepLoggedInText: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: hp(1.7),
         marginLeft: wp(2),
     },
@@ -231,10 +232,10 @@ const styles = StyleSheet.create({
     dividerLine: {
         flex: 1,
         height: 1,
-        backgroundColor: '#5A4573', // Divider color
+        backgroundColor: colors.divider,
     },
     dividerText: {
-        color: '#fff',
+        color: colors.text.light,
         marginHorizontal: wp(4),
         fontSize: hp(1.7),
         fontWeight: 'bold',
@@ -248,18 +249,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#353535',
-        paddingVertical: hp(1.8),
+        borderColor: colors.border.accent,
+        padding: hp(1.5),
         marginBottom: hp(2),
     },
     socialIcon: {
-        width: hp(2.5),
-        height: hp(2.5),
-        marginRight: wp(1),
+        width: wp(6),
+        height: wp(6),
+        marginRight: wp(3),
     },
     socialButtonText: {
-        color: '#FFF',
-        fontSize: hp(1.9),
+        color: colors.text.light,
+        fontSize: hp(1.8),
         fontWeight: 'bold',
     },
 });

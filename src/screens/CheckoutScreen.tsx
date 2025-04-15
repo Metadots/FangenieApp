@@ -16,6 +16,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Header from '../components/Header';
 import PrimaryButton from '../components/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
+import { colors } from '../constants/colors';
 
 // Re-add or define your RootStackParamList including PaymentSuccess
 type RootStackParamList = {
@@ -402,15 +403,15 @@ const styles = StyleSheet.create({
         marginTop: 5, // Add space above total price
     },
     sectionTitle: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 15, // Adjusted margin
+        marginBottom: 15,
     },
     paymentOption: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#2C1D3E', // Darker background for selected option
+        backgroundColor: colors.background.darker,
         padding: 15,
         borderRadius: 10,
         marginBottom: 20,
@@ -420,7 +421,7 @@ const styles = StyleSheet.create({
         height: 24,
         borderRadius: 12,
         borderWidth: 2,
-        borderColor: '#A050F0', // Purple border
+        borderColor: colors.border.accent,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 15,
@@ -429,38 +430,38 @@ const styles = StyleSheet.create({
         width: 12,
         height: 12,
         borderRadius: 6,
-        backgroundColor: '#A050F0', // Purple inner circle
+        backgroundColor: colors.border.accent,
     },
     paymentText: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 16,
-        flex: 1, // Take remaining space
+        flex: 1,
     },
     cardIcons: {
         flexDirection: 'row',
     },
-    cardIconText: { // Placeholder styling
-        color: '#FFF',
+    cardIconText: {
+        color: colors.text.light,
         marginLeft: 5,
         fontWeight: 'bold',
-        fontSize: 10, // smaller font for card type
-        backgroundColor: '#5A4573',
+        fontSize: 10,
+        backgroundColor: colors.card.background,
         paddingHorizontal: 4,
         paddingVertical: 2,
         borderRadius: 3,
-        overflow: 'hidden', // Ensure text fits in rounded corners
+        overflow: 'hidden',
     },
     inputLabel: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: 14,
         marginBottom: 8,
-        marginTop: 10, // Consistent top margin
+        marginTop: 10,
     },
     input: {
-        backgroundColor: '#190F20', // Darker input background
+        backgroundColor: colors.background.dark,
         paddingVertical: 12,
         paddingHorizontal: 15,
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 16,
     },
     row: {
@@ -474,8 +475,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 5, // Add spacing between inputs
     },
     orderDetailsDivider: {
-        marginVertical: 20, // More space around total divider
-        backgroundColor: '#5A4573', // Ensure divider has color
+        marginVertical: 20,
+        backgroundColor: colors.divider,
     },
     orderDetailRow: {
         flexDirection: 'row',
@@ -483,21 +484,21 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     orderDetailLabel: {
-        color: '#B0A0C0',
+        color: colors.text.muted,
         fontSize: 16,
     },
     orderDetailValue: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 16,
         fontWeight: '500',
     },
     totalLabel: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 18,
         fontWeight: 'bold',
     },
     totalValue: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 18,
         fontWeight: 'bold',
     },
@@ -505,7 +506,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 20,
         alignItems: 'center',
-        backgroundColor: "#190F20",
+        backgroundColor: colors.background.dark,
         borderRadius: 15,
         paddingVertical: 8,
         paddingHorizontal: 10,
@@ -513,11 +514,10 @@ const styles = StyleSheet.create({
     discountInput: {
         flex: 1,
         marginRight: 10,
-        backgroundColor: '#190F20',
-        // Ensure input style consistency
+        backgroundColor: colors.background.dark,
     },
     applyButton: {
-        backgroundColor: '#A050F0',
+        backgroundColor: colors.button.primary,
         height: hp(4),
         paddingHorizontal: 20,
         borderRadius: 20,
@@ -525,20 +525,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     applyButtonText: {
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: 14,
     },
     payButton: {
-        backgroundColor: '#A050F0',
+        backgroundColor: colors.button.primary,
         borderRadius: 15,
         paddingVertical: 18,
         marginHorizontal: 15,
-        marginTop: 30, // Increased space above pay button
-        marginBottom: 20, // Added margin bottom
+        marginTop: 30,
+        marginBottom: 20,
         alignItems: 'center',
     },
     payButtonText: {
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: 18,
         fontWeight: 'bold',
     },

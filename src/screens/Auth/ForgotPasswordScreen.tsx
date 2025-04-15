@@ -14,6 +14,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
+import { colors } from '../../constants/colors';
 
 // Define RootStackParamList including ForgotPassword
 type RootStackParamList = {
@@ -48,7 +49,7 @@ const ForgotPasswordScreen: React.FC = () => {
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-            <StatusBar barStyle="light-content" backgroundColor="#190F20" />
+            <StatusBar barStyle="light-content" backgroundColor={colors.background.dark} />
             <View style={{ marginTop: hp(15) }}>
                 {/* Header/Logo */}
                 <View style={styles.headerContainer}>
@@ -90,7 +91,7 @@ const ForgotPasswordScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#190F20', // Dark background
+        backgroundColor: colors.background.dark,
     },
     contentContainer: {
         flexGrow: 1,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
         height: hp(6),
     },
     title: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3),
         fontWeight: 'bold',
         textAlign: 'left',
@@ -120,11 +121,11 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: hp(1.8),
     },
     linkText: {
-        color: '#A050F0', // Purple link
+        color: colors.accent,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },

@@ -13,9 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-// Assuming Header component exists
 import Header from '../components/Header';
+import { colors } from '../constants/colors';
 
 // Assuming RootStackParamList and MainTabParamList are defined correctly in AppNavigator or a types file
 // If MainTabParamList is defined in AppNavigator, import it or redefine it here
@@ -133,7 +132,7 @@ const TicketsScreen: React.FC = () => {
 const styles = StyleSheet.create({
     outerContainer: {
         flex: 1,
-        backgroundColor: '#190F20',
+        backgroundColor: colors.background.dark,
         paddingTop: Platform.OS === 'android' ? hp(1) : hp(6), // Adjust for status bar/notch
     },
     container: {
@@ -150,41 +149,36 @@ const styles = StyleSheet.create({
         marginBottom: hp(2),
         // textAlign: 'center',
     },
+    statsContainer: {
+        backgroundColor: colors.background.discount,
+        borderRadius: 15,
+        padding: wp(4),
+        marginBottom: hp(3),
+        borderWidth: 1,
+        borderColor: colors.border.discount,
+    },
     statsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: hp(3),
     },
-    statsContainer: {
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        marginBottom: hp(3),
-        borderWidth: 1,
-        borderColor: '#CC7BFF',
-        padding: wp(4),
-        borderRadius: 15,
-    },
     statBox: {
-        backgroundColor: '#CC7BFF4D', // Section background color
-        borderRadius: 15,
-        padding: wp(4),
-        width: '48%', // Two boxes side-by-side
-        alignItems: 'flex-start',
-
+        flex: 1,
+        marginHorizontal: wp(1),
     },
     statLabel: {
-        color: '#B0A0C0',
-        fontSize: hp(1.7),
-        marginBottom: hp(1),
+        color: colors.text.muted,
+        fontSize: hp(1.6),
+        marginBottom: hp(0.5),
     },
     statValue: {
-        color: '#FFF',
-        fontSize: hp(3.5),
+        color: colors.text.light,
+        fontSize: hp(2.5),
         fontWeight: 'bold',
         marginBottom: hp(0.5),
     },
     statPeriod: {
-        color: '#B0A0C0',
+        color: colors.text.muted,
         fontSize: hp(1.5),
     },
     discountContainer: {
@@ -196,32 +190,30 @@ const styles = StyleSheet.create({
         borderColor: '#CC7BFF',
     },
     sectionTitle: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(2),
         fontWeight: 'bold',
         marginBottom: hp(1),
     },
     discountBox: {
-        backgroundColor: '#CC7BFF4D',
+        backgroundColor: colors.background.discount,
         borderRadius: 10,
-
         paddingVertical: hp(2),
         paddingHorizontal: wp(4),
         marginTop: hp(1),
-
     },
     discountValue: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(2.2),
         fontWeight: 'bold',
     },
     paymentContainer: {
-        backgroundColor: '#CC7BFF4D',
+        backgroundColor: colors.background.discount,
         borderRadius: 15,
         padding: wp(4),
         marginBottom: hp(3),
         borderWidth: 1,
-        borderColor: '#CC7BFF',
+        borderColor: colors.border.discount,
     },
     paymentHeader: {
         flexDirection: 'row',
@@ -230,29 +222,29 @@ const styles = StyleSheet.create({
         marginBottom: hp(2),
     },
     sectionSubtitle: {
-        color: '#B0A0C0',
+        color: colors.text.muted,
         fontSize: hp(1.6),
     },
     editButton: {
-        backgroundColor: '#5A4573', // Button background
+        backgroundColor: colors.card.background,
         paddingVertical: hp(1),
         paddingHorizontal: wp(5),
         borderRadius: 8,
     },
     editButtonText: {
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: hp(1.7),
         fontWeight: 'bold',
     },
     cardInfoBox: {
-        backgroundColor: '#5A4573', // Inner card background
+        backgroundColor: colors.card.background,
         borderRadius: 15,
         padding: wp(4),
         flexDirection: 'row',
         alignItems: 'center',
     },
-    visaText: { // Placeholder for VISA logo
-        color: '#FFF',
+    visaText: {
+        color: colors.text.light,
         fontSize: hp(4),
         fontWeight: 'bold',
         fontStyle: 'italic',
@@ -262,31 +254,30 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     cardText: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(1.4),
         marginBottom: hp(0.5),
     },
     historyContainer: {
-        borderRadius: 15,
         padding: wp(2),
         marginBottom: hp(3),
     },
     historyHeaderRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderBottomColor: '#5A4573',
+        borderBottomColor: colors.history.divider,
         paddingVertical: 6,
         paddingHorizontal: 10,
         marginBottom: hp(1.5),
-        backgroundColor: '#CC7BFF4D',
+        backgroundColor: colors.history.header.background,
         alignItems: 'center',
         borderRadius: 10,
         borderWidth: 1,
         overflow: 'hidden',
-        borderColor: '#CC7BFF',
+        borderColor: colors.history.header.border,
     },
     historyHeaderText: {
-        color: '#fff',
+        color: colors.history.text,
         fontSize: hp(1.4),
     },
     historyRow: {
@@ -294,7 +285,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(1.4),
     },
     historyCellText: {
-        color: '#FFF',
+        color: colors.history.text,
         fontSize: hp(1.4),
         textAlign: "left"
     },
@@ -303,7 +294,7 @@ const styles = StyleSheet.create({
     },
     historyEventCol: {
         width: '45%',
-        paddingHorizontal: wp(1), // Add padding for spacing
+        paddingHorizontal: wp(1),
     },
     historyCostCol: {
         width: '25%',

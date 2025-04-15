@@ -17,7 +17,8 @@ import type { RouteProp } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
-// Re-use or define RootStackParamList
+import { colors } from '../../constants/colors';
+
 type RootStackParamList = {
     Home: undefined;
     Details: undefined;
@@ -28,79 +29,53 @@ type RootStackParamList = {
     ForgotPassword: undefined;
     VerifyEmail: { email: string };
     ResetPassword: { email: string; otp: string };
-    // Add other screens here
 };
 
-// Type for the navigation prop
-type VerifyEmailScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'VerifyEmail'
->;
+type VerifyEmailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'VerifyEmail'>;
+type VerifyEmailScreenRouteProp = RouteProp<RootStackParamList, 'VerifyEmail'>;
 
-// Type for the route prop
-type VerifyEmailScreenRouteProp = RouteProp<
-    RootStackParamList,
-    'VerifyEmail'
->;
-
-const OTP_LENGTH = 5; // Match the image (5 boxes)
+const OTP_LENGTH = 5;
 
 const VerifyEmailScreen: React.FC = () => {
-    const navigation = useNavigation();
-    const route = useRoute();
-    const { email } = route.params; // Get email passed from ForgotPassword
+    const navigation = useNavigation<VerifyEmailScreenNavigationProp>();
+    const route = useRoute<VerifyEmailScreenRouteProp>();
+    const { email } = route.params;
 
     const [otp, setOtp] = useState<string[]>(new Array(OTP_LENGTH).fill(''));
     const inputRefs = useRef<(TextInput | null)[]>([]);
 
     useEffect(() => {
-        // Focus the first input when the screen mounts
         inputRefs.current[0]?.focus();
     }, []);
 
     const handleOtpChange = (text: string, index: number) => {
         const newOtp = [...otp];
-        // Allow only one digit per box
         newOtp[index] = text.length > 0 ? text.charAt(text.length - 1) : '';
         setOtp(newOtp);
 
-        // Move to the next input if a digit is entered
         if (text.length > 0 && index < OTP_LENGTH - 1) {
             inputRefs.current[index + 1]?.focus();
         }
 
-        // If the last digit is entered, attempt verification
         if (newOtp.every(digit => digit !== '')) {
-            Keyboard.dismiss(); // Dismiss keyboard
-            // Optionally auto-trigger verify
-            // handleVerify(); 
+            Keyboard.dismiss();
         }
     };
 
     const handleKeyPress = ({ nativeEvent: { key } }: any, index: number) => {
-        // Move to the previous input if Backspace is pressed and the current input is empty
         if (key === 'Backspace' && otp[index] === '' && index > 0) {
             inputRefs.current[index - 1]?.focus();
-            // Also clear the previous input if needed? Depends on desired UX
-            // const newOtp = [...otp];
-            // newOtp[index - 1] = '';
-            // setOtp(newOtp);
         }
     };
 
     const handleVerify = () => {
         const enteredOtp = otp.join('');
-        // TODO: Implement API call to verify OTP
-        console.log('Verifying OTP:', enteredOtp, 'for email:', email);
-
-
         navigation.navigate('ResetPassword', { email, otp: enteredOtp });
-
     };
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-            <StatusBar barStyle="light-content" backgroundColor="#190F20" />
+            <StatusBar barStyle="light-content" backgroundColor={colors.background.dark} />
 
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
@@ -134,7 +109,7 @@ const VerifyEmailScreen: React.FC = () => {
                         onChangeText={text => handleOtpChange(text, index)}
                         onKeyPress={e => handleKeyPress(e, index)}
                         value={digit}
-                        textContentType="oneTimeCode" // Helps with autofill from SMS
+                        textContentType="oneTimeCode"
                     />
                 ))}
             </View>
@@ -148,14 +123,14 @@ const VerifyEmailScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#190F20',
+        backgroundColor: colors.background.dark,
     },
     contentContainer: {
         flexGrow: 1,
         paddingHorizontal: wp(8),
         paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
         paddingBottom: hp(5),
-        alignItems: 'center', // Center content horizontally
+        alignItems: 'center',
     },
     headerContainer: {
         alignItems: 'center',
@@ -167,14 +142,14 @@ const styles = StyleSheet.create({
         height: hp(6),
     },
     title: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3),
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: hp(1),
     },
     instructionText: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3),
         fontWeight: 'bold',
         textAlign: 'center',
@@ -188,38 +163,38 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: hp(1.8),
     },
     linkText: {
-        color: '#A050F0',
+        color: colors.accent,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },
     otpLabel: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: hp(1.8),
         marginBottom: hp(1),
-        alignSelf: 'flex-start', // Align label to left
+        alignSelf: 'flex-start',
         marginLeft: wp(1),
     },
     otpContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '100%', // Take full width to space out boxes
+        width: '100%',
     },
     otpInput: {
-        width: wp(14), // Adjust width based on screen size and number of inputs
+        width: wp(14),
         height: hp(7),
         textAlign: 'center',
         fontSize: hp(2.5),
         fontWeight: 'bold',
-        color: '#FFF',
-        backgroundColor: '#353535',
+        color: colors.text.light,
+        backgroundColor: colors.background.primary,
     },
     actionButton: {
         marginTop: hp(3),
-        width: '100%', // Make button full width
+        width: '100%',
     },
 });
 

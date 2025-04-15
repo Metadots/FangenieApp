@@ -8,7 +8,7 @@ import {
     ScrollView,
     Platform,
     StatusBar,
-    Image // Assuming you have a logo image
+    Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -17,34 +17,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or your 
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../components/Header';
-// Re-use or define your RootStackParamList
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined; // Add this screen
-    // Add other screens here
-};
+import { colors } from '../constants/colors';
 
-// Type for the navigation prop specific to PaymentSuccessScreen
-type PaymentSuccessScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'PaymentSuccess'
->;
 
-// Type for the component props
-type Props = {
-    // If you need route params later, add: route: RouteProp<RootStackParamList, 'PaymentSuccess'>;
-    navigation: PaymentSuccessScreenNavigationProp;
-};
-
-const PaymentSuccessScreen: React.FC<Props> = ({ navigation }) => {
-    const [email, setEmail] = useState('');
+const PaymentSuccessScreen = ({ navigation }) => {
+    const [email, setEmail] = useState<string>('');
 
     const handleSendEmail = () => {
-        // TODO: Implement logic to send tickets to email
         console.log('Sending tickets to:', email);
-        // Navigate home after sending (or attempting to send)
         navigation.navigate('Home');
     };
 
@@ -54,6 +34,7 @@ const PaymentSuccessScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+
             <StatusBar barStyle="light-content" />
 
             <Header onProfilePress={() => { }} />
@@ -97,7 +78,7 @@ const PaymentSuccessScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#190F20', // Dark background
+        backgroundColor: colors.background.dark,
         alignItems: "center", justifyContent: "center", width: "100%",
         paddingTop: Platform.OS === 'android' ? hp(1) : hp(6),
     },
@@ -111,18 +92,18 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     logoText: { // Placeholder logo
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 24,
         fontWeight: 'bold',
     },
     signInButton: { // Copied from CheckoutScreen
-        backgroundColor: '#A050F0',
+        backgroundColor: colors.button.primary,
         paddingVertical: 10,
         paddingHorizontal: 25,
         borderRadius: 20,
     },
     signInButtonText: { // Copied from CheckoutScreen
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -139,14 +120,14 @@ const styles = StyleSheet.create({
         marginBottom: hp(3),
     },
     title: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3),
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: hp(3),
     },
     message: {
-        color: 'white', // Lighter text color
+        color: colors.text.light,
         fontSize: hp(1.6),
         textAlign: 'center',
         lineHeight: hp(2.8),
@@ -155,23 +136,23 @@ const styles = StyleSheet.create({
     emailContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#130C19', // Darker input background
+        backgroundColor: colors.background.darker,
         borderRadius: 10, // Fully rounded ends
         paddingVertical: hp(0.5),
         paddingHorizontal: wp(2),
         width: '100%', // Take full width
         marginBottom: hp(3),
-        borderColor: '#5A4573',
+        borderColor: colors.card.background,
     },
     input: {
         flex: 1,
         paddingVertical: hp(1.5),
         paddingHorizontal: wp(4),
-        color: '#FFF',
+        color: colors.input.text,
         fontSize: hp(1.6),
     },
     sendButton: {
-        backgroundColor: '#A050F0', // Purple button
+        backgroundColor: colors.button.primary,
         borderRadius: 20, // Rounded ends
         paddingHorizontal: wp(6),
         height: hp(4),
@@ -180,7 +161,7 @@ const styles = StyleSheet.create({
         marginLeft: wp(2),
     },
     sendButtonText: {
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: hp(1.4),
         fontWeight: 'bold',
     },
@@ -190,7 +171,7 @@ const styles = StyleSheet.create({
         padding: wp(4),
     },
     homeButtonText: {
-        color: '#A050F0',
+        color: colors.button.primary,
         fontSize: hp(2),
         fontWeight: 'bold',
         textDecorationLine: 'underline',

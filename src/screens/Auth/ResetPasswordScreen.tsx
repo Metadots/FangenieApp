@@ -15,6 +15,7 @@ import type { RouteProp } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
+import { colors } from '../../constants/colors';
 // Re-use or define RootStackParamList
 type RootStackParamList = {
     Home: undefined;
@@ -71,7 +72,7 @@ const ResetPasswordScreen: React.FC = () => {
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-            <StatusBar barStyle="light-content" backgroundColor="#190F20" />
+            <StatusBar barStyle="light-content" backgroundColor={colors.background.dark} />
 
             {/* Header/Logo */}
             <View style={styles.headerContainer}>
@@ -99,7 +100,7 @@ const ResetPasswordScreen: React.FC = () => {
                     onChangeText={setPassword}
                     secureTextEntry
                     textContentType="newPassword"
-                    error={error && error.includes('length') ? error : undefined} // Show length error here
+                    error={error && error.includes('length') ? error : undefined}
                 />
                 <CustomInput
                     label="Confirm Password"
@@ -108,7 +109,7 @@ const ResetPasswordScreen: React.FC = () => {
                     onChangeText={setConfirmPassword}
                     secureTextEntry
                     textContentType="newPassword"
-                    error={error && error.includes('match') ? error : undefined} // Show match error here
+                    error={error && error.includes('match') ? error : undefined}
                 />
                 {/* Display general errors or API errors if needed */}
                 {/* {error && !error.includes('match') && !error.includes('length') && <Text style={styles.generalErrorText}>{error}</Text>} */}
@@ -123,7 +124,7 @@ const ResetPasswordScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#190F20',
+        backgroundColor: colors.background.dark,
     },
     contentContainer: {
         flexGrow: 1,
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
         height: hp(6),
     },
     title: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3),
         fontWeight: 'bold',
         textAlign: 'center',
@@ -155,11 +156,11 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start"
     },
     subtitleText: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: hp(1.8),
     },
     linkText: {
-        color: '#A050F0',
+        color: colors.accent,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     },
     // Optional style for general errors
     // generalErrorText: {
-    //     color: '#FF6B6B',
+    //     color: colors.status.error,
     //     fontSize: hp(1.6),
     //     textAlign: 'center',
     //     marginBottom: hp(2),

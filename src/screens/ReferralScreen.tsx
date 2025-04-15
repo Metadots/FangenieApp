@@ -20,6 +20,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // Assuming Header component exists
 import Header from '../components/Header';
+import { colors } from '../constants/colors';
 
 
 // Define MainTabParamList (or import from navigator types)
@@ -152,7 +153,7 @@ const ReferralScreen: React.FC = () => {
 const styles = StyleSheet.create({
     outerContainer: {
         flex: 1,
-        backgroundColor: '#190F20',
+        backgroundColor: colors.background.dark,
         paddingTop: Platform.OS === 'android' ? hp(1) : hp(6),
     },
     container: {
@@ -163,12 +164,12 @@ const styles = StyleSheet.create({
         paddingBottom: hp(12), // Space for tab bar
     },
     topSectionContainer: {
-        backgroundColor: '#190F20',
+        backgroundColor: colors.background.discount,
         borderRadius: 15,
         padding: wp(4),
         marginBottom: hp(3),
         borderWidth: 1,
-        borderColor: '#CC7BFF',
+        borderColor: colors.border.discount,
     },
     statsRow: {
         flexDirection: 'row',
@@ -186,42 +187,42 @@ const styles = StyleSheet.create({
 
     },
     statLabel: {
-        color: '#B0A0C0',
+        color: colors.text.muted,
         fontSize: hp(1.7),
     },
     statValue: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(3.5),
         fontWeight: 'bold',
     },
     statValueLarge: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(4.5), // Larger font size for count
         fontWeight: 'bold',
     },
     statPeriod: {
-        color: '#B0A0C0',
+        color: colors.text.muted,
         fontSize: hp(1.5),
     },
     inviteLinkContainer: {
         // Container for Invite Link section within the top box
     },
     sectionTitle: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: 16,
         marginBottom: hp(1),
     },
     linkBox: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#CC7BFF4D',
+        backgroundColor: colors.background.discount,
         borderRadius: 10,
         paddingHorizontal: wp(4),
         paddingVertical: hp(1.5),
         justifyContent: 'space-between',
     },
     linkTextActual: {
-        color: '#FFF',
+        color: colors.text.light,
         fontSize: hp(1.7),
         flex: 1, // Allow text to take available space
         marginRight: wp(2),
@@ -229,28 +230,28 @@ const styles = StyleSheet.create({
     copyButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#A050F0', // Purple button
+        backgroundColor: colors.button.primary,
         paddingVertical: hp(1),
         paddingHorizontal: wp(4),
         borderRadius: 8,
     },
     copyButtonText: {
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: hp(1.7),
         fontWeight: 'bold',
         marginRight: wp(1.5),
     },
     inviteMethodsContainer: {
-        backgroundColor: '#CC7BFF4D',
+        backgroundColor: colors.background.discount,
         borderRadius: 15,
         padding: wp(4),
         marginBottom: hp(3),
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#CC7BFF',
+        borderColor: colors.border.discount,
     },
     qrContainer: {
-        backgroundColor: '#FFF', // White background for QR
+        backgroundColor: colors.background.qr,
         borderRadius: 15,
         padding: wp(4),
         marginBottom: hp(2.5),
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#CC7BFF',
+        borderColor: colors.border.qr,
         marginBottom: hp(2),
         alignSelf: 'flex-start', borderRadius: 10
     },
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
     emailInviteBox: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#5A4573',
+        backgroundColor: colors.input.background,
         borderRadius: 10,
         paddingLeft: wp(4),
         paddingRight: wp(2),
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
     },
     emailInput: {
         flex: 1,
-        color: '#FFF',
+        color: colors.input.text,
         fontSize: hp(1.4),
         paddingVertical: hp(1.2),
         marginRight: wp(2),
@@ -290,13 +291,13 @@ const styles = StyleSheet.create({
     inviteButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#A050F0',
+        backgroundColor: colors.button.primary,
         paddingVertical: hp(1.2),
         paddingHorizontal: wp(4),
         borderRadius: 8,
     },
     inviteButtonText: {
-        color: '#FFF',
+        color: colors.button.text,
         fontSize: hp(1.4),
         fontWeight: 'bold',
         marginRight: wp(1.5),
@@ -311,19 +312,19 @@ const styles = StyleSheet.create({
     historyHeaderRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderBottomColor: '#5A4573',
+        borderBottomColor: colors.history.divider,
         paddingVertical: 6,
         paddingHorizontal: 10,
         marginBottom: hp(1.5),
-        backgroundColor: '#CC7BFF4D',
+        backgroundColor: colors.history.header.background,
         alignItems: 'center',
         borderRadius: 10,
         borderWidth: 1,
         overflow: 'hidden',
-        borderColor: '#CC7BFF',
+        borderColor: colors.history.header.border,
     },
     historyHeaderText: {
-        color: '#fff',
+        color: colors.history.text,
         fontSize: hp(1.4),
     },
     historyRow: {
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(1.4),
     },
     historyCellText: {
-        color: '#FFF',
+        color: colors.history.text,
         fontSize: hp(1.4),
         textAlign: "left"
     },
@@ -348,7 +349,7 @@ const styles = StyleSheet.create({
     },
     tableBottomDivider: {
         height: 1,
-        backgroundColor: '#5A4573',
+        backgroundColor: colors.history.divider,
         marginHorizontal: wp(2),
         marginTop: hp(1),
     },

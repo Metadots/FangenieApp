@@ -8,6 +8,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '../../constants/colors';
 
 const HomeScreen = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Acoustic Sessions');
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'ios' ? hp(6) : hp(1),
-        backgroundColor: '#190F20',
+        backgroundColor: colors.background.dark,
     },
     categoryContainer: {
         paddingHorizontal: 16,
