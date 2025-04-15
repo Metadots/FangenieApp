@@ -124,46 +124,31 @@ const DetailsScreen = () => {
                     </View>
 
                     <View style={styles.countdownContainer}>
-                        <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']}
-                            start={{ x: 1, y: 0 }}
-                            end={{ x: 0, y: 1 }}
-                            style={styles.timeBox}
-                        >
+
+                        <View style={styles.timeBox}>
                             <Text style={styles.timeValue}>{timeLeft.days}</Text>
                             <Text style={styles.timeUnit}>Days</Text>
-                        </LinearGradient>
+                        </View>
                         <Text style={styles.colon}>:</Text>
-                        <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={styles.timeBox}
-                        >
+                        <View style={styles.timeBox}>
                             <Text style={styles.timeValue}>{timeLeft.hours}</Text>
                             <Text style={styles.timeUnit}>Hours</Text>
-                        </LinearGradient>
+                        </View>
                         <Text style={styles.colon}>:</Text>
-                        <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={styles.timeBox}
-                        >
+                        <View style={styles.timeBox}>
                             <Text style={styles.timeValue}>{timeLeft.minutes}</Text>
                             <Text style={styles.timeUnit}>Mins</Text>
-                        </LinearGradient>
+                        </View>
                         <Text style={styles.colon}>:</Text>
-                        <LinearGradient
-                            colors={['#CC7BFF4D', '#200034']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={styles.timeBox}
-                        >
+                        <View style={styles.timeBox}>
                             <Text style={styles.timeValue}>{timeLeft.seconds}</Text>
                             <Text style={styles.timeUnit}>Secs</Text>
-                        </LinearGradient>
+                        </View>
                     </View>
+
+
+                    <Text style={styles.startingPrice}>{event.price}$/Starting From</Text>
+
 
 
                     <Text style={styles.startingPrice}>{event.price}$/Starting From</Text>
@@ -236,14 +221,9 @@ const DetailsScreen = () => {
                     <View style={styles.scheduleContainer}>
                         {/* Timeline item 1 */}
                         <View style={styles.timelineItem}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
-                                style={styles.timelineCircle}
-                            >
+                            <View style={styles.timelineCircle} >
                                 <Text style={styles.timelineNumber}>1</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Gates Open – 4:30 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -254,14 +234,9 @@ const DetailsScreen = () => {
 
                         {/* Timeline item 2 */}
                         <View style={[styles.timelineItem, styles.timelineItemRight]}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
-                                style={styles.timelineCircle}
-                            >
+                            <View style={styles.timelineCircle}>
                                 <Text style={styles.timelineNumber}>2</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={[styles.timelineContent, styles.timelineContentRight]}>
                                 <Text style={[styles.timelineTitle, styles.textRight]}>Pre-Show Vibes – 5:00 PM</Text>
                                 <Text style={[styles.timelineDescription, styles.textRight]}>
@@ -272,14 +247,9 @@ const DetailsScreen = () => {
 
                         {/* Timeline item 3 */}
                         <View style={styles.timelineItem}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
-                                style={styles.timelineCircle}
-                            >
+                            <View style={styles.timelineCircle}>
                                 <Text style={styles.timelineNumber}>3</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Opening Act – 6:00 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -290,14 +260,9 @@ const DetailsScreen = () => {
 
                         {/* Timeline item 4 */}
                         <View style={[styles.timelineItem, styles.timelineItemRight]}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
-                                style={styles.timelineCircle}
-                            >
+                            <View style={styles.timelineCircle}>
                                 <Text style={styles.timelineNumber}>4</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={[styles.timelineContent, styles.timelineContentRight]}>
                                 <Text style={[styles.timelineTitle, styles.textRight]}>Golden Hour Begins – 7:00 PM</Text>
                                 <Text style={[styles.timelineDescription, styles.textRight]}>
@@ -308,14 +273,12 @@ const DetailsScreen = () => {
 
                         {/* Timeline item 5 */}
                         <View style={styles.timelineItem}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
+                            <View
+                                // Bottom-right
                                 style={styles.timelineCircle}
                             >
                                 <Text style={styles.timelineNumber}>5</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Main Performance – 7:15 PM to 9:00 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -326,14 +289,9 @@ const DetailsScreen = () => {
 
                         {/* Timeline item 6 */}
                         <View style={[styles.timelineItem, styles.timelineItemRight]}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
-                                style={styles.timelineCircle}
-                            >
+                            <View style={styles.timelineCircle}>
                                 <Text style={styles.timelineNumber}>6</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={[styles.timelineContent, styles.timelineContentRight]}>
                                 <Text style={[styles.timelineTitle, styles.textRight]}>Encore + Crowd Moments – 9:00 PM</Text>
                                 <Text style={[styles.timelineDescription, styles.textRight]}>
@@ -348,14 +306,9 @@ const DetailsScreen = () => {
                         }} ></View>
                         {/* Timeline item 7 */}
                         <View style={styles.timelineItem}>
-                            <LinearGradient
-                                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                start={{ x: 1, y: 0 }}            // Top-left
-                                end={{ x: 0, y: 1 }}              // Bottom-right
-                                style={styles.timelineCircle}
-                            >
+                            <View style={styles.timelineCircle}>
                                 <Text style={styles.timelineNumber}>7</Text>
-                            </LinearGradient>
+                            </View>
                             <View style={styles.timelineContent}>
                                 <Text style={styles.timelineTitle}>Closing Ceremony – 9:30 PM</Text>
                                 <Text style={styles.timelineDescription}>
@@ -382,14 +335,12 @@ const DetailsScreen = () => {
                                             </View>
                                         )}
                                     </View>
-                                    <LinearGradient
-                                        colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                                        start={{ x: 1, y: 0 }}            // Top-left
-                                        end={{ x: 0, y: 1 }}                // Bottom-right
+                                    <View
+                                        // Bottom-right
                                         style={styles.stageLabel}
                                     >
                                         <Text style={styles.stageLabelText}>Stage</Text>
-                                    </LinearGradient>
+                                    </View>
 
                                     <View style={styles.vipSection}>
                                         {Array(5).fill(0).map((_, r) =>
@@ -748,7 +699,7 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         fontSize: 14,
-        color: '#ccc',
+        color: '#fff',
         lineHeight: 20,
         textAlign: 'left',
         marginBottom: 10
@@ -787,6 +738,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 24,
         fontWeight: 'bold',
+
     },
     timelineContent: {
         flex: 1,
@@ -809,7 +761,7 @@ const styles = StyleSheet.create({
         paddingRight: wp(3)
     },
     timelineDescription: {
-        color: '#fff',
+        color: colors.text.light,
         fontSize: 10,
         paddingRight: wp(3),
         textAlign: 'right',

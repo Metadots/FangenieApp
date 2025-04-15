@@ -92,13 +92,8 @@ const CheckoutScreen = () => {
             <Text style={styles.title}>Checkout</Text>
 
             {/* Ticket Selection */}
-            {/* <View style={styles.section}> */}
-            <LinearGradient
-                colors={['#CC7BFF4D', '#200034']} // Light purple → Deep purple
-                start={{ x: 1, y: 0 }}            // Top-left
-                end={{ x: 0, y: 1 }}              // Bottom-right
-                style={styles.section}
-            >
+            <View style={styles.section}>
+
                 <TicketItem
                     name="VIP Tickets"
                     price={vipPrice}
@@ -122,8 +117,7 @@ const CheckoutScreen = () => {
                     onDecrease={() => handleQuantityChange(setStartingTickets, startingTickets, -1)}
                     onIncrease={() => handleQuantityChange(setStartingTickets, startingTickets, 1)}
                 />
-            </LinearGradient>
-            {/* </View> */}
+            </View>
 
             {/* Payment Method */}
             <View style={[styles.section, { backgroundColor: "#2E1D3B", borderWidth: 0 }]}>
@@ -195,16 +189,12 @@ const CheckoutScreen = () => {
                         value={discountCode}
                         onChangeText={setDiscountCode}
                     />
-                    <LinearGradient
-                        colors={['#F9AF47', '#CA8D38']}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                        style={styles.applyButton}
-                    >
-                        <TouchableOpacity onPress={handleApplyDiscount}>
-                            <Text style={styles.applyButtonText}>Apply</Text>
-                        </TouchableOpacity>
-                    </LinearGradient>
+
+
+                    <TouchableOpacity style={styles.applyButton} onPress={handleApplyDiscount}>
+                        <Text style={styles.applyButtonText}>Apply</Text>
+                    </TouchableOpacity>
+
                 </View>
                 <PrimaryButton title="Pay Now" onPress={handlePayNow} />
             </View>
