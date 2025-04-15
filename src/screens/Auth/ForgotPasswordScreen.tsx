@@ -16,28 +16,9 @@ import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
 
-// Define RootStackParamList including ForgotPassword
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined;
-    Login: undefined;
-    Signup: undefined;
-    ForgotPassword: undefined; // Add this
-    VerifyEmail: { email: string }; // Add this, needs email
-    ResetPassword: { email: string; otp: string }; // Add this, needs email & otp
-    // Add other screens here
-};
 
-// Type for the navigation prop
-type ForgotPasswordScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'ForgotPassword'
->;
-
-const ForgotPasswordScreen: React.FC = () => {
-    const navigation = useNavigation<ForgotPasswordScreenNavigationProp>();
+const ForgotPasswordScreen = () => {
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
 
     const handleSendEmail = () => {
@@ -125,7 +106,7 @@ const styles = StyleSheet.create({
         fontSize: hp(1.8),
     },
     linkText: {
-        color: colors.accent,
+        color: colors.gold,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },

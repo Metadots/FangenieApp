@@ -18,21 +18,6 @@ import PrimaryButton from '../components/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../constants/colors';
 
-// Re-add or define your RootStackParamList including PaymentSuccess
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined; // Make sure this is included
-    // Add other screens here
-};
-
-// Type for the navigation prop specific to CheckoutScreen
-type CheckoutScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'Checkout' // This screen's name in the stack
->;
-
 // Assuming you have icons, replace with your actual icon components or libraries
 const PlaceholderIcon = () => <View style={styles.iconPlaceholder}><Text style={styles.iconText}>B</Text></View>; // Added simple text
 const VisaIcon = () => <Text style={styles.cardIconText}>VISA</Text>; // Placeholder
@@ -210,9 +195,16 @@ const CheckoutScreen = () => {
                         value={discountCode}
                         onChangeText={setDiscountCode}
                     />
-                    <TouchableOpacity style={styles.applyButton} onPress={handleApplyDiscount}>
-                        <Text style={styles.applyButtonText}>Apply</Text>
-                    </TouchableOpacity>
+                    <LinearGradient
+                        colors={['#F9AF47', '#CA8D38']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.applyButton}
+                    >
+                        <TouchableOpacity onPress={handleApplyDiscount}>
+                            <Text style={styles.applyButtonText}>Apply</Text>
+                        </TouchableOpacity>
+                    </LinearGradient>
                 </View>
                 <PrimaryButton title="Pay Now" onPress={handlePayNow} />
             </View>
@@ -310,7 +302,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15, // Adjusted padding
         paddingHorizontal: 20,
         borderWidth: 1,
-        borderColor: '#CC7BFF',
+        borderColor: colors.gold,
     },
     divider: {
         height: 1,
@@ -334,6 +326,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
         justifyContent: 'center',
         alignItems: 'center',
+
         // Add elevation/shadow if needed
     },
     iconText: { // If using text as placeholder
@@ -362,6 +355,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: 10,
+
     },
     quantityControls: {
         flexDirection: 'row',
@@ -370,10 +364,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: hp(3),
         marginBottom: 5,
-        borderWidth: 1,
-        borderColor: 'rgba(180, 60, 255, 1)',
         width: wp(22),
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        borderWidth: 1,
+        borderColor: colors.gold,
     },
     quantityButton: {
         flexDirection: 'row',

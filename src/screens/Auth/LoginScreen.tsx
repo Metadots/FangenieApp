@@ -44,17 +44,12 @@ const LoginScreen: React.FC = () => {
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
     const handleLogin = () => {
-        // TODO: Implement login logic (validate, API call, navigate)
-        navigation.navigate('Home');
-        // On success, navigate to Home or appropriate screen
-        // navigation.navigate('Home'); 
+        navigation.navigate('MainTabs');
     };
 
     const handleForgotPassword = () => {
-        // TODO: Implement forgot password navigation/logic
         console.log('Forgot Password pressed');
-        // Navigate to ForgotPassword screen
-        navigation.navigate('ForgotPassword'); // This should now be type-safe
+        navigation.navigate('ForgotPassword');
     };
 
     const handleGoogleLogin = () => {
@@ -128,7 +123,7 @@ const LoginScreen: React.FC = () => {
                         color={keepLoggedIn
                             ? '#A050F0'
                             : '#fff'} />
-                    <Text style={styles.keepLoggedInText}>Keep me <Text style={{ color: '#A050F0' }} >Logged in</Text></Text>
+                    <Text style={styles.keepLoggedInText}>Keep me <Text style={{ color: colors.gold }} >Logged in</Text></Text>
                 </TouchableOpacity>
             </View>
 
@@ -198,7 +193,7 @@ const styles = StyleSheet.create({
         fontSize: hp(1.8),
     },
     linkText: {
-        color: colors.accent,
+        color: colors.gold,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },
@@ -249,7 +244,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: colors.border.accent,
+        borderColor: colors.gold,
         padding: hp(1.5),
         marginBottom: hp(2),
     },

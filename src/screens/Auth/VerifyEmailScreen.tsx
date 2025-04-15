@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         fontSize: hp(1.8),
     },
     linkText: {
-        color: colors.accent,
+        color: colors.gold,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },

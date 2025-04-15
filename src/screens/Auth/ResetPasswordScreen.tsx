@@ -52,22 +52,19 @@ const ResetPasswordScreen: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const handleResetPassword = () => {
-        setError(null); // Clear previous errors
-        if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-        if (password.length < 6) { // Example validation
-            setError('Password must be at least 6 characters long.');
-            return;
-        }
+        // setError(null); // Clear previous errors
+        // if (password !== confirmPassword) {
+        //     setError('Passwords do not match.');
+        //     return;
+        // }
+        // if (password.length < 6) { // Example validation
+        //     setError('Password must be at least 6 characters long.');
+        //     return;
+        // }
 
-        // TODO: Implement API call to reset password using email, otp, and new password
         console.log('Resetting password for:', email, 'with OTP:', otp, 'New password:', password);
 
-        // On success, navigate to Login screen
         navigation.navigate('Login');
-        // Optionally show a success message first
     };
 
     return (
@@ -160,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: hp(1.8),
     },
     linkText: {
-        color: colors.accent,
+        color: colors.gold,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },

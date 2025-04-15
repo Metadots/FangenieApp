@@ -12,6 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
+import { colors } from '../../constants/colors';
 
 
 
@@ -90,7 +91,7 @@ const DetailsScreen = () => {
                         uri: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1000&auto=format&fit=crop"
                     }}
                 >
-                    <Header onProfilePress={() => { }} />
+                    <Header onProfilePress={() => { }} profile={undefined} />
 
                     <View style={{ alignSelf: 'flex-start', padding: 10 }}>
                         <Text style={styles.eventTitle}>{event.title}</Text>
@@ -193,7 +194,7 @@ const DetailsScreen = () => {
                         ))}
 
                     </View>
-                    <Text style={styles.sectionTitle}>Performing<Text style={[{ color: '#c061ff' }]}> Artist</Text></Text>
+                    <Text style={styles.sectionTitle}>Performing<Text style={[{ color: colors.gold }]}> Artist</Text></Text>
 
                     <View style={{ alignSelf: 'flex-start', marginTop: hp(3), marginBottom: hp(2) }}>
                         <Text style={styles.descriptionTitle}>{event.title} <Text style={styles.descriptionSubtitle}>Party</Text></Text>
@@ -229,7 +230,7 @@ const DetailsScreen = () => {
                     </View>
 
                     <View style={{ alignSelf: 'center', marginTop: hp(3), marginBottom: hp(6) }}>
-                        <Text style={styles.sectionTitle}>Event <Text style={{ color: '#c061ff' }}>Schedule</Text></Text>
+                        <Text style={styles.sectionTitle}>Event <Text style={{ color: colors.gold }}>Schedule</Text></Text>
                     </View>
 
                     <View style={styles.scheduleContainer}>
@@ -548,7 +549,8 @@ const DetailsScreen = () => {
                             <PrimaryButton
                                 title="Checkout (800$)"
                                 //@ts-ignore
-                                onPress={() => { navigation.navigate('Checkout') }}
+                                onPress={() => { navigation.navigate('Checkout'); }}
+                                textStyle={undefined}
                             />
                         </View>
                     </View>
@@ -622,7 +624,7 @@ const styles = StyleSheet.create({
     eventTitleHighlight: {
         fontSize: hp(4),
         fontWeight: 'bold',
-        color: '#c061ff',
+        color: colors.gold,
         textAlign: 'left',
     },
     dateChip: {
@@ -666,15 +668,16 @@ const styles = StyleSheet.create({
         marginLeft: 10
     },
     timeBox: {
-        borderColor: '#a040d0',
+        borderColor: colors.gold,
         borderWidth: 1,
         padding: 10,
         borderRadius: 8,
         alignItems: 'center',
         minWidth: 50,
+        maxHeight: 50,
+        width: 55,
         marginHorizontal: 5,
         backgroundColor: "rgba(200, 100, 255, 0.3)",
-
     },
     timeValue: {
         color: '#fff',
@@ -740,7 +743,7 @@ const styles = StyleSheet.create({
     descriptionSubtitle: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#c061ff',
+        color: colors.gold,
         textAlign: 'left',
     },
     descriptionText: {
@@ -770,7 +773,7 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 30,
         backgroundColor: 'linear-gradient(90deg, rgba(180, 60, 255, 1) 0%, rgba(130, 50, 220, 0.2) 100%)',
-        borderColor: '#a040d0',
+        borderColor: colors.gold,
         borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',

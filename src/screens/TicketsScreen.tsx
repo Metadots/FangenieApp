@@ -150,24 +150,31 @@ const styles = StyleSheet.create({
         // textAlign: 'center',
     },
     statsContainer: {
-        backgroundColor: colors.background.discount,
+        // backgroundColor: colors.background.discount,
         borderRadius: 15,
         padding: wp(4),
         marginBottom: hp(3),
         borderWidth: 1,
-        borderColor: colors.border.discount,
+        borderColor: colors.gold,
     },
     statsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: hp(3),
+        width: "100%",
     },
     statBox: {
-        flex: 1,
-        marginHorizontal: wp(1),
+        backgroundColor: '#CC7BFF4D', // Darker purple for inner boxes
+        borderRadius: 15,
+        padding: wp(4),
+        width: '48%',
+        alignItems: 'flex-start',
+        minHeight: hp(15), // Ensure consistent height
+        justifyContent: 'space-between',
+
     },
     statLabel: {
-        color: colors.text.muted,
+        color: colors.text.light,
         fontSize: hp(1.6),
         marginBottom: hp(0.5),
     },
@@ -178,7 +185,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(0.5),
     },
     statPeriod: {
-        color: colors.text.muted,
+        color: colors.text.light,
         fontSize: hp(1.5),
     },
     discountContainer: {
@@ -213,7 +220,7 @@ const styles = StyleSheet.create({
         padding: wp(4),
         marginBottom: hp(3),
         borderWidth: 1,
-        borderColor: colors.border.discount,
+        borderColor: colors.gold,
     },
     paymentHeader: {
         flexDirection: 'row',
@@ -230,6 +237,8 @@ const styles = StyleSheet.create({
         paddingVertical: hp(1),
         paddingHorizontal: wp(5),
         borderRadius: 8,
+        borderWidth: 1,
+        borderColor: colors.gold,
     },
     editButtonText: {
         color: colors.button.text,
@@ -242,6 +251,8 @@ const styles = StyleSheet.create({
         padding: wp(4),
         flexDirection: 'row',
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: colors.gold,
     },
     visaText: {
         color: colors.text.light,

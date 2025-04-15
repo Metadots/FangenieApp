@@ -3,7 +3,7 @@ export const colors = {
     primary: '#000000',
     secondary: '#FFFFFF',
     accent: '#A050F0', // Purple accent color used in radio buttons and buttons
-
+    gold: '#CA8D38',
     // Text colors
     text: {
         primary: '#000000',
@@ -64,7 +64,7 @@ export const colors = {
 
     // Button colors
     button: {
-        primary: '#A050F0', // Purple button background
+        primary: '#CA8D38', // Purple button background
         text: '#FFFFFF', // White text on buttons
     },
 

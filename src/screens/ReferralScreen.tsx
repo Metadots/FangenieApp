@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         padding: wp(4),
         marginBottom: hp(3),
         borderWidth: 1,
-        borderColor: colors.border.discount,
+        borderColor: colors.gold,
     },
     statsRow: {
         flexDirection: 'row',
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
 
     },
     statLabel: {
-        color: colors.text.muted,
+        color: colors.text.light,
         fontSize: hp(1.7),
     },
     statValue: {
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     statPeriod: {
-        color: colors.text.muted,
+        color: colors.text.light,
         fontSize: hp(1.5),
     },
     inviteLinkContainer: {
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(3),
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: colors.border.discount,
+        borderColor: colors.gold,
     },
     qrContainer: {
         backgroundColor: colors.background.qr,
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: colors.border.qr,
+        borderColor: colors.gold,
         marginBottom: hp(2),
         alignSelf: 'flex-start', borderRadius: 10
     },
@@ -311,8 +311,6 @@ const styles = StyleSheet.create({
 
     historyHeaderRow: {
         flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderBottomColor: colors.history.divider,
         paddingVertical: 6,
         paddingHorizontal: 10,
         marginBottom: hp(1.5),
@@ -321,7 +319,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         overflow: 'hidden',
-        borderColor: colors.history.header.border,
+        borderColor: colors.gold,
     },
     historyHeaderText: {
         color: colors.history.text,

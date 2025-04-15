@@ -1,15 +1,23 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
+import { colors } from '../constants/colors';
+import LinearGradient from 'react-native-linear-gradient';
 export const SignInButton = ({ onPress }) => {
     return (
-        <TouchableOpacity style={styles.signInButton} onPress={onPress} >
-            <Text style={styles.signInButtonText}>Sign In</Text>
-        </TouchableOpacity>
+        <LinearGradient
+            colors={['#F9AF47', '#CA8D38']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.signInButton}
+        >
+            <TouchableOpacity onPress={onPress} >
+                <Text style={styles.signInButtonText}>Sign In</Text>
+            </TouchableOpacity>
+        </LinearGradient>
     );
 };
 const styles = StyleSheet.create({
     signInButton: {
-        backgroundColor: "#CC7BFF",
+        backgroundColor: colors.button.primary,
         paddingHorizontal: 20,
         height: 32,
         borderRadius: 20,

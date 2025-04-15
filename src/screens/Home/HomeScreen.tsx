@@ -31,6 +31,14 @@ const HomeScreen = () => {
             ticketsCount: 190,
             imageUrl: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1000&auto=format&fit=crop',
         },
+        {
+            title: 'Golden\nHour Party',
+            date: '10:00 PM Fri 29 Mar, 2025',
+            venue: 'New York',
+            category: 'Cold Play',
+            ticketsCount: 190,
+            imageUrl: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1000&auto=format&fit=crop',
+        },
     ];
 
     return (
@@ -45,15 +53,18 @@ const HomeScreen = () => {
                     <Ionicons name="options-outline" size={16} color="white" />
                 </TouchableOpacity>
             </View>
-            <ScrollView style={styles.content}>
-                {events.map((event, index) => (
-                    <EventCard
-                        key={index}
-                        {...event}
-                        onPress={() => navigation.navigate('Details')}
-                    />
-                ))}
-            </ScrollView>
+            <View style={styles.content}>
+                <ScrollView>
+                    {events.map((event, index) => (
+                        <EventCard
+                            key={index}
+                            {...event}
+                            onPress={() => navigation.navigate('Details')}
+                        />
+                    ))}
+                </ScrollView>
+            </View>
+
         </View>
     );
 };
@@ -82,6 +93,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
+        paddingBottom: hp(10),
     },
 });
 

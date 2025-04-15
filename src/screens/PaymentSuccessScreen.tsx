@@ -25,7 +25,7 @@ const PaymentSuccessScreen = ({ navigation }) => {
 
     const handleSendEmail = () => {
         console.log('Sending tickets to:', email);
-        navigation.navigate('Home');
+        navigation.navigate('MainTabs');
     };
 
     const handleGoHome = () => {
