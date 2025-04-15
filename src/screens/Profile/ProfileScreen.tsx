@@ -9,8 +9,13 @@ import {
     Image,
 } from 'react-native';
 import CustomInput from '../../components/CustomInput';
+import PrimaryButton from '../../components/PrimaryButton';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
+import Header from '../../components/Header';
 
 const ProfileScreen = () => {
+    const navigation = useNavigation();
     // State for input fields could be added here later
     const [oldPasswordVisible, setOldPasswordVisible] = useState(false);
     const [newPasswordVisible, setNewPasswordVisible] = useState(false);
@@ -18,78 +23,72 @@ const ProfileScreen = () => {
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-            {/* Header Placeholder */}
-            <View style={styles.header}>
-                {/* Replace with actual logo */}
-                <Text style={styles.logo}>FanGenie</Text>
-                <View style={styles.headerIconPlaceholder} />
-            </View>
 
-            {/* Profile Picture Placeholder */}
-            <View style={styles.profilePicContainer}>
-                <View style={styles.profilePicPlaceholder} />
-            </View>
+            <Header onProfilePress={() => { }} profile={3} />
+            <View style={{ width: "90%", alignSelf: "center", marginTop: hp(5) }}>
 
-            {/* User Info Section */}
-            <View style={styles.nameContainer}>
-                <View style={styles.inputGroup}>
-                    <Text style={styles.label}>First Name</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="John"
-                        placeholderTextColor="#a0a0a0"
-                    />
+                {/* Profile Picture Placeholder */}
+                <View style={styles.profilePicContainer}>
+                    <View style={styles.profilePicPlaceholder} />
                 </View>
-                <View style={styles.inputGroup}>
-                    <Text style={styles.label}>Last Name</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Doe"
-                        placeholderTextColor="#a0a0a0"
-                    />
+
+                {/* User Info Section */}
+                <View style={styles.nameContainer}>
+                    <View style={styles.inputGroup}>
+                        <Text style={styles.label}>First Name</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="John"
+                            placeholderTextColor="#a0a0a0"
+                        />
+                    </View>
+                    <View style={styles.inputGroup}>
+                        <Text style={styles.label}>Last Name</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Doe"
+                            placeholderTextColor="#a0a0a0"
+                        />
+                    </View>
                 </View>
+
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="example@domain.com"
+                    placeholderTextColor="#a0a0a0"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
+
+                <PrimaryButton title="Update" onPress={() => { }} />
+
+                <View style={{ height: hp(10) }} />
+
+                <CustomInput
+                    label="Old Password"
+                    placeholder="Enter your Password"
+                    placeholderTextColor="#a0a0a0"
+                    secureTextEntry={!oldPasswordVisible}
+                />
+
+                <CustomInput
+                    label="Old Password"
+                    placeholder="Enter your Password"
+                    placeholderTextColor="#a0a0a0"
+                    secureTextEntry={!newPasswordVisible}
+                />
+
+                <CustomInput
+                    label="Confirm Password"
+                    placeholder="Enter your Password"
+                    placeholderTextColor="#a0a0a0"
+                    secureTextEntry={!confirmPasswordVisible}
+                />
+
+
+                <PrimaryButton title="Change Password" onPress={() => { navigation.goBack() }} />
             </View>
-
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="example@domain.com"
-                placeholderTextColor="#a0a0a0"
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Update</Text>
-            </TouchableOpacity>
-
-            {/* Password Change Section */}
-            <Text style={styles.label}>Old Password</Text>
-            <CustomInput
-                label="Old Password"
-                placeholder="Enter your Password"
-                placeholderTextColor="#a0a0a0"
-                secureTextEntry={!oldPasswordVisible}
-            />
-
-            <CustomInput
-                label="Old Password"
-                placeholder="Enter your Password"
-                placeholderTextColor="#a0a0a0"
-                secureTextEntry={!newPasswordVisible}
-            />
-
-            <CustomInput
-                label="Confirm Password"
-                placeholder="Enter your Password"
-                placeholderTextColor="#a0a0a0"
-                secureTextEntry={!confirmPasswordVisible}
-            />
-
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Change Password</Text>
-            </TouchableOpacity>
         </ScrollView>
     );
 };
@@ -100,7 +99,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#190F20', // Dark purple background
     },
     contentContainer: {
-        paddingHorizontal: 20,
+        width: "100%",
+        alignSelf: "center",
         paddingBottom: 40,
     },
     header: {

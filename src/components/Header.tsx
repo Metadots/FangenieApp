@@ -18,12 +18,14 @@ const Header = ({ onProfilePress, profile }) => {
                 style={styles.logo}
                 resizeMode="contain"
             />
-            {profile ?
-                <TouchableOpacity style={styles.profileIcon} onPress={() => navigation.navigate('Profile')}>
-                    <MaterialIcons name="person" size={24} color="white" />
-                </TouchableOpacity>
-                :
-                <SignInButton onPress={() => navigation.navigate('Login')} />
+            {profile == 3 ?
+                <></>
+                : profile ?
+                    <TouchableOpacity style={styles.profileIcon} onPress={() => navigation.navigate('Profile')}>
+                        <MaterialIcons name="person" size={24} color="white" />
+                    </TouchableOpacity>
+                    :
+                    <SignInButton onPress={() => navigation.navigate('Login')} />
             }
         </View>
     );
