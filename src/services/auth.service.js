@@ -65,7 +65,7 @@ export function useResendOtp() {
             async (payload) => {
                 const result = await postRequest(`${MODEL_NAME}/resend-otp`, payload);
                 if (result.status === HttpStatusCode.Ok) {
-                    return result.data.data;
+                    return result.data;
                 } else {
                     throw new Error(ErrorMessages.generalMessage);
                 }

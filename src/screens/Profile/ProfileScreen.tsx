@@ -27,7 +27,7 @@ const ProfileScreen = () => {
             <ScrollView contentContainerStyle={styles.contentContainer}>
 
                 <Header onProfilePress={() => { }} profile={3} logout={true} />
-                <View style={{ width: "90%", alignSelf: "center", marginTop: hp(5) }}>
+                <View style={styles.mainContent}>
 
                     {/* Profile Picture Placeholder */}
                     <View style={styles.profilePicContainer}>
@@ -63,9 +63,15 @@ const ProfileScreen = () => {
                         autoCapitalize="none"
                     />
 
-                    <PrimaryButton title="Update" onPress={() => { }} />
+                    <PrimaryButton
+                        title="Update"
+                        onPress={() => { }}
+                        style={undefined}
+                        textStyle={undefined}
+                        loading={undefined}
+                    />
 
-                    <View style={{ height: hp(10) }} />
+                    <View style={{ height: hp(5) }} />
 
                     <CustomInput
                         label="Old Password"
@@ -89,7 +95,7 @@ const ProfileScreen = () => {
                     />
 
 
-                    <PrimaryButton title="Change Password" onPress={() => { navigation.goBack() }} />
+                    <PrimaryButton title="Change Password" onPress={() => { navigation.goBack(); }} style={undefined} textStyle={undefined} loading={undefined} />
                 </View>
             </ScrollView>
         </View>
@@ -144,8 +150,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     inputGroup: {
-        flex: 1,
-        marginHorizontal: 5, // Add some space between inputs
+        width: "48%",
     },
     label: {
         color: '#fff',
@@ -194,6 +199,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
+    mainContent: {
+        width: '90%',
+        alignSelf: 'center',
+        marginTop: hp(5),
+    },
 });
 
-export default ProfileScreen; 
+export default ProfileScreen;
+
+

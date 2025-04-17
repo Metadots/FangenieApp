@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: colors.button.primary, // Base purple color
         paddingVertical: hp(1.8),
-        borderRadius: 50,
+        borderRadius: 10,
         alignItems: 'center',
         width: "100%", // Default width, can be overridden by style prop
         alignSelf: 'center', // Center the button by default

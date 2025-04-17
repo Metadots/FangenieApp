@@ -18,18 +18,19 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
-import { useVerifyOtp } from '../../services/auth.service';
+import { useResendOtp, useVerifyOtp } from '../../services/auth.service';
 
 const OTP_LENGTH = 6;
 
 const VerifyEmailScreen: React.FC = () => {
+
     const navigation = useNavigation();
     const route = useRoute();
     const { email } = route.params;
-
     const [otp, setOtp] = useState<string[]>(new Array(OTP_LENGTH).fill(''));
     const inputRefs = useRef<(TextInput | null)[]>([]);
     const verifyOtpMutation = useVerifyOtp();
+    const resendOtpMutation = useResendOtp();
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
 
@@ -59,6 +60,7 @@ const VerifyEmailScreen: React.FC = () => {
 
     const handleVerify = () => {
         const enteredOtp = otp.join('');
+        console.log(email, enteredOtp)
         //@ts-ignore
         verifyOtpMutation.mutate({
             email: email,
@@ -85,11 +87,29 @@ const VerifyEmailScreen: React.FC = () => {
             },
             onError: (error: any) => {
                 console.log('Verify Email Page Error---->', error);
-                setErrorMessage(error?.message || 'Signup failed. Please try again.');
+                setErrorMessage(error?.message);
                 setSuccessMessage('');
             },
         });
     };
+
+    const handleResendOtp = () => {
+        //@ts-ignore
+        resendOtpMutation.mutate({
+            email: email,
+        }, {
+            onSuccess: (data) => {
+                console.log('Verify Email Page Response--->', data, data.message);
+                setSuccessMessage('OTP Resent Successfully!');
+                setErrorMessage('');
+            },
+            onError: (error: any) => {
+                console.log('Verify Email Page Error---->', error);
+                setErrorMessage(error?.message);
+                setSuccessMessage('');
+            },
+        });
+    }
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -132,6 +152,13 @@ const VerifyEmailScreen: React.FC = () => {
                     />
                 ))}
             </View>
+
+
+
+            <Text style={styles.resendText}>Did't receive otp? <Text
+                // onPress={handleResendOtp}
+                style={{ color: colors.gold }}>Resend OTP</Text> </Text>
+
 
             <View style={{ width: '100%', alignItems: 'center' }} >
                 {errorMessage ? (
@@ -229,6 +256,13 @@ const styles = StyleSheet.create({
     actionButton: {
         marginTop: hp(2),
         width: '100%',
+    },
+    resendText: {
+        color: colors.text.light,
+        fontSize: 14,
+        marginTop: hp(2),
+        marginBottom: hp(2),
+        fontWeight: 'bold',
     },
     errorMessage: {
         color: colors.status.error,
