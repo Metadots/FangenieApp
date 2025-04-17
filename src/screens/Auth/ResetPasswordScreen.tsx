@@ -16,55 +16,53 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
-// Re-use or define RootStackParamList
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined;
-    Login: undefined;
-    Signup: undefined;
-    ForgotPassword: undefined;
-    VerifyEmail: { email: string };
-    ResetPassword: { email: string; otp: string };
-    // Add other screens here
-};
+import { useResetPassword } from '../../services/auth.service';
 
-// Type for the navigation prop
-type ResetPasswordScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'ResetPassword'
->;
-
-// Type for the route prop
-type ResetPasswordScreenRouteProp = RouteProp<
-    RootStackParamList,
-    'ResetPassword'
->;
 
 const ResetPasswordScreen: React.FC = () => {
-    const navigation = useNavigation<ResetPasswordScreenNavigationProp>();
-    const route = useRoute<ResetPasswordScreenRouteProp>();
-    const { email, otp } = route.params; // Get email and OTP passed from VerifyEmail
-
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { email, token } = route.params; // Get email and OTP passed from VerifyEmail
+    console.log(email, token);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const resetPasswordMutation = useResetPassword();
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
+
 
     const handleResetPassword = () => {
-        // setError(null); // Clear previous errors
-        // if (password !== confirmPassword) {
-        //     setError('Passwords do not match.');
-        //     return;
-        // }
-        // if (password.length < 6) { // Example validation
-        //     setError('Password must be at least 6 characters long.');
-        //     return;
-        // }
+        if (password !== confirmPassword) {
+            setErrorMessage('Passwords do not match.');
+            return;
+        }
+        if (password.length < 8) { // Example validation
+            setErrorMessage('Password must be at least 8 characters long.');
+            return;
+        }
 
-        console.log('Resetting password for:', email, 'with OTP:', otp, 'New password:', password);
+        resetPasswordMutation.mutate({
+            token,
+            password,
+        }, {
+            onSuccess: (data) => {
+                console.log(data);
+                setSuccessMessage('Password reset successfully. You can now log in.');
+                setErrorMessage('');
+                navigation.navigate('Login');
+                setPassword('');
+                setConfirmPassword('');
+                setError(null);
+            },
+            onError: (error) => {
+                console.log(error);
+                setErrorMessage('An error occurred. Please try again.');
+                setSuccessMessage('');
+            }
+        })
 
-        navigation.navigate('Login');
+
     };
 
     return (
@@ -108,10 +106,22 @@ const ResetPasswordScreen: React.FC = () => {
                     textContentType="newPassword"
                     error={error && error.includes('match') ? error : undefined}
                 />
-                {/* Display general errors or API errors if needed */}
-                {/* {error && !error.includes('match') && !error.includes('length') && <Text style={styles.generalErrorText}>{error}</Text>} */}
 
-                <PrimaryButton title="Reset Password" onPress={handleResetPassword} style={styles.actionButton} />
+
+                <View style={{ width: '100%', alignItems: 'center' }} >
+                    {errorMessage ? (
+                        <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    ) : null}
+                    {successMessage ? (
+                        <Text style={styles.successMessage}>{successMessage}</Text>
+                    ) : null}
+                </View>
+                <PrimaryButton
+                    title="Reset Password"
+                    onPress={handleResetPassword}
+                    style={styles.actionButton}
+                    loading={resetPasswordMutation.isPending}
+                />
             </View>
 
         </ScrollView>
@@ -167,13 +177,14 @@ const styles = StyleSheet.create({
     actionButton: {
         marginTop: hp(1),
     },
-    // Optional style for general errors
-    // generalErrorText: {
-    //     color: colors.status.error,
-    //     fontSize: hp(1.6),
-    //     textAlign: 'center',
-    //     marginBottom: hp(2),
-    // }
+    errorMessage: {
+        color: colors.status.error,
+        marginTop: hp(2),
+    },
+    successMessage: {
+        color: colors.gold,
+        marginBottom: hp(2),
+    },
 });
 
 export default ResetPasswordScreen; 

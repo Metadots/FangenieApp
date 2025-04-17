@@ -5,11 +5,11 @@ import SignInButton from './SignInButton';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-interface HeaderProps {
-    onProfilePress?: () => void;
-}
+import { userStore } from '../store';
 
 const Header = ({ onProfilePress, profile }) => {
+    const loggedInUser = userStore();
+    console.log(loggedInUser);
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -25,7 +25,7 @@ const Header = ({ onProfilePress, profile }) => {
                         <MaterialIcons name="person" size={24} color="white" />
                     </TouchableOpacity>
                     :
-                    <SignInButton onPress={() => navigation.navigate('Login')} />
+                    !loggedInUser && <SignInButton onPress={() => navigation.navigate('Login')} />
             }
         </View>
     );

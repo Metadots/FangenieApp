@@ -16,36 +16,60 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Using Ma
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
-
-// Define RootStackParamList including Login and Signup
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined;
-    Login: undefined;
-    Signup: undefined;
-    ForgotPassword: undefined; // Ensure this is present
-    VerifyEmail: { email: string }; // Ensure this is present
-    ResetPassword: { email: string; otp: string }; // Ensure this is present
-    // Add other screens here
-};
-
-// Type for the navigation prop
-type LoginScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'Login'
->;
+import { useLogin } from '../../services/auth.service';
+import { userStore } from '../../store';
 
 const LoginScreen: React.FC = () => {
     const navigation = useNavigation<LoginScreenNavigationProp>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
-    const handleLogin = () => {
-        navigation.navigate('MainTabs');
+    const loginMutation = useLogin();
+    const loggedInUser = userStore();
+    console.log(loggedInUser);
+
+    const handleLogin = async () => {
+        const cleanEmail = email.trim();
+        const cleanPassword = password.trim();
+
+        setErrorMessage('');
+        setSuccessMessage('');
+
+        if (!cleanEmail || !cleanPassword) {
+            setErrorMessage('All fields are required.');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(cleanEmail)) {
+            setErrorMessage('Invalid email format.');
+            return;
+        }
+
+        loginMutation.mutate({
+            email: cleanEmail,
+            password: cleanPassword,
+        }, {
+            onSuccess: (data) => {
+                console.log(data);
+                setSuccessMessage('Sign up successful! Redirecting...');
+                navigation.navigate('MainTabs');
+            },
+            onError: (error: any) => {
+                console.log(error);
+                if (error.message === 'Request failed with status code 401') {
+                    setErrorMessage('Account Not Found Please create a new one .')
+                }
+                else {
+                    setErrorMessage(error?.message || 'Account Not Found Please create a new one.');
+                }
+            },
+        });
     };
+
 
     const handleForgotPassword = () => {
         console.log('Forgot Password pressed');
@@ -109,20 +133,36 @@ const LoginScreen: React.FC = () => {
                     <Text style={styles.linkText}>Forgot Password?</Text>
                 </TouchableOpacity>
 
-                <PrimaryButton title="Login" onPress={handleLogin} style={styles.loginButton} />
+                <View style={{ width: '100%', alignItems: 'center' }} >
+                    {errorMessage ? (
+                        <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    ) : null}
+                    {successMessage ? (
+                        <Text style={styles.successMessage}>{successMessage}</Text>
+                    ) : null}
+                </View>
+                <PrimaryButton
+                    title="Login"
+                    onPress={handleLogin}
+                    style={styles.loginButton}
+                    textStyle={undefined}
+                />
 
                 <TouchableOpacity
                     onPress={() => setKeepLoggedIn(!keepLoggedIn)}
                     style={styles.keepLoggedInContainer}>
                     {/* @ts-ignore */}
                     <Icon
-                        name={keepLoggedIn
-                            ? "checkbox-marked"
-                            : "checkbox-blank-outline"}
+                        name={
+                            keepLoggedIn
+                                ? "checkbox-marked"
+                                : "checkbox-blank-outline"
+                        }
                         size={hp(2.5)}
                         color={keepLoggedIn
-                            ? '#A050F0'
-                            : '#fff'} />
+                            ? colors.gold
+                            : colors.placeholder
+                        } />
                     <Text style={styles.keepLoggedInText}>Keep me <Text style={{ color: colors.gold }} >Logged in</Text></Text>
                 </TouchableOpacity>
             </View>
@@ -257,6 +297,14 @@ const styles = StyleSheet.create({
         color: colors.text.light,
         fontSize: hp(1.8),
         fontWeight: 'bold',
+    },
+    errorMessage: {
+        color: colors.status.error,
+        marginBottom: hp(0),
+    },
+    successMessage: {
+        color: colors.gold,
+        marginBottom: hp(2),
     },
 });
 

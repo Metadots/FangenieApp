@@ -4,11 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PaperProvider } from 'react-native-paper';
 import { theme } from '../constants/theme';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import ReferralScreen from '../screens/ReferralScreen';
 
 import CheckoutScreen from '../screens/CheckoutScreen';
@@ -25,55 +24,53 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import DetailsScreen from '../screens/Home/Details';
-// Placeholder Screens for Tabs (Create these later)
-// const TicketsScreen = () => <View />;
+import { colors } from '../constants/colors';
+
 const NotificationsScreen = () => <View />;
 const FavoritesScreen = () => <View />;
 const ExploreScreen = () => <View />;
 
-// Create Navigators
-const Stack = createNativeStackNavigator(); // Single Root Stack
+const Stack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-// Main Tab Navigator Component
 const MainTabNavigator = () => (
     <MainTab.Navigator
         screenOptions={({ route }) => ({
             headerShown: false,
-            tabBarShowLabel: false, // Hide labels as per image
+            tabBarShowLabel: false,
             tabBarStyle: styles.tabBar,
-            tabBarIcon: ({ focused, color, size }) => {
+            tabBarIcon: ({ focused }) => {
                 let iconName = null;
 
                 switch (route.name) {
                     case 'Home':
                         iconName = focused ?
-                            <MaterialCommunityIcons name="calendar-outline" color={'#A050F0'} size={hp(3)} />
+                            <MaterialCommunityIcons name="calendar-outline" color={colors.gold} size={hp(3)} />
                             : <MaterialCommunityIcons name="calendar-outline" color={'#393939'} size={hp(2.5)} />;
                         break;
                     case 'Tickets':
                         iconName = focused ?
-                            <Octicons name="credit-card" color={'#A050F0'} size={hp(3)} />
+                            <Octicons name="credit-card" color={colors.gold} size={hp(3)} />
                             : <Octicons name="credit-card" color={'#393939'} size={hp(2.5)} />;
                         break;
                     case 'Notifications':
                         iconName = focused ?
-                            <Feather name="bell" color={'#A050F0'} size={hp(3)} />
+                            <Feather name="bell" color={colors.gold} size={hp(3)} />
                             : <Feather name="bell" color={'#393939'} size={hp(2.5)} />;
                         break;
                     case 'Referral': // Adjust name if needed
                         iconName = focused ?
-                            <Octicons name="people" color={'#A050F0'} size={hp(3)} />
+                            <Octicons name="people" color={colors.gold} size={hp(3)} />
                             : <Octicons name="people" color={'#393939'} size={hp(2.5)} />;
                         break;
                     case 'Favorites':
                         iconName = focused ?
-                            <MaterialIcons name="thumb-up-off-alt" color={'#A050F0'} size={hp(3)} />
+                            <MaterialIcons name="thumb-up-off-alt" color={colors.gold} size={hp(3)} />
                             : <MaterialIcons name="thumb-up-off-alt" color={'#393939'} size={hp(2.5)} />;
                         break;
                     case 'Explore':
                         iconName = focused ?
-                            <Feather name="star" color={'#A050F0'} size={hp(3)} />
+                            <Feather name="star" color={colors.gold} size={hp(3)} />
                             : <Feather name="star" color={'#393939'} size={hp(2.5)} />;
                         break;
                 }
@@ -81,7 +78,7 @@ const MainTabNavigator = () => (
                 // @ts-ignore - Temporary fix for potential icon type issues
                 return iconName;
             },
-            tabBarActiveTintColor: '#A050F0', // Active icon color
+            tabBarActiveTintColor: colors.gold, // Active icon color
             tabBarInactiveTintColor: '#888', // Inactive icon color
         })}
     >
@@ -94,21 +91,31 @@ const MainTabNavigator = () => (
     </MainTab.Navigator>
 );
 
-// Main App Navigator - Simplified
+const AuthStack = () => {
+    return (
+        <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{ headerShown: false }}
+        >
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+            <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
+            <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+        </Stack.Navigator>
+    );
+}
+
 export const AppNavigator = () => {
     return (
         <PaperProvider theme={theme}>
             <NavigationContainer>
                 <Stack.Navigator
-                    initialRouteName="MainTabs" // Start with Login (or MainTabs if preferred)
+                    initialRouteName="Auth"
                     screenOptions={{ headerShown: false }}
                 >
-                    {/* Auth Screens */}
-                    <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name="Signup" component={SignupScreen} />
-                    <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-                    <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
-                    <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+                    {/* Auth Stack */}
+                    <Stack.Screen name="Auth" component={AuthStack} />
 
                     {/* Main App Tabs (as a single screen) */}
                     <Stack.Screen name="MainTabs" component={MainTabNavigator} />

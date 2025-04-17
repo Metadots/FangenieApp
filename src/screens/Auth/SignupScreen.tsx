@@ -7,60 +7,86 @@ import {
     ScrollView,
     Platform,
     StatusBar,
-    Image
+    Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Using Material Community Icons
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../../constants/colors';
 
 import PrimaryButton from '../../components/PrimaryButton';
 import CustomInput from '../../components/CustomInput';
-// Re-use or define RootStackParamList
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined;
-    Login: undefined;
-    Signup: undefined;
-    // Add other screens here
-};
+import { useSignUp } from '../../services/auth.service';
+import { userStore } from '../../store';
 
-// Type for the navigation prop
-type SignupScreenNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'Signup'
->;
 
 const SignupScreen: React.FC = () => {
-    const navigation = useNavigation<SignupScreenNavigationProp>();
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [agreeTerms, setAgreeTerms] = useState(false);
+    const navigation = useNavigation();
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
-    const handleSignup = () => {
-        // TODO: Implement signup logic (validate, API call, navigate)
-        console.log('Signup attempt:', { firstName, lastName, email, password, agreeTerms });
-        if (!agreeTerms) {
-            // TODO: Show error message to user
-            console.error('Must agree to terms and conditions');
+    const { setAuth } = userStore();
+
+    const signUpMutation = useSignUp();
+
+    const handleSignup = async () => {
+
+        const cleanFirstName = firstName.trim();
+        const cleanLastName = lastName.trim();
+        const cleanEmail = email.trim();
+        const cleanPassword = password.trim();
+
+        setErrorMessage('');
+        setSuccessMessage('');
+
+        if (!cleanFirstName || !cleanLastName || !cleanEmail || !cleanPassword) {
+            setErrorMessage('All fields are required.');
             return;
         }
-        // On success, potentially navigate to Login or Home
-        // navigation.navigate('Login');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(cleanEmail)) {
+            setErrorMessage('Invalid email format.');
+            return;
+        }
+
+        if (cleanPassword.length < 6) {
+            setErrorMessage('Password must be at least 6 characters.');
+            return;
+        }
+
+        if (!agreeTerms) {
+            setErrorMessage('Please agree to the Terms & Conditions.');
+            return;
+        }
+
+        signUpMutation.mutate({
+            firstName: cleanFirstName,
+            lastName: cleanLastName,
+            email: cleanEmail,
+            password: cleanPassword,
+        }, {
+            onSuccess: (data) => {
+                setAuth(data?.user);
+                setSuccessMessage('Sign up successful! Redirecting...');
+                navigation.navigate('VerifyEmail', { email: cleanEmail });
+            },
+            onError: (error: any) => {
+                setErrorMessage(error?.message || 'Signup failed. Please try again.');
+            }
+        });
     };
 
     const handleGoogleLogin = () => {
-        // TODO: Implement Google Sign-In
         console.log('Google Login pressed');
     };
 
     const handleFacebookLogin = () => {
-        // TODO: Implement Facebook Sign-In
         console.log('Facebook Login pressed');
     };
 
@@ -79,7 +105,7 @@ const SignupScreen: React.FC = () => {
 
             <Text style={styles.title}>Create an account</Text>
             <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Already an account? </Text>
+                <Text style={styles.subtitleText}>Already have an account? </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                     <Text style={styles.linkText}>Login</Text>
                 </TouchableOpacity>
@@ -121,15 +147,40 @@ const SignupScreen: React.FC = () => {
                     placeholder="Enter your Password"
                     value={password}
                     onChangeText={setPassword}
-                    secureTextEntry // Enables the eye icon toggle
-                    textContentType="newPassword" // Help with password generation suggestions
+                    secureTextEntry
+                    textContentType="newPassword"
+                />
+                <View style={{ width: '100%', alignItems: 'center' }} >
+                    {errorMessage ? (
+                        <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    ) : null}
+                    {successMessage ? (
+                        <Text style={styles.successMessage}>{successMessage}</Text>
+                    ) : null}
+                </View>
+                <PrimaryButton
+                    title="Signup"
+                    onPress={handleSignup}
+                    style={styles.signupButton}
+                    loading={signUpMutation.isPending}
+                    textStyle={undefined}
                 />
 
-                <PrimaryButton title="Signup" onPress={handleSignup} style={styles.signupButton} />
-
-                <TouchableOpacity onPress={() => setAgreeTerms(!agreeTerms)} style={styles.termsContainer}>
+                <TouchableOpacity
+                    onPress={() => setAgreeTerms(prev => !prev)}
+                    style={styles.termsContainer}>
                     {/* @ts-ignore */}
-                    <Icon name={agreeTerms ? "checkbox-marked" : "checkbox-blank-outline"} size={hp(2.5)} color={agreeTerms ? '#A050F0' : '#5A5A5A'} />
+                    <Icon name={
+                        agreeTerms
+                            ? "checkbox-marked"
+                            : "checkbox-blank-outline"
+                    }
+                        size={hp(2.5)}
+                        color={
+                            agreeTerms
+                                ? colors.gold
+                                : colors.placeholder
+                        } />
                     <Text style={styles.termsText}>Agree to </Text>
                     <TouchableOpacity onPress={() => {/* TODO: Navigate to Terms Screen */ }}>
                         <Text style={[styles.linkText, styles.termsLink]}>Terms & Conditions</Text>
@@ -200,7 +251,7 @@ const styles = StyleSheet.create({
         fontSize: hp(1.8),
     },
     linkText: {
-        color: colors.accent,
+        color: colors.gold,
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },
@@ -256,7 +307,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: colors.border.accent,
+        borderColor: colors.gold,
         padding: hp(1.5),
         marginBottom: hp(2),
     },
@@ -270,6 +321,14 @@ const styles = StyleSheet.create({
         fontSize: hp(1.8),
         fontWeight: 'bold',
     },
+    errorMessage: {
+        color: colors.status.error,
+        marginBottom: hp(0),
+    },
+    successMessage: {
+        color: colors.gold,
+        marginBottom: hp(2),
+    },
 });
 
-export default SignupScreen; 
+export default SignupScreen;

@@ -1,13 +1,15 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { colors } from '../constants/colors';
-import LinearGradient from 'react-native-linear-gradient';
 
-const PrimaryButton = ({ title, onPress, style, textStyle }) => {
+const PrimaryButton = ({ title, onPress, style, textStyle, loading }) => {
     return (
-        <TouchableOpacity style={[styles.button]} onPress={onPress}>
-            <Text style={[styles.text, textStyle]}>{title}</Text>
+        <TouchableOpacity
+            style={[styles.button]} onPress={onPress}>
+            {loading ?
+                <ActivityIndicator size={'small'} color={colors.secondary} /> :
+                <Text style={[styles.text, textStyle]}>{title}</Text>}
         </TouchableOpacity>
     );
 };

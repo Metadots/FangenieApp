@@ -13,11 +13,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or your 
 
 interface CustomInputProps extends TextInputProps {
     label: string;
-    iconName?: string; // Optional icon name
-    onIconPress?: () => void; // Optional icon action
-    containerStyle?: object; // Optional style for the outer container
-    inputStyle?: object; // Optional style for the TextInput itself
-    error?: string; // Optional error message
+    iconName?: string;
+    onIconPress?: () => void;
+    containerStyle?: object;
+    inputStyle?: object;
+    error?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -28,16 +28,16 @@ const CustomInput: React.FC<CustomInputProps> = ({
     inputStyle,
     secureTextEntry,
     error,
-    ...props // Pass remaining TextInput props
+    ...props
 }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [internalSecureTextEntry, setInternalSecureTextEntry] = useState(secureTextEntry);
 
     const handleIconPress = () => {
         if (secureTextEntry && onIconPress) {
-            onIconPress(); // Allow custom handler
+            onIconPress();
         } else if (secureTextEntry) {
-            setInternalSecureTextEntry(!internalSecureTextEntry); // Toggle secure text entry
+            setInternalSecureTextEntry(!internalSecureTextEntry);
         }
     };
 

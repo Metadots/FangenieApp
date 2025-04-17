@@ -18,31 +18,20 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
+import { useVerifyOtp } from '../../services/auth.service';
 
-type RootStackParamList = {
-    Home: undefined;
-    Details: undefined;
-    Checkout: undefined;
-    PaymentSuccess: undefined;
-    Login: undefined;
-    Signup: undefined;
-    ForgotPassword: undefined;
-    VerifyEmail: { email: string };
-    ResetPassword: { email: string; otp: string };
-};
-
-type VerifyEmailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'VerifyEmail'>;
-type VerifyEmailScreenRouteProp = RouteProp<RootStackParamList, 'VerifyEmail'>;
-
-const OTP_LENGTH = 5;
+const OTP_LENGTH = 6;
 
 const VerifyEmailScreen: React.FC = () => {
-    const navigation = useNavigation<VerifyEmailScreenNavigationProp>();
-    const route = useRoute<VerifyEmailScreenRouteProp>();
+    const navigation = useNavigation();
+    const route = useRoute();
     const { email } = route.params;
 
     const [otp, setOtp] = useState<string[]>(new Array(OTP_LENGTH).fill(''));
     const inputRefs = useRef<(TextInput | null)[]>([]);
+    const verifyOtpMutation = useVerifyOtp();
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
     useEffect(() => {
         inputRefs.current[0]?.focus();
@@ -70,7 +59,36 @@ const VerifyEmailScreen: React.FC = () => {
 
     const handleVerify = () => {
         const enteredOtp = otp.join('');
-        navigation.navigate('ResetPassword', { email, otp: enteredOtp });
+        //@ts-ignore
+        verifyOtpMutation.mutate({
+            email: email,
+            otp: enteredOtp,
+        }, {
+            onSuccess: (data) => {
+                console.log('Verify Email Page Response--->', data, data.message);
+                if (data.message === 'OTP verified. Please reset your password.') {
+                    setSuccessMessage('OTP Verified Successfully!');
+                    setErrorMessage('');
+                    //@ts-ignore
+                    navigation.navigate('ResetPassword',
+                        {
+                            email,
+                            token: data.data.resetToken,
+                        });
+                }
+                else {
+                    setSuccessMessage('OTP Verified Successfully!');
+                    setErrorMessage('');
+                    //@ts-ignore
+                    navigation.navigate('Login');
+                }
+            },
+            onError: (error: any) => {
+                console.log('Verify Email Page Error---->', error);
+                setErrorMessage(error?.message || 'Signup failed. Please try again.');
+                setSuccessMessage('');
+            },
+        });
     };
 
     return (
@@ -110,11 +128,27 @@ const VerifyEmailScreen: React.FC = () => {
                         onKeyPress={e => handleKeyPress(e, index)}
                         value={digit}
                         textContentType="oneTimeCode"
+                        onFocus={() => { setSuccessMessage(''); setErrorMessage('') }}
                     />
                 ))}
             </View>
 
-            <PrimaryButton title="Verify" onPress={handleVerify} style={styles.actionButton} />
+            <View style={{ width: '100%', alignItems: 'center' }} >
+                {errorMessage ? (
+                    <Text style={styles.errorMessage}>{errorMessage}</Text>
+                ) : null}
+                {successMessage ? (
+                    <Text style={styles.successMessage}>{successMessage}</Text>
+                ) : null}
+            </View>
+
+            <PrimaryButton
+                title="Verify"
+                onPress={handleVerify}
+                style={styles.actionButton}
+                textStyle={undefined}
+                loading={verifyOtpMutation.isPending}
+            />
 
         </ScrollView>
     );
@@ -184,17 +218,25 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     otpInput: {
-        width: wp(14),
+        width: 50,
         height: hp(7),
         textAlign: 'center',
         fontSize: hp(2.5),
         fontWeight: 'bold',
-        color: colors.text.light,
+        color: 'black',
         backgroundColor: colors.background.primary,
     },
     actionButton: {
-        marginTop: hp(3),
+        marginTop: hp(2),
         width: '100%',
+    },
+    errorMessage: {
+        color: colors.status.error,
+        marginTop: hp(2),
+    },
+    successMessage: {
+        color: colors.gold,
+        marginBottom: hp(2),
     },
 });
 

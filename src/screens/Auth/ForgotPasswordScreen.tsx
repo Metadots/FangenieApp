@@ -15,17 +15,36 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
+import { useForgotPassword } from '../../services/auth.service';
 
 
 const ForgotPasswordScreen = () => {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
+    const forgotPasswordMutation = useForgotPassword();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
 
     const handleSendEmail = () => {
-        // TODO: Implement API call to send password reset email
-        console.log('Sending password reset email to:', email);
-        // On success, navigate to VerifyEmail screen, passing the email
-        navigation.navigate('VerifyEmail', { email });
+        const cleanedEmail = email.trim();
+        if (cleanedEmail === '') {
+            setErrorMessage('Please enter a valid email address.');
+            return;
+        }
+        forgotPasswordMutation.mutate({ email: cleanedEmail }, {
+            onSuccess: (data) => {
+                console.log(data);
+                setSuccessMessage('Email sent successfully. Please check your inbox.');
+                setErrorMessage('');
+                setEmail('');
+                navigation.navigate('VerifyEmail', { email: cleanedEmail });
+            },
+            onError: (error) => {
+                console.log(error);
+                setErrorMessage(error.message);
+                setSuccessMessage('');
+            },
+        });
     };
 
     return (
@@ -60,7 +79,14 @@ const ForgotPasswordScreen = () => {
                         autoCapitalize="none"
                         textContentType="emailAddress"
                     />
-
+                    <View style={{ width: '100%', alignItems: 'center' }} >
+                        {errorMessage ? (
+                            <Text style={styles.errorMessage}>{errorMessage}</Text>
+                        ) : null}
+                        {successMessage ? (
+                            <Text style={styles.successMessage}>{successMessage}</Text>
+                        ) : null}
+                    </View>
                     <PrimaryButton title="Send Email" onPress={handleSendEmail} style={styles.actionButton} />
                 </View>
 
@@ -115,6 +141,14 @@ const styles = StyleSheet.create({
     },
     actionButton: {
         marginTop: hp(3),
+    },
+    errorMessage: {
+        color: colors.status.error,
+        marginTop: hp(2),
+    },
+    successMessage: {
+        color: colors.gold,
+        marginBottom: hp(2),
     },
 });
 
