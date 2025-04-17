@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -14,13 +14,45 @@ import PrimaryButton from '../../components/PrimaryButton';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../../components/Header';
+import { useUpdatePassword } from '../../services/settings.service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userStore } from '../../store';
 
 const ProfileScreen = () => {
     const navigation = useNavigation();
+
     // State for input fields could be added here later
-    const [oldPasswordVisible, setOldPasswordVisible] = useState(false);
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [currentPasswordVisible, setCurrentPasswordVisible] = useState(false);
     const [newPasswordVisible, setNewPasswordVisible] = useState(false);
-    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+    const [confirmNewPasswordVisible, setConfirmNewPasswordVisible] = useState(false);
+    const updatePasswordMutation = useUpdatePassword();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+
+
+    const handleUpdatePaswsword = () => {
+
+        if (newPassword.length < 8) {
+            setErrorMessage('Password must be at least 8 characters long');
+            return;
+        }
+        //@ts-ignore
+        updatePasswordMutation.mutate({
+            currentPassword, newPassword,
+        }, {
+            onSuccess: (data) => {
+                console.log(data);
+            },
+            onError: (error) => {
+                console.log(error);
+            },
+        });
+
+    };
 
     return (
         <View style={styles.container} >
@@ -77,25 +109,31 @@ const ProfileScreen = () => {
                         label="Old Password"
                         placeholder="Enter your Password"
                         placeholderTextColor="#a0a0a0"
-                        secureTextEntry={!oldPasswordVisible}
+                        secureTextEntry={!currentPasswordVisible}
                     />
 
                     <CustomInput
-                        label="Old Password"
+                        label="New Password"
                         placeholder="Enter your Password"
                         placeholderTextColor="#a0a0a0"
                         secureTextEntry={!newPasswordVisible}
                     />
 
                     <CustomInput
-                        label="Confirm Password"
+                        label="Confirm New Password"
                         placeholder="Enter your Password"
                         placeholderTextColor="#a0a0a0"
-                        secureTextEntry={!confirmPasswordVisible}
+                        secureTextEntry={!confirmNewPasswordVisible}
                     />
 
+                    <PrimaryButton
+                        title="Change Password"
+                        onPress={handleUpdatePaswsword}
+                        style={undefined}
+                        textStyle={undefined}
+                        loading={updatePasswordMutation.isPending}
+                    />
 
-                    <PrimaryButton title="Change Password" onPress={() => { navigation.goBack(); }} style={undefined} textStyle={undefined} loading={undefined} />
                 </View>
             </ScrollView>
         </View>
