@@ -7,9 +7,11 @@ import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { userStore } from '../store';
 
-const Header = ({ onProfilePress, profile }) => {
+
+const Header = ({ onProfilePress, profile, logout }) => {
+
     const loggedInUser = userStore();
-    console.log(loggedInUser);
+    const { purgeAuth } = userStore();
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -18,14 +20,21 @@ const Header = ({ onProfilePress, profile }) => {
                 style={styles.logo}
                 resizeMode="contain"
             />
-            {profile == 3 ?
+            {logout &&
+                <TouchableOpacity onPress={() => { purgeAuth(); }} >
+                    <MaterialIcons name='logout' color={'white'} size={24} />
+                </TouchableOpacity>
+            }
+            {profile === 3 ?
                 <></>
                 : profile ?
                     <TouchableOpacity style={styles.profileIcon} onPress={() => navigation.navigate('Profile')}>
                         <MaterialIcons name="person" size={24} color="white" />
                     </TouchableOpacity>
                     :
-                    !loggedInUser && <SignInButton onPress={() => navigation.navigate('Login')} />
+                    !loggedInUser && <SignInButton
+                        onPress={() => navigation.navigate('Login')}
+                    />
             }
         </View>
     );

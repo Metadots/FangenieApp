@@ -25,6 +25,7 @@ import ProfileScreen from '../screens/Profile/ProfileScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import DetailsScreen from '../screens/Home/Details';
 import { colors } from '../constants/colors';
+import { userStore } from '../store';
 
 const NotificationsScreen = () => <View />;
 const FavoritesScreen = () => <View />;
@@ -107,23 +108,31 @@ const AuthStack = () => {
 }
 
 export const AppNavigator = () => {
+
+    const { loggedInUser, loading } = userStore();
+
+    if (loading) {
+        return null;
+    }
+
     return (
         <PaperProvider theme={theme}>
             <NavigationContainer>
                 <Stack.Navigator
-                    initialRouteName="Auth"
+                    // initialRouteName="Auth"
                     screenOptions={{ headerShown: false }}
                 >
-                    {/* Auth Stack */}
-                    <Stack.Screen name="Auth" component={AuthStack} />
-
-                    {/* Main App Tabs (as a single screen) */}
-                    <Stack.Screen name="MainTabs" component={MainTabNavigator} />
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
-                    {/* Other Screens */}
-                    <Stack.Screen name="Details" component={DetailsScreen} />
-                    <Stack.Screen name="Checkout" component={CheckoutScreen} />
-                    <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+                    {loggedInUser === null || loggedInUser.token === null ?
+                        <Stack.Screen name="Auth" component={AuthStack} />
+                        :
+                        <>
+                            <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+                            <Stack.Screen name="Profile" component={ProfileScreen} />
+                            <Stack.Screen name="Details" component={DetailsScreen} />
+                            <Stack.Screen name="Checkout" component={CheckoutScreen} />
+                            <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen} />
+                        </>
+                    }
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>

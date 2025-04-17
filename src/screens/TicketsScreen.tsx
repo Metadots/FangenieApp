@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         borderWidth: 1,
-        overflow: 'hidden',
+        // overflow: 'hidden',
         borderColor: colors.history.header.border,
     },
     historyHeaderText: {

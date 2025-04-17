@@ -6,19 +6,25 @@ export const userStore = create(
     persist(
         (set, get) => ({
             loggedInUser: null,
-            token: null,
-            setToken: payload => set(() => ({ token: payload })),
+            loading: true,
             setAuth: payload =>
                 set(state => ({ loggedInUser: payload, token: payload.token })),
             purgeAuth: () => set(() => ({ loggedInUser: null, token: null })),
+            setLoading: (loadingState) => set(() => ({ loading: loadingState })), // To update the loading state
         }),
         {
             name: 'Spectrum',
             storage: createJSONStorage(() => AsyncStorage),
             partialize: state => ({
-                token: state.token,
                 loggedInUser: state.loggedInUser,
             }),
+            onRehydrateStorage: () => (state) => {
+                // When storage is rehydrated, set loading to false
+                if (state) {
+                    state.setLoading(false); // Set loading to false after data is retrieved
+                }
+            },
+
         },
     ),
 );

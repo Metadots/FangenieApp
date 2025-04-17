@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
         paddingVertical: 2,
         borderRadius: 3,
-        overflow: 'hidden',
+        // overflow: 'hidden',
     },
     inputLabel: {
         color: colors.text.light,

@@ -7,6 +7,7 @@ import {
     StyleSheet,
     ScrollView,
     Image,
+    Platform,
 } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -22,80 +23,83 @@ const ProfileScreen = () => {
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.container} >
+            <ScrollView contentContainerStyle={styles.contentContainer}>
 
-            <Header onProfilePress={() => { }} profile={3} />
-            <View style={{ width: "90%", alignSelf: "center", marginTop: hp(5) }}>
+                <Header onProfilePress={() => { }} profile={3} logout={true} />
+                <View style={{ width: "90%", alignSelf: "center", marginTop: hp(5) }}>
 
-                {/* Profile Picture Placeholder */}
-                <View style={styles.profilePicContainer}>
-                    <View style={styles.profilePicPlaceholder} />
-                </View>
-
-                {/* User Info Section */}
-                <View style={styles.nameContainer}>
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>First Name</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="John"
-                            placeholderTextColor="#a0a0a0"
-                        />
+                    {/* Profile Picture Placeholder */}
+                    <View style={styles.profilePicContainer}>
+                        <View style={styles.profilePicPlaceholder} />
                     </View>
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Last Name</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Doe"
-                            placeholderTextColor="#a0a0a0"
-                        />
+
+                    {/* User Info Section */}
+                    <View style={styles.nameContainer}>
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>First Name</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="John"
+                                placeholderTextColor="#a0a0a0"
+                            />
+                        </View>
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Last Name</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Doe"
+                                placeholderTextColor="#a0a0a0"
+                            />
+                        </View>
                     </View>
+
+                    <Text style={styles.label}>Email</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="example@domain.com"
+                        placeholderTextColor="#a0a0a0"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                    />
+
+                    <PrimaryButton title="Update" onPress={() => { }} />
+
+                    <View style={{ height: hp(10) }} />
+
+                    <CustomInput
+                        label="Old Password"
+                        placeholder="Enter your Password"
+                        placeholderTextColor="#a0a0a0"
+                        secureTextEntry={!oldPasswordVisible}
+                    />
+
+                    <CustomInput
+                        label="Old Password"
+                        placeholder="Enter your Password"
+                        placeholderTextColor="#a0a0a0"
+                        secureTextEntry={!newPasswordVisible}
+                    />
+
+                    <CustomInput
+                        label="Confirm Password"
+                        placeholder="Enter your Password"
+                        placeholderTextColor="#a0a0a0"
+                        secureTextEntry={!confirmPasswordVisible}
+                    />
+
+
+                    <PrimaryButton title="Change Password" onPress={() => { navigation.goBack() }} />
                 </View>
-
-                <Text style={styles.label}>Email</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="example@domain.com"
-                    placeholderTextColor="#a0a0a0"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-
-                <PrimaryButton title="Update" onPress={() => { }} />
-
-                <View style={{ height: hp(10) }} />
-
-                <CustomInput
-                    label="Old Password"
-                    placeholder="Enter your Password"
-                    placeholderTextColor="#a0a0a0"
-                    secureTextEntry={!oldPasswordVisible}
-                />
-
-                <CustomInput
-                    label="Old Password"
-                    placeholder="Enter your Password"
-                    placeholderTextColor="#a0a0a0"
-                    secureTextEntry={!newPasswordVisible}
-                />
-
-                <CustomInput
-                    label="Confirm Password"
-                    placeholder="Enter your Password"
-                    placeholderTextColor="#a0a0a0"
-                    secureTextEntry={!confirmPasswordVisible}
-                />
-
-
-                <PrimaryButton title="Change Password" onPress={() => { navigation.goBack() }} />
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: Platform.OS === 'ios' ? hp(6) : hp(1),
         backgroundColor: '#190F20', // Dark purple background
     },
     contentContainer: {

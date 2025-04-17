@@ -28,8 +28,7 @@ const LoginScreen: React.FC = () => {
     const [successMessage, setSuccessMessage] = useState<string>('');
 
     const loginMutation = useLogin();
-    const loggedInUser = userStore();
-    console.log(loggedInUser);
+    const { setAuth } = userStore();
 
     const handleLogin = async () => {
         const cleanEmail = email.trim();
@@ -49,22 +48,25 @@ const LoginScreen: React.FC = () => {
             return;
         }
 
+        //@ts-ignore
         loginMutation.mutate({
             email: cleanEmail,
             password: cleanPassword,
         }, {
             onSuccess: (data) => {
-                console.log(data);
-                setSuccessMessage('Sign up successful! Redirecting...');
-                navigation.navigate('MainTabs');
+                setSuccessMessage('Login successful! Redirecting...');
+                setAuth(data);
+                setTimeout(() => {
+                    navigation.navigate('MainTabs');
+                }, 2000);
             },
             onError: (error: any) => {
                 console.log(error);
-                if (error.message === 'Request failed with status code 401') {
-                    setErrorMessage('Account Not Found Please create a new one .')
-                }
-                else {
-                    setErrorMessage(error?.message || 'Account Not Found Please create a new one.');
+                const errorMsg = error?.message || 'An unknown error occurred. Please try again.';
+                if (errorMsg.includes('401')) {
+                    setErrorMessage('Account not found. Please create a new one.');
+                } else {
+                    setErrorMessage(errorMsg);
                 }
             },
         });
@@ -141,11 +143,13 @@ const LoginScreen: React.FC = () => {
                         <Text style={styles.successMessage}>{successMessage}</Text>
                     ) : null}
                 </View>
+
                 <PrimaryButton
                     title="Login"
                     onPress={handleLogin}
                     style={styles.loginButton}
                     textStyle={undefined}
+                    loading={loginMutation.isPending}
                 />
 
                 <TouchableOpacity

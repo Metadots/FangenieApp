@@ -77,11 +77,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginVertical: 8,
         borderRadius: 16,
-        overflow: 'hidden',
     },
     imageBackground: {
         height: 350,
         justifyContent: 'space-between',
+        borderRadius: 16,
+        overflow: 'hidden',
     },
     imageStyle: {
         borderRadius: 16,

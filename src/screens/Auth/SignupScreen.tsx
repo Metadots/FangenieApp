@@ -64,7 +64,6 @@ const SignupScreen: React.FC = () => {
             setErrorMessage('Please agree to the Terms & Conditions.');
             return;
         }
-
         signUpMutation.mutate({
             firstName: cleanFirstName,
             lastName: cleanLastName,
@@ -72,7 +71,6 @@ const SignupScreen: React.FC = () => {
             password: cleanPassword,
         }, {
             onSuccess: (data) => {
-                setAuth(data?.user);
                 setSuccessMessage('Sign up successful! Redirecting...');
                 navigation.navigate('VerifyEmail', { email: cleanEmail });
             },
@@ -150,6 +148,7 @@ const SignupScreen: React.FC = () => {
                     secureTextEntry
                     textContentType="newPassword"
                 />
+
                 <View style={{ width: '100%', alignItems: 'center' }} >
                     {errorMessage ? (
                         <Text style={styles.errorMessage}>{errorMessage}</Text>
@@ -158,6 +157,7 @@ const SignupScreen: React.FC = () => {
                         <Text style={styles.successMessage}>{successMessage}</Text>
                     ) : null}
                 </View>
+
                 <PrimaryButton
                     title="Signup"
                     onPress={handleSignup}
