@@ -16,6 +16,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
+import { typography } from '../../constants/globalStyles';
 import { useResetPassword } from '../../services/auth.service';
 
 
@@ -150,9 +151,7 @@ const styles = StyleSheet.create({
         height: hp(6),
     },
     title: {
-        color: colors.text.light,
-        fontSize: hp(3),
-        fontWeight: 'bold',
+        ...typography.heading1,
         textAlign: 'center',
         marginBottom: hp(1),
         alignSelf: "flex-start"
@@ -164,13 +163,10 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start"
     },
     subtitleText: {
-        color: colors.text.light,
-        fontSize: hp(1.8),
+        ...typography.description,
     },
     linkText: {
-        color: colors.gold,
-        fontSize: hp(1.8),
-        fontWeight: 'bold',
+        ...typography.linkText,
     },
     formContainer: {
         // Styles for the form area
@@ -179,11 +175,11 @@ const styles = StyleSheet.create({
         marginTop: hp(1),
     },
     errorMessage: {
-        color: colors.status.error,
+        ...typography.errorText,
         marginTop: hp(2),
     },
     successMessage: {
-        color: colors.gold,
+        ...typography.successText,
         marginBottom: hp(2),
     },
 });

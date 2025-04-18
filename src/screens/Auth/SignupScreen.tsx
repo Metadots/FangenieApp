@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../../constants/colors';
+import { typography } from '../../constants/globalStyles';
 
 import PrimaryButton from '../../components/PrimaryButton';
 import CustomInput from '../../components/CustomInput';
@@ -237,9 +238,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(1),
     },
     title: {
-        color: colors.text.light,
-        fontSize: hp(3),
-        fontWeight: 'bold',
+        ...typography.heading1,
         textAlign: 'left',
         marginBottom: hp(1),
     },
@@ -250,13 +249,10 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start"
     },
     subtitleText: {
-        color: colors.text.light,
-        fontSize: hp(1.8),
+        ...typography.description,
     },
     linkText: {
-        color: colors.gold,
-        fontSize: hp(1.8),
-        fontWeight: 'bold',
+        ...typography.linkText,
     },
     formContainer: {
         marginBottom: hp(1),
@@ -278,12 +274,11 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     termsText: {
-        color: colors.text.light,
-        fontSize: hp(1.7),
+        ...typography.description,
         marginLeft: wp(2),
     },
     termsLink: {
-        fontSize: hp(1.7),
+        ...typography.linkText,
     },
     dividerContainer: {
         flexDirection: 'row',
@@ -297,10 +292,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.divider,
     },
     dividerText: {
-        color: colors.text.light,
+        ...typography.subheading2,
         marginHorizontal: wp(4),
-        fontSize: hp(1.7),
-        fontWeight: 'bold',
     },
     socialLoginContainer: {
         // Styles for social login section
@@ -321,15 +314,13 @@ const styles = StyleSheet.create({
         marginRight: wp(3),
     },
     socialButtonText: {
-        color: colors.text.light,
-        fontSize: hp(1.8),
-        fontWeight: 'bold',
+        ...typography.buttonText,
     },
     errorMessage: {
-        color: colors.status.error,
+        ...typography.errorText,
     },
     successMessage: {
-        color: colors.gold,
+        ...typography.successText,
         marginBottom: hp(1),
     },
 });

@@ -9,6 +9,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
+import { typography } from '../../constants/globalStyles';
 
 const HomeScreen = () => {
     const [selectedCategory, setSelectedCategory] = React.useState('Acoustic Sessions');
@@ -46,7 +47,7 @@ const HomeScreen = () => {
             <Header onProfilePress={() => console.log('Profile pressed')} />
             <View style={styles.categoryContainer}>
                 <View style={styles.categoryChip}>
-                    <Text>Acoustic Sessions</Text>
+                    <Text style={styles.categoryText}>Acoustic Sessions</Text>
                     <Feather name="chevron-down" size={16} color="white" />
                 </View>
                 <TouchableOpacity >
@@ -64,7 +65,6 @@ const HomeScreen = () => {
                     ))}
                 </ScrollView>
             </View>
-
         </View>
     );
 };
@@ -90,6 +90,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 8,
         borderRadius: 16,
+    },
+    categoryText: {
+        ...typography.subheading2,
+        color: colors.text.light,
     },
     content: {
         flex: 1,

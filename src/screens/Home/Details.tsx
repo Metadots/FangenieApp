@@ -13,6 +13,7 @@ import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../constants/colors';
+import { typography } from '../../constants/globalStyles';
 
 
 
@@ -550,9 +551,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     logo: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#fff',
+        ...typography.heading2,
     },
     signInButton: {
         backgroundColor: '#c061ff',
@@ -561,20 +560,15 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     signInButtonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
+        ...typography.buttonText,
     },
     eventTitle: {
-        fontSize: hp(4),
-        fontWeight: 'bold',
-        color: '#fff',
+        ...typography.heading1,
         textAlign: 'left',
         marginTop: 10,
     },
     eventTitleHighlight: {
-        fontSize: hp(4),
-        fontWeight: 'bold',
+        ...typography.heading1,
         color: colors.gold,
         textAlign: 'left',
     },
@@ -588,8 +582,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     dateChipText: {
+        ...typography.description,
         color: 'grey',
-        fontSize: 12,
     },
     infoRow: {
         flexDirection: 'row',
@@ -598,8 +592,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     infoText: {
+        ...typography.description,
         color: '#eee',
-        fontSize: 12,
     },
     infoItem: {
         flexDirection: 'row',
@@ -631,25 +625,22 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(200, 100, 255, 0.3)",
     },
     timeValue: {
+        ...typography.subheading1,
         color: '#fff',
-        fontSize: 12,
-        fontWeight: 'bold',
     },
     timeUnit: {
+        ...typography.description,
         color: '#eee',
-        fontSize: 12,
         marginTop: 2,
     },
     colon: {
+        ...typography.heading2,
         color: '#eee',
-        fontSize: 20,
-        fontWeight: 'bold',
         marginHorizontal: 2,
     },
     startingPrice: {
+        ...typography.description,
         color: '#fff',
-        fontSize: 12,
-        fontWeight: '500',
         alignSelf: 'flex-start',
         marginTop: 5,
         marginLeft: 15,
@@ -662,8 +653,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
     },
     sectionTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
+        ...typography.heading2,
         color: '#fff',
         textAlign: 'center',
     },
@@ -685,20 +675,18 @@ const styles = StyleSheet.create({
 
     },
     descriptionTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        ...typography.heading1,
         color: '#fff',
         textAlign: 'left',
         lineHeight: 32,
     },
     descriptionSubtitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        ...typography.heading1,
         color: colors.gold,
         textAlign: 'left',
     },
     descriptionText: {
-        fontSize: 14,
+        ...typography.body,
         color: '#fff',
         lineHeight: 20,
         textAlign: 'left',
@@ -735,17 +723,14 @@ const styles = StyleSheet.create({
         top: -55
     },
     timelineNumber: {
+        ...typography.heading1,
         color: '#fff',
-        fontSize: 24,
-        fontWeight: 'bold',
-
     },
     timelineContent: {
         flex: 1,
         paddingHorizontal: wp(0),
         paddingRight: wp(50),
         marginVertical: 15,
-
     },
     timelineContentRight: {
         paddingLeft: wp(50),
@@ -753,16 +738,15 @@ const styles = StyleSheet.create({
         marginVertical: 15
     },
     timelineTitle: {
+        ...typography.subheading2,
         color: '#fff',
-        fontSize: 12,
-        fontWeight: 'bold',
         marginBottom: 8,
         textAlign: 'right',
         paddingRight: wp(3)
     },
     timelineDescription: {
+        ...typography.description,
         color: colors.text.light,
-        fontSize: 10,
         paddingRight: wp(3),
         textAlign: 'right',
     },
@@ -784,9 +768,8 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(192, 97, 255, 1)',
     },
     stageLabelText: {
+        ...typography.description,
         color: '#fff',
-        fontWeight: '600',
-        fontSize: 10,
     },
     seatingGridContainer: {
         width: wp(90),
@@ -863,9 +846,8 @@ const styles = StyleSheet.create({
         marginBottom: hp(1.5),
     },
     categoryTitle: {
+        ...typography.subheading2,
         color: '#fff',
-        fontSize: hp(1.7),
-        fontWeight: '600',
         marginBottom: hp(0.6),
     },
     categoryDetails: {
@@ -879,14 +861,13 @@ const styles = StyleSheet.create({
         marginRight: wp(2),
     },
     categoryPrice: {
+        ...typography.subheading2,
         color: '#fff',
-        fontSize: hp(1.7),
-        fontWeight: 'bold',
         marginRight: wp(2),
     },
     categoryAvailability: {
+        ...typography.description,
         color: '#aaa',
-        fontSize: hp(1.7),
     },
     fixedBottomBar: {
         position: 'absolute',

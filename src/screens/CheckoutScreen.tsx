@@ -19,6 +19,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/globalStyles';
 
+// Define navigation prop type
+type CheckoutScreenNavigationProp = NativeStackNavigationProp<any>;
+
 // Assuming you have icons, replace with your actual icon components or libraries
 const PlaceholderIcon = () => <View style={styles.iconPlaceholder}><Text style={styles.iconText}>B</Text></View>; // Added simple text
 const VisaIcon = () => <Text style={styles.cardIconText}>VISA</Text>; // Placeholder
@@ -88,8 +91,7 @@ const CheckoutScreen = () => {
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <StatusBar barStyle="light-content" />
-            {/* Header */}
-            <Header onProfilePress={() => { }} />
+            <Header onProfilePress={() => { }} profile={3} logout={true} />
             <Text style={styles.title}>Checkout</Text>
 
             {/* Ticket Selection */}
@@ -197,7 +199,13 @@ const CheckoutScreen = () => {
                     </TouchableOpacity>
 
                 </View>
-                <PrimaryButton title="Pay Now" onPress={handlePayNow} />
+                <PrimaryButton
+                    title="Pay Now"
+                    onPress={handlePayNow}
+                    style={styles.payButton}
+                    textStyle={styles.payButtonText}
+                    loading={false}
+                />
             </View>
         </ScrollView>
     );
@@ -246,54 +254,50 @@ const OrderDetailRow: React.FC<OrderDetailRowProps> = ({ label, value, isTotal =
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: Platform.OS === 'android' ? hp(1) : hp(6), // Adjust for status bar
+        paddingTop: Platform.OS === 'android' ? hp(1) : hp(6),
         flex: 1,
-        backgroundColor: '#190F20', // Darker purple background matching image more closely
+        backgroundColor: colors.background.dark,
     },
     contentContainer: {
-        paddingBottom: 40, // Add padding to the bottom
+        paddingBottom: 40,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 50, // Adjust for status bar
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 50,
         paddingBottom: 10,
     },
-    logoText: { // Replace with Image styles if using an image
-        color: '#FFF',
-        fontSize: 24,
-        fontWeight: 'bold',
-        // Add font family if you have a custom font
+    logoText: {
+        ...typography.heading2,
+        color: colors.text.light,
     },
     signInButton: {
-        backgroundColor: '#A050F0', // Lighter purple
+        backgroundColor: colors.primary,
         paddingVertical: 10,
         paddingHorizontal: 25,
         borderRadius: 20,
     },
     signInButtonText: {
-        color: '#FFF',
-        fontSize: 16,
-        fontWeight: 'bold',
+        ...typography.buttonText,
+        color: colors.text.light,
     },
     title: {
         ...typography.heading1,
         marginBottom: hp(2),
     },
     section: {
-        // backgroundColor: '#3E2A5A', // Slightly lighter purple section background
         marginHorizontal: 15,
         marginBottom: 20,
-        paddingVertical: 15, // Adjusted padding
+        paddingVertical: 15,
         paddingHorizontal: 20,
         borderWidth: 1,
         borderColor: colors.gold,
     },
     divider: {
         height: 1,
-        backgroundColor: '#5A4573', // Divider color
+        backgroundColor: colors.divider,
         marginVertical: 15,
     },
     ticketItem: {
@@ -303,29 +307,26 @@ const styles = StyleSheet.create({
     ticketInfo: {
         flexDirection: 'row',
         alignItems: 'center',
-        flexShrink: 1, // Allow info to shrink if needed
+        flexShrink: 1,
     },
-    iconPlaceholder: { // Style your icon container
+    iconPlaceholder: {
         width: 40,
         height: 40,
         borderRadius: 8,
-        backgroundColor: '#FFF', // White background for icon
+        backgroundColor: colors.background.primary,
         marginRight: 15,
         justifyContent: 'center',
         alignItems: 'center',
-
-        // Add elevation/shadow if needed
     },
-    iconText: { // If using text as placeholder
-        color: '#3E2A5A',
-        fontWeight: 'bold',
-        fontSize: 18,
+    iconText: {
+        ...typography.subheading2,
+        color: colors.text.primary,
     },
-    ticketTextContainer: { // Wrap text elements
-        flexDirection: 'row', // Stack name and price
+    ticketTextContainer: {
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 10, // Add space between text and quantity controls
+        marginRight: 10,
     },
     ticketName: {
         ...typography.subheading2,
@@ -338,12 +339,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: 10,
-
     },
     quantityControls: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: "rgba(200, 100, 255, 0.3)",
+        backgroundColor: colors.background.primary,
         borderRadius: 10,
         height: hp(3),
         marginBottom: 5,
@@ -401,15 +401,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     cardIconText: {
+        ...typography.description,
         color: colors.text.light,
         marginLeft: 5,
-        fontWeight: 'bold',
-        fontSize: 10,
         backgroundColor: colors.card.background,
         paddingHorizontal: 4,
         paddingVertical: 2,
         borderRadius: 3,
-        // overflow: 'hidden',
     },
     inputLabel: {
         ...typography.inputLabel,
@@ -425,12 +423,12 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginHorizontal: -5, // Counteract inputGroup margin
-        marginTop: 0, // Removed margin top for row
+        marginHorizontal: -5,
+        marginTop: 0,
     },
     inputGroup: {
-        flex: 1, // Each group takes half the space
-        marginHorizontal: 5, // Add spacing between inputs
+        flex: 1,
+        marginHorizontal: 5,
     },
     orderDetailsDivider: {
         marginVertical: 20,
@@ -488,9 +486,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     payButtonText: {
+        ...typography.buttonText,
         color: colors.button.text,
-        fontSize: 18,
-        fontWeight: 'bold',
     },
     gradient: {
         borderRadius: 15,

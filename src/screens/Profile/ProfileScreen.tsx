@@ -17,6 +17,8 @@ import Header from '../../components/Header';
 import { useUpdatePassword } from '../../services/settings.service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { userStore } from '../../store';
+import { colors } from '../../constants/colors';
+import { typography } from '../../constants/globalStyles';
 
 const ProfileScreen = () => {
     const navigation = useNavigation();
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'ios' ? hp(6) : hp(1),
-        backgroundColor: '#190F20', // Dark purple background
+        backgroundColor: colors.background.dark,
     },
     contentContainer: {
         width: "100%",
@@ -168,16 +170,14 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     logo: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-        // Add FanGenie logo styling/image replacement here
+        ...typography.heading2,
+        color: colors.text.light,
     },
     headerIconPlaceholder: {
         width: 30,
         height: 30,
         borderRadius: 15,
-        backgroundColor: '#d3d3d3', // Light gray placeholder
+        backgroundColor: colors.background.primary,
     },
     profilePicContainer: {
         alignItems: 'center',
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         borderRadius: 60,
-        backgroundColor: '#d3d3d3', // Light gray placeholder
+        backgroundColor: colors.background.primary,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -200,51 +200,46 @@ const styles = StyleSheet.create({
         width: "48%",
     },
     label: {
-        color: '#fff',
+        ...typography.subheading2,
+        color: colors.text.light,
         marginBottom: 8,
-        fontSize: 16,
-        fontWeight: '500',
     },
     input: {
-        backgroundColor: '#353535', // Darker input background
-        color: '#fff',
+        backgroundColor: colors.background.primary,
         paddingHorizontal: 15,
         paddingVertical: 12,
-
-        fontSize: 16,
-        marginBottom: 15, // Add margin below single inputs
+        ...typography.description,
+        marginBottom: 15,
     },
     passwordInputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#3e325a',
+        backgroundColor: colors.background.primary,
         borderRadius: 8,
         marginBottom: 15,
         paddingHorizontal: 15,
     },
     inputPassword: {
         flex: 1,
-        color: '#fff',
         paddingVertical: 12,
-        fontSize: 16,
+        ...typography.description,
     },
     eyeIcon: {
-        color: '#a0a0a0',
-        fontSize: 20, // Adjust size as needed
+        color: colors.text.secondary,
+        fontSize: 20,
         paddingLeft: 10,
     },
     button: {
-        backgroundColor: '#a259ff', // Vibrant purple button
+        backgroundColor: colors.primary,
         paddingVertical: 15,
         borderRadius: 8,
         alignItems: 'center',
-        marginTop: 10, // Margin above buttons
-        marginBottom: 25, // Margin below buttons
+        marginTop: 10,
+        marginBottom: 25,
     },
     buttonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
+        ...typography.buttonText,
+        color: colors.text.light,
     },
     mainContent: {
         width: '90%',

@@ -28,7 +28,8 @@ const EventCard = ({
     return (
         <Card style={styles.card} onPress={onPress}>
             <ImageBackground
-                source={{ uri: imageUrl }}
+                blurRadius={1}
+                source={require('../assets/images/dummyConcert.png')}
                 style={styles.imageBackground}
                 imageStyle={styles.imageStyle}
             >
@@ -82,14 +83,13 @@ const styles = StyleSheet.create({
         height: 350,
         justifyContent: 'space-between',
         borderRadius: 16,
-        overflow: 'hidden',
     },
     imageStyle: {
         borderRadius: 16,
     },
     overlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         padding: 16,
         justifyContent: 'space-between',
     },
