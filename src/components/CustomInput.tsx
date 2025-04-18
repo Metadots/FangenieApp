@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Or your preferred icon set
+import { typography } from '../constants/globalStyles';
+import { colors } from '../constants/colors';
 
 interface CustomInputProps extends TextInputProps {
     label: string;
@@ -52,7 +54,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                 error ? styles.inputContainerError : null]}>
                 <TextInput
                     style={[styles.input, inputStyle]}
-                    placeholderTextColor="#fff"
+                    placeholderTextColor={colors.text.muted}
                     secureTextEntry={internalSecureTextEntry}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
@@ -60,8 +62,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
                 />
                 {dynamicIconName && (
                     <TouchableOpacity onPress={handleIconPress} style={styles.iconContainer}>
-                        {/* @ts-ignore */}
-                        <Icon name={dynamicIconName} size={hp(2.5)} color="#B0A0C0" />
+                        <Icon name={dynamicIconName} size={hp(2.5)} color={colors.text.muted} />
                     </TouchableOpacity>
                 )}
             </View>
@@ -76,37 +77,36 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     label: {
-        color: '#fff',
-        fontSize: hp(1.8),
+        ...typography.inputLabel,
+        color: colors.text.light,
         marginBottom: hp(1),
         marginLeft: wp(1),
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#353535',
-        borderColor: '#5A4573',
+        backgroundColor: colors.background.dark,
+        borderColor: colors.card.background,
         paddingHorizontal: wp(4),
         height: hp(6.5),
     },
     inputContainerFocused: {
-        borderColor: '#A050F0',
+        borderColor: colors.primary,
     },
     inputContainerError: {
-        borderColor: '#FF6B6B',
+        borderColor: colors.status.error,
     },
     input: {
         flex: 1,
-        color: '#FFF',
-        fontSize: hp(1.6),
+        ...typography.inputText,
+        color: colors.text.light,
         paddingVertical: Platform.OS === 'ios' ? hp(1.5) : hp(1),
     },
     iconContainer: {
         paddingLeft: wp(2),
     },
     errorText: {
-        color: '#FF6B6B',
-        fontSize: hp(1.5),
+        ...typography.errorText,
         marginTop: hp(0.5),
         marginLeft: wp(1),
     }

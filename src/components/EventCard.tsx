@@ -4,6 +4,9 @@ import { Text, Card, useTheme, IconButton } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { typography } from '../constants/globalStyles';
+import { colors } from '../constants/colors';
+
 interface EventCardProps {
     title: string;
     date: string;
@@ -14,7 +17,7 @@ interface EventCardProps {
     onPress?: () => void;
 }
 
-const EventCard = ({
+const EventCard: React.FC<EventCardProps> = ({
     title,
     date,
     venue,
@@ -36,7 +39,7 @@ const EventCard = ({
                 <View style={styles.overlay}>
                     <View style={styles.dateContainer}>
                         <View style={styles.dateIconContainer}>
-                            <Feather name="calendar" size={16} color="grey" />
+                            <Feather name="calendar" size={16} color={colors.text.muted} />
                             <Text style={styles.dateText}>{date}</Text>
                         </View>
 
@@ -59,7 +62,7 @@ const EventCard = ({
                                 <EvilIcons
                                     name="location"
                                     size={18}
-                                    color="white"
+                                    color={colors.text.light}
                                     style={{
                                         marginRight: 5
                                     }} />
@@ -103,10 +106,9 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     dateText: {
-        color: 'grey',
+        ...typography.descriptionSmall,
+        color: colors.text.muted,
         marginLeft: 8,
-        fontSize: 12,
-
     },
     ticketIcon: {
         width: 20,
@@ -116,8 +118,11 @@ const styles = StyleSheet.create({
     dateIconContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: "#FFF", height: "100%", width: "65%",
-        justifyContent: "center", borderRadius: 30,
+        backgroundColor: colors.background.light,
+        height: "100%",
+        width: "65%",
+        justifyContent: "center",
+        borderRadius: 30,
     },
     ticketsContainer: {
         flexDirection: 'row',
@@ -125,16 +130,15 @@ const styles = StyleSheet.create({
         height: 30
     },
     ticketsText: {
-        color: '#fff',
-        fontSize: 12,
+        ...typography.descriptionSmall,
+        color: colors.text.light,
     },
     bottomContent: {
         gap: 8,
     },
     title: {
-        color: '#fff',
-        fontSize: 24,
-        fontWeight: 'bold',
+        ...typography.heading2,
+        color: colors.text.light,
     },
     detailsContainer: {
         flexDirection: 'row',
@@ -147,8 +151,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     detailText: {
-        color: '#fff',
-        fontSize: 12,
+        ...typography.descriptionSmall,
+        color: colors.text.light,
     },
     icon: {
         margin: 0,
