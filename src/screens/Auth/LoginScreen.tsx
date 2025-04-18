@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, } from 'react';
 import {
     View,
     Text,
@@ -7,10 +7,9 @@ import {
     ScrollView,
     Platform,
     StatusBar,
-    Image
+    Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Using Material Community Icons
 import CustomInput from '../../components/CustomInput';
@@ -18,6 +17,10 @@ import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
 import { useLogin } from '../../services/auth.service';
 import { userStore } from '../../store';
+import {
+    GoogleSignin,
+    statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 const LoginScreen: React.FC = () => {
     const navigation = useNavigation();
@@ -29,6 +32,12 @@ const LoginScreen: React.FC = () => {
 
     const loginMutation = useLogin();
     const { setAuth } = userStore();
+
+    useEffect(() => {
+        GoogleSignin.configure({
+            iosClientId: '557893898710-vgsbkclnjrsjecga59j842vo0lhuifb7.apps.googleusercontent.com',
+        });
+    }, []);
 
     const handleLogin = async () => {
         const cleanEmail = email.trim();
@@ -57,11 +66,11 @@ const LoginScreen: React.FC = () => {
                 setSuccessMessage('Login successful! Redirecting...');
                 setAuth(data);
                 setTimeout(() => {
+                    //@ts-ignore
                     navigation.navigate('MainTabs');
                 }, 2000);
             },
             onError: (error: any) => {
-                console.log("Yehi hy ", error);
                 const errorMsg = error?.message || 'An unknown error occurred. Please try again.';
                 if (errorMsg.includes('401')) {
                     setErrorMessage('Account not found. Please create a new one.');
@@ -75,12 +84,44 @@ const LoginScreen: React.FC = () => {
 
     const handleForgotPassword = () => {
         console.log('Forgot Password pressed');
+        //@ts-ignore
         navigation.navigate('ForgotPassword');
     };
 
-    const handleGoogleLogin = () => {
-        // TODO: Implement Google Sign-In
-        console.log('Google Login pressed');
+    const handleGoogleLogin = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            // console.log(userInfo);
+            let user = {
+                firstName: userInfo.data.user.givenName,
+                lastName: userInfo.data.user.familyName,
+                email: userInfo.data.user.email,
+                accountType: 'google',
+                socialID: userInfo.data.user.id,
+                profileImage: userInfo.data.user.photo,
+            };
+            console.log(user);
+            // const response = await socialSignUp(user);
+
+            // dispatch(setAuth(response));
+            // setIsGoogleLoading(false);
+        } catch (error: any) {
+            console.log(error);
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // setIsGoogleLoading(false);
+                return;
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // setIsGoogleLoading(false);
+                return;
+            }
+            await GoogleSignin.signOut();
+            // dispatch(purgeAuth());
+            // setAlert(error.message);
+            // setModalVisible(true);
+            // setIsGoogleLoading(false);
+        }
+
     };
 
     const handleFacebookLogin = () => {
@@ -104,7 +145,9 @@ const LoginScreen: React.FC = () => {
             <Text style={styles.title}>Login to your account</Text>
             <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>Don't have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+                <TouchableOpacity onPress={() =>
+                    //@ts-ignore
+                    navigation.navigate('Signup')}>
                     <Text style={styles.linkText}>Signup</Text>
                 </TouchableOpacity>
             </View>
@@ -135,7 +178,7 @@ const LoginScreen: React.FC = () => {
                     <Text style={styles.linkText}>Forgot Password?</Text>
                 </TouchableOpacity>
 
-                <View style={{ width: '100%', alignItems: 'center' }} >
+                <View style={styles.errorContainer} >
                     {errorMessage ? (
                         <Text style={styles.errorMessage}>{errorMessage}</Text>
                     ) : null}
@@ -159,8 +202,8 @@ const LoginScreen: React.FC = () => {
                     <Icon
                         name={
                             keepLoggedIn
-                                ? "checkbox-marked"
-                                : "checkbox-blank-outline"
+                                ? 'checkbox-marked'
+                                : 'checkbox-blank-outline'
                         }
                         size={hp(2.5)}
                         color={keepLoggedIn
@@ -230,7 +273,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: hp(4),
-        alignSelf: "flex-start",
+        alignSelf: 'flex-start',
     },
     subtitleText: {
         color: colors.text.light,
@@ -310,6 +353,10 @@ const styles = StyleSheet.create({
         color: colors.gold,
         marginBottom: hp(2),
     },
+    errorContainer: {
+        width: '100%',
+        alignItems: 'center',
+    },
 });
 
-export default LoginScreen; 
+export default LoginScreen;
