@@ -12,7 +12,20 @@
           "package_name": "com.fangenieapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "557893898710-d8prs71p4ok8dji4c9k5fc18rhophqq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fangenieapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "557893898710-t59grbcv80ch1sod9blpq1lgd0fpgbh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCNywWL6P277BKepIv1LMOEoWwKDoJNfdA"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557893898710-t59grbcv80ch1sod9blpq1lgd0fpgbh9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "557893898710-vgsbkclnjrsjecga59j842vo0lhuifb7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Fangenie"
+              }
+            }
+          ]
         }
       }
     }
