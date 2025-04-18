@@ -8,6 +8,7 @@ import {
     Platform,
     StatusBar,
     Image,
+    ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -29,6 +30,7 @@ const LoginScreen: React.FC = () => {
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
+    const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
     const loginMutation = useLogin();
     const { setAuth } = userStore();
@@ -89,39 +91,56 @@ const LoginScreen: React.FC = () => {
     };
 
     const handleGoogleLogin = async () => {
+        if (isGoogleLoading) return; // Prevent multiple sign-in attempts
+
+        setIsGoogleLoading(true);
         try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
-            // console.log(userInfo);
-            let user = {
-                firstName: userInfo.data.user.givenName,
-                lastName: userInfo.data.user.familyName,
-                email: userInfo.data.user.email,
-                accountType: 'google',
-                socialID: userInfo.data.user.id,
-                profileImage: userInfo.data.user.photo,
-            };
-            console.log(user);
-            // const response = await socialSignUp(user);
 
-            // dispatch(setAuth(response));
-            // setIsGoogleLoading(false);
-        } catch (error: any) {
-            console.log(error);
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                // setIsGoogleLoading(false);
-                return;
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                // setIsGoogleLoading(false);
-                return;
+            if (!userInfo?.data?.user) {
+                throw new Error('Failed to get user information from Google');
             }
-            await GoogleSignin.signOut();
-            // dispatch(purgeAuth());
-            // setAlert(error.message);
-            // setModalVisible(true);
-            // setIsGoogleLoading(false);
-        }
 
+            const user = {
+                firstName: userInfo.data.user.givenName || '',
+                lastName: userInfo.data.user.familyName || '',
+                email: userInfo.data.user.email || '',
+                accountType: 'google',
+                socialID: userInfo.data.user.id || '',
+                profileImage: userInfo.data.user.photo || '',
+            };
+
+            // TODO: Implement your social sign-up logic here
+            // const response = await socialSignUp(user);
+            // setAuth(response);
+
+        } catch (error: any) {
+            console.log('Google Sign-In Error:', error);
+
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // User cancelled the sign-in flow
+                setErrorMessage('Sign-in was cancelled');
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // Sign-in is in progress already
+                setErrorMessage('Sign-in is already in progress');
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                // Play services not available or outdated
+                setErrorMessage('Google Play Services are not available or outdated');
+            } else {
+                // Some other error happened
+                setErrorMessage('Google Sign-In failed. Please try again.');
+            }
+
+            // Clean up the sign-in state
+            try {
+                await GoogleSignin.signOut();
+            } catch (signOutError) {
+                console.log('Error signing out:', signOutError);
+            }
+        } finally {
+            setIsGoogleLoading(false);
+        }
     };
 
     const handleFacebookLogin = () => {
@@ -224,11 +243,15 @@ const LoginScreen: React.FC = () => {
             {/* Social Logins */}
             <View style={styles.socialLoginContainer}>
                 <TouchableOpacity
-                    style={styles.socialButton}
-                    onPress={handleGoogleLogin}>
-                    {/* @ts-ignore */}
+                    style={[styles.socialButton, isGoogleLoading && styles.disabledButton]}
+                    onPress={handleGoogleLogin}
+                    disabled={isGoogleLoading}>
                     <Image source={require('../../assets/images/google.png')} style={styles.socialIcon} />
-                    <Text style={styles.socialButtonText}>Google</Text>
+                    {isGoogleLoading ? (
+                        <ActivityIndicator size="small" color={colors.gold} />
+                    ) : (
+                        <Text style={styles.socialButtonText}>Google</Text>
+                    )}
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.socialButton}
@@ -356,6 +379,9 @@ const styles = StyleSheet.create({
     errorContainer: {
         width: '100%',
         alignItems: 'center',
+    },
+    disabledButton: {
+        opacity: 0.7,
     },
 });
 
