@@ -7,9 +7,14 @@ export const userStore = create(
         (set, get) => ({
             loggedInUser: null,
             loading: true,
-            setAuth: payload =>
-                set(state => ({ loggedInUser: payload, token: payload.token })),
-            purgeAuth: () => set(() => ({ loggedInUser: null, token: null })),
+            setAuth: (payload) => {
+                AsyncStorage.setItem('token', payload.token);
+                set(state => ({ loggedInUser: payload, token: payload.token }));
+            },
+            purgeAuth: () => {
+                AsyncStorage.removeItem('token');
+                set(() => ({ loggedInUser: null, token: null }));
+            },
             setLoading: (loadingState) => set(() => ({ loading: loadingState })), // To update the loading state
         }),
         {

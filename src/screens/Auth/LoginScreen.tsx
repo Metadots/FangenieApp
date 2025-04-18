@@ -20,7 +20,7 @@ import { useLogin } from '../../services/auth.service';
 import { userStore } from '../../store';
 
 const LoginScreen: React.FC = () => {
-    const navigation = useNavigation<LoginScreenNavigationProp>();
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [keepLoggedIn, setKeepLoggedIn] = useState(false);
@@ -61,7 +61,7 @@ const LoginScreen: React.FC = () => {
                 }, 2000);
             },
             onError: (error: any) => {
-                console.log(error);
+                console.log("Yehi hy ", error);
                 const errorMsg = error?.message || 'An unknown error occurred. Please try again.';
                 if (errorMsg.includes('401')) {
                     setErrorMessage('Account not found. Please create a new one.');

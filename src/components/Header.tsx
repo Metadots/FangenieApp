@@ -20,21 +20,20 @@ const Header = ({ onProfilePress, profile, logout }) => {
                 style={styles.logo}
                 resizeMode="contain"
             />
-            {logout &&
-                <TouchableOpacity onPress={() => { purgeAuth(); }} >
-                    <MaterialIcons name='logout' color={'white'} size={24} />
-                </TouchableOpacity>
-            }
-            {profile === 3 ?
-                <></>
-                : profile ?
+
+            {!loggedInUser
+                ?
+                <SignInButton
+                    onPress={() => navigation.navigate('Login')}
+                />
+                : logout ?
+                    <TouchableOpacity onPress={() => { purgeAuth(); }} >
+                        <MaterialIcons name='logout' color={'white'} size={24} />
+                    </TouchableOpacity>
+                    :
                     <TouchableOpacity style={styles.profileIcon} onPress={() => navigation.navigate('Profile')}>
                         <MaterialIcons name="person" size={24} color="white" />
                     </TouchableOpacity>
-                    :
-                    !loggedInUser && <SignInButton
-                        onPress={() => navigation.navigate('Login')}
-                    />
             }
         </View>
     );

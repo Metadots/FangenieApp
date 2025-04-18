@@ -109,6 +109,9 @@ const ProfileScreen = () => {
                         label="Old Password"
                         placeholder="Enter your Password"
                         placeholderTextColor="#a0a0a0"
+                        value={currentPassword}
+                        onChangeText={setCurrentPassword}
+                        onFocus={() => setErrorMessage('')}
                         secureTextEntry={!currentPasswordVisible}
                     />
 
@@ -116,6 +119,9 @@ const ProfileScreen = () => {
                         label="New Password"
                         placeholder="Enter your Password"
                         placeholderTextColor="#a0a0a0"
+                        value={newPassword}
+                        onChangeText={setNewPassword}
+                        onFocus={() => setErrorMessage('')}
                         secureTextEntry={!newPasswordVisible}
                     />
 
@@ -123,6 +129,9 @@ const ProfileScreen = () => {
                         label="Confirm New Password"
                         placeholder="Enter your Password"
                         placeholderTextColor="#a0a0a0"
+                        value={confirmNewPassword}
+                        onChangeText={setConfirmNewPassword}
+                        onFocus={() => setErrorMessage('')}
                         secureTextEntry={!confirmNewPasswordVisible}
                     />
 

@@ -25,9 +25,7 @@ axios.defaults.timeout = defaultTimeout;
 
 axios.interceptors.request.use(
     async config => {
-        const { loggedInUser } = userStore();
-
-        const idToken = loggedInUser?.token || (await AsyncStorage.getItem('token'));
+        const idToken = await AsyncStorage.getItem('token');
         if (idToken) config.headers.Authorization = `Bearer ${idToken}`;
 
         config.timeoutErrorMessage = ErrorMessages.timeoutMessage;

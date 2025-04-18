@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "557893898710",
+    "project_id": "fangenie-96462",
+    "storage_bucket": "fangenie-96462.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557893898710:android:c6648fddf02ac4a0c19477",
+        "android_client_info": {
+          "package_name": "com.fangenieapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNywWL6P277BKepIv1LMOEoWwKDoJNfdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

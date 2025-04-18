@@ -27,9 +27,9 @@ import DetailsScreen from '../screens/Home/Details';
 import { colors } from '../constants/colors';
 import { userStore } from '../store';
 
-const NotificationsScreen = () => <View />;
-const FavoritesScreen = () => <View />;
-const ExploreScreen = () => <View />;
+const NotificationsScreen = () => <View style={styles.dummyScreen} />;
+const FavoritesScreen = () => <View style={styles.dummyScreen} />;
+const ExploreScreen = () => <View style={styles.dummyScreen} />;
 
 const Stack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -165,4 +165,5 @@ const styles = StyleSheet.create({
         width: wp(95),
         marginLeft: wp(2.5),
     },
+    dummyScreen: { flex: 1, backgroundColor: colors.background.dark }
 }); 
