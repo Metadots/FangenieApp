@@ -17,6 +17,7 @@ import Header from '../components/Header';
 import PrimaryButton from '../components/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../constants/colors';
+import { typography } from '../constants/globalStyles';
 
 // Assuming you have icons, replace with your actual icon components or libraries
 const PlaceholderIcon = () => <View style={styles.iconPlaceholder}><Text style={styles.iconText}>B</Text></View>; // Added simple text
@@ -278,12 +279,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     title: {
-        color: '#c061ff',
-        fontSize: hp(4),
-        fontWeight: 'bold',
-        marginTop: 10, // Reduced top margin
-        marginBottom: 20,
-        marginLeft: 20,
+        ...typography.heading1,
+        marginBottom: hp(2),
     },
     section: {
         // backgroundColor: '#3E2A5A', // Slightly lighter purple section background
@@ -331,14 +328,10 @@ const styles = StyleSheet.create({
         marginRight: 10, // Add space between text and quantity controls
     },
     ticketName: {
-        color: '#FFF',
-        fontSize: 14,
-        fontWeight: '600',
-        marginRight: 10
+        ...typography.subheading2,
     },
     ticketPricePer: {
-        color: '#fff',
-        fontSize: 12,
+        ...typography.description,
     },
     quantityControlContainer: {
         flexDirection: 'row',
@@ -365,32 +358,17 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     quantityButtonText: {
-        color: '#FFF',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
+        ...typography.buttonText,
     },
     quantityText: {
-        color: '#FFF',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        borderRightWidth: 1,
-        borderLeftWidth: 1,
-        borderColor: "#ccc",
-        width: wp(6),
+        ...typography.description,
     },
     ticketTotalPrice: {
-        color: '#FFF',
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginTop: 5, // Add space above total price
+        ...typography.subheading2,
     },
     sectionTitle: {
-        color: colors.text.light,
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 15,
+        ...typography.subheading1,
+        marginBottom: hp(2),
     },
     paymentOption: {
         flexDirection: 'row',
@@ -417,9 +395,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.border.accent,
     },
     paymentText: {
-        color: colors.text.light,
-        fontSize: 16,
-        flex: 1,
+        ...typography.description,
     },
     cardIcons: {
         flexDirection: 'row',
@@ -436,17 +412,15 @@ const styles = StyleSheet.create({
         // overflow: 'hidden',
     },
     inputLabel: {
-        color: colors.text.light,
-        fontSize: 14,
-        marginBottom: 8,
-        marginTop: 10,
+        ...typography.inputLabel,
+        marginBottom: hp(1),
     },
     input: {
-        backgroundColor: colors.background.dark,
-        paddingVertical: 12,
-        paddingHorizontal: 15,
-        color: colors.text.light,
-        fontSize: 16,
+        ...typography.inputText,
+        backgroundColor: colors.background.discount,
+        borderRadius: 10,
+        padding: hp(1.5),
+        marginBottom: hp(2),
     },
     row: {
         flexDirection: 'row',
@@ -468,23 +442,16 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     orderDetailLabel: {
-        color: colors.text.muted,
-        fontSize: 16,
+        ...typography.description,
     },
     orderDetailValue: {
-        color: colors.text.light,
-        fontSize: 16,
-        fontWeight: '500',
+        ...typography.description,
     },
     totalLabel: {
-        color: colors.text.light,
-        fontSize: 18,
-        fontWeight: 'bold',
+        ...typography.subheading1,
     },
     totalValue: {
-        color: colors.text.light,
-        fontSize: 18,
-        fontWeight: 'bold',
+        ...typography.heading2,
     },
     discountContainer: {
         flexDirection: 'row',
@@ -509,8 +476,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     applyButtonText: {
-        color: colors.button.text,
-        fontSize: 14,
+        ...typography.buttonTextSmall,
     },
     payButton: {
         backgroundColor: colors.button.primary,

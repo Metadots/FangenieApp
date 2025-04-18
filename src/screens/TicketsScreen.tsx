@@ -15,6 +15,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../components/Header';
 import { colors } from '../constants/colors';
+import { typography } from '../constants/globalStyles';
 
 // Assuming RootStackParamList and MainTabParamList are defined correctly in AppNavigator or a types file
 // If MainTabParamList is defined in AppNavigator, import it or redefine it here
@@ -143,11 +144,8 @@ const styles = StyleSheet.create({
         paddingBottom: hp(12), // Ensure content doesn't hide behind custom tab bar
     },
     screenTitle: {
-        color: '#CCC', // Lighter title as in image
-        fontSize: hp(2.5),
-        fontWeight: 'bold',
+        ...typography.heading2,
         marginBottom: hp(2),
-        // textAlign: 'center',
     },
     statsContainer: {
         // backgroundColor: colors.background.discount,
@@ -174,19 +172,15 @@ const styles = StyleSheet.create({
 
     },
     statLabel: {
-        color: colors.text.light,
-        fontSize: hp(1.6),
+        ...typography.subheading2,
         marginBottom: hp(0.5),
     },
     statValue: {
-        color: colors.text.light,
-        fontSize: hp(2.5),
-        fontWeight: 'bold',
+        ...typography.heading2,
         marginBottom: hp(0.5),
     },
     statPeriod: {
-        color: colors.text.light,
-        fontSize: hp(1.5),
+        ...typography.descriptionSmall,
     },
     discountContainer: {
         backgroundColor: '#CC7BFF4D',
@@ -197,9 +191,7 @@ const styles = StyleSheet.create({
         borderColor: '#CC7BFF',
     },
     sectionTitle: {
-        color: colors.text.light,
-        fontSize: hp(2),
-        fontWeight: 'bold',
+        ...typography.subheading1,
         marginBottom: hp(1),
     },
     discountBox: {
@@ -210,9 +202,7 @@ const styles = StyleSheet.create({
         marginTop: hp(1),
     },
     discountValue: {
-        color: colors.text.light,
-        fontSize: hp(2.2),
-        fontWeight: 'bold',
+        ...typography.heading3,
     },
     paymentContainer: {
         backgroundColor: colors.background.discount,
@@ -229,8 +219,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(2),
     },
     sectionSubtitle: {
-        color: colors.text.muted,
-        fontSize: hp(1.6),
+        ...typography.description,
     },
     editButton: {
         backgroundColor: colors.card.background,
@@ -241,9 +230,7 @@ const styles = StyleSheet.create({
         borderColor: colors.gold,
     },
     editButtonText: {
-        color: colors.button.text,
-        fontSize: hp(1.7),
-        fontWeight: 'bold',
+        ...typography.buttonTextSmall,
     },
     cardInfoBox: {
         backgroundColor: colors.card.background,
@@ -265,9 +252,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     cardText: {
-        color: colors.text.light,
-        fontSize: hp(1.4),
-        marginBottom: hp(0.5),
+        ...typography.description,
     },
     historyContainer: {
         padding: wp(2),
@@ -288,17 +273,15 @@ const styles = StyleSheet.create({
         borderColor: colors.history.header.border,
     },
     historyHeaderText: {
-        color: colors.history.text,
-        fontSize: hp(1.4),
+        ...typography.subheading2,
+        fontWeight: 'bold',
     },
     historyRow: {
         flexDirection: 'row',
         marginBottom: hp(1.4),
     },
     historyCellText: {
-        color: colors.history.text,
-        fontSize: hp(1.4),
-        textAlign: "left"
+        ...typography.description,
     },
     historyDateCol: {
         width: '30%',

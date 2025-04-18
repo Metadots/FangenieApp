@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // Using Ma
 import CustomInput from '../../components/CustomInput';
 import PrimaryButton from '../../components/PrimaryButton';
 import { colors } from '../../constants/colors';
+import { typography } from '../../constants/globalStyles';
 import { useLogin } from '../../services/auth.service';
 import { userStore } from '../../store';
 import {
@@ -288,8 +289,7 @@ const styles = StyleSheet.create({
         marginBottom: hp(1),
     },
     title: {
-        color: colors.text.light,
-        fontSize: hp(3),
+        ...typography.heading1,
         textAlign: 'left',
         marginBottom: hp(1),
     },
@@ -300,13 +300,10 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     subtitleText: {
-        color: colors.text.light,
-        fontSize: hp(1.8),
+        ...typography.subheading1,
     },
     linkText: {
-        color: colors.gold,
-        fontSize: hp(1.8),
-        fontWeight: 'bold',
+        ...typography.linkText,
     },
     formContainer: {
         marginBottom: hp(2),
@@ -326,8 +323,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     keepLoggedInText: {
-        color: colors.text.light,
-        fontSize: hp(1.7),
+        ...typography.description,
         marginLeft: wp(2),
     },
     dividerContainer: {
@@ -342,9 +338,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.divider,
     },
     dividerText: {
-        color: colors.text.light,
+        ...typography.subheading2,
         marginHorizontal: wp(4),
-        fontSize: hp(1.7),
         fontWeight: 'bold',
     },
     socialLoginContainer: {
@@ -366,15 +361,13 @@ const styles = StyleSheet.create({
         marginRight: wp(3),
     },
     socialButtonText: {
-        color: colors.text.light,
-        fontSize: hp(1.8),
-        fontWeight: 'bold',
+        ...typography.buttonText,
     },
     errorMessage: {
-        color: colors.status.error,
+        ...typography.errorText,
     },
     successMessage: {
-        color: colors.gold,
+        ...typography.successText,
         marginBottom: hp(1),
     },
     errorContainer: {

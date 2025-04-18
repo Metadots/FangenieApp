@@ -18,6 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../components/Header';
 import { colors } from '../constants/colors';
+import { typography } from '../constants/globalStyles';
 
 
 const PaymentSuccessScreen = ({ navigation }) => {
@@ -91,10 +92,8 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : hp(6),
         paddingBottom: 10,
     },
-    logoText: { // Placeholder logo
-        color: colors.text.light,
-        fontSize: 24,
-        fontWeight: 'bold',
+    logoText: {
+        ...typography.heading2,
     },
     signInButton: { // Copied from CheckoutScreen
         backgroundColor: colors.button.primary,
@@ -102,10 +101,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         borderRadius: 20,
     },
-    signInButtonText: { // Copied from CheckoutScreen
-        color: colors.button.text,
-        fontSize: 16,
-        fontWeight: 'bold',
+    signInButtonText: {
+        ...typography.buttonTextSmall,
     },
     mainContent: {
         flex: 1,
@@ -120,15 +117,12 @@ const styles = StyleSheet.create({
         marginBottom: hp(3),
     },
     title: {
-        color: colors.text.light,
-        fontSize: hp(3),
-        fontWeight: 'bold',
+        ...typography.heading1,
         textAlign: 'center',
         marginBottom: hp(3),
     },
     message: {
-        color: colors.text.light,
-        fontSize: hp(1.6),
+        ...typography.description,
         textAlign: 'center',
         lineHeight: hp(2.8),
         marginBottom: hp(4),
@@ -145,11 +139,10 @@ const styles = StyleSheet.create({
         borderColor: colors.card.background,
     },
     input: {
+        ...typography.inputText,
         flex: 1,
         paddingVertical: hp(1.5),
         paddingHorizontal: wp(4),
-        color: colors.input.text,
-        fontSize: hp(1.6),
     },
     sendButton: {
         backgroundColor: colors.button.primary,
@@ -161,9 +154,7 @@ const styles = StyleSheet.create({
         marginLeft: wp(2),
     },
     sendButtonText: {
-        color: colors.button.text,
-        fontSize: hp(1.4),
-        fontWeight: 'bold',
+        ...typography.buttonTextSmall,
     },
     // Optional Home Button Style
     homeButton: {
@@ -171,10 +162,8 @@ const styles = StyleSheet.create({
         padding: wp(4),
     },
     homeButtonText: {
-        color: colors.button.primary,
+        ...typography.linkText,
         fontSize: hp(2),
-        fontWeight: 'bold',
-        textDecorationLine: 'underline',
     }
 });
 

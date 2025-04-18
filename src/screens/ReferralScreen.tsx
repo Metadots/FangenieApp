@@ -21,6 +21,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // Assuming Header component exists
 import Header from '../components/Header';
 import { colors } from '../constants/colors';
+import { typography } from '../constants/globalStyles';
 
 
 // Define MainTabParamList (or import from navigator types)
@@ -187,29 +188,22 @@ const styles = StyleSheet.create({
 
     },
     statLabel: {
-        color: colors.text.light,
-        fontSize: hp(1.7),
+        ...typography.subheading2,
     },
     statValue: {
-        color: colors.text.light,
-        fontSize: hp(3.5),
-        fontWeight: 'bold',
+        ...typography.heading2,
     },
     statValueLarge: {
-        color: colors.text.light,
-        fontSize: hp(4.5), // Larger font size for count
-        fontWeight: 'bold',
+        ...typography.heading1,
     },
     statPeriod: {
-        color: colors.text.light,
-        fontSize: hp(1.5),
+        ...typography.descriptionSmall,
     },
     inviteLinkContainer: {
         // Container for Invite Link section within the top box
     },
     sectionTitle: {
-        color: colors.text.light,
-        fontSize: 16,
+        ...typography.subheading1,
         marginBottom: hp(1),
     },
     linkBox: {
@@ -222,9 +216,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     linkTextActual: {
-        color: colors.text.light,
-        fontSize: hp(1.7),
-        flex: 1, // Allow text to take available space
+        ...typography.description,
+        flex: 1,
         marginRight: wp(2),
     },
     copyButton: {
@@ -236,9 +229,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     copyButtonText: {
-        color: colors.button.text,
-        fontSize: hp(1.7),
-        fontWeight: 'bold',
+        ...typography.buttonTextSmall,
         marginRight: wp(1.5),
     },
     inviteMethodsContainer: {
@@ -297,9 +288,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     inviteButtonText: {
-        color: colors.button.text,
-        fontSize: hp(1.4),
-        fontWeight: 'bold',
+        ...typography.buttonTextSmall,
         marginRight: wp(1.5),
     },
     historyContainer: {
@@ -322,17 +311,15 @@ const styles = StyleSheet.create({
         borderColor: colors.gold,
     },
     historyHeaderText: {
-        color: colors.history.text,
-        fontSize: hp(1.4),
+        ...typography.subheading2,
+        fontWeight: 'bold',
     },
     historyRow: {
         flexDirection: 'row',
         marginBottom: hp(1.4),
     },
     historyCellText: {
-        color: colors.history.text,
-        fontSize: hp(1.4),
-        textAlign: "left"
+        ...typography.description,
     },
     historyDateCol: {
         width: '30%',
