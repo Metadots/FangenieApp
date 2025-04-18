@@ -112,7 +112,7 @@ const VerifyEmailScreen: React.FC = () => {
     }
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.contentContainer}>
             <StatusBar barStyle="light-content" backgroundColor={colors.background.dark} />
 
             {/* Header/Logo */}
@@ -177,7 +177,7 @@ const VerifyEmailScreen: React.FC = () => {
                 loading={verifyOtpMutation.isPending}
             />
 
-        </ScrollView>
+        </View>
     );
 };
 
@@ -187,11 +187,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background.dark,
     },
     contentContainer: {
-        flexGrow: 1,
+        flex: 1,
         paddingHorizontal: wp(8),
         paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
         paddingBottom: hp(5),
         alignItems: 'center',
+        backgroundColor: colors.background.dark,
     },
     headerContainer: {
         alignItems: 'center',

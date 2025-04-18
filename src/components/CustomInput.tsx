@@ -72,7 +72,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
 
 const styles = StyleSheet.create({
     outerContainer: {
-        marginBottom: hp(2),
+        marginBottom: hp(1.5),
         width: '100%',
     },
     label: {

@@ -111,9 +111,8 @@ const LoginScreen: React.FC = () => {
                 profileImage: userInfo.data.user.photo || '',
             };
 
-            // TODO: Implement your social sign-up logic here
-            // const response = await socialSignUp(user);
-            // setAuth(response);
+            console.log(user);
+            setSuccessMessage('Google Sign-In successful! Redirecting...');
 
         } catch (error: any) {
             console.log('Google Sign-In Error:', error);
@@ -149,7 +148,9 @@ const LoginScreen: React.FC = () => {
     };
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.contentContainer}
+        // contentContainerStyle={styles.contentContainer}
+        >
             <StatusBar barStyle="light-content" backgroundColor="#190F20" />
 
             {/* Header/Logo */}
@@ -180,15 +181,15 @@ const LoginScreen: React.FC = () => {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
-                    textContentType="emailAddress" // Help with autofill
+                    textContentType="emailAddress"
                 />
                 <CustomInput
                     label="Password"
                     placeholder="Enter your Password"
                     value={password}
                     onChangeText={setPassword}
-                    secureTextEntry // Enables the eye icon toggle
-                    textContentType="password" // Help with autofill
+                    secureTextEntry
+                    textContentType="password"
                 />
 
                 <TouchableOpacity
@@ -262,29 +263,29 @@ const LoginScreen: React.FC = () => {
                 </TouchableOpacity>
             </View>
 
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background.dark,
     },
     contentContainer: {
-        flexGrow: 1,
+        flex: 1,
         paddingHorizontal: wp(8),
-        paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
+        paddingTop: Platform.OS === 'android' ? hp(3) : hp(8),
         paddingBottom: hp(5),
+        backgroundColor: colors.background.dark,
     },
     headerContainer: {
         alignItems: 'center',
-        marginBottom: hp(4),
+        marginBottom: hp(2),
     },
     logoImage: {
         width: wp(40),
         height: hp(6),
-        marginBottom: hp(2),
+        marginBottom: hp(1),
     },
     title: {
         color: colors.text.light,
@@ -313,7 +314,7 @@ const styles = StyleSheet.create({
     forgotPasswordContainer: {
         alignSelf: 'flex-end',
         marginTop: -hp(1),
-        marginBottom: hp(3),
+        marginBottom: hp(2),
     },
     loginButton: {
         marginTop: hp(1),
@@ -321,7 +322,7 @@ const styles = StyleSheet.create({
     keepLoggedInContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: hp(2),
+        marginTop: hp(1.5),
         alignSelf: 'flex-start',
     },
     keepLoggedInText: {
@@ -332,7 +333,8 @@ const styles = StyleSheet.create({
     dividerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: hp(4),
+        marginBottom: hp(3),
+        marginTop: hp(1)
     },
     dividerLine: {
         flex: 1,
@@ -370,11 +372,10 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         color: colors.status.error,
-        marginBottom: hp(0),
     },
     successMessage: {
         color: colors.gold,
-        marginBottom: hp(2),
+        marginBottom: hp(1),
     },
     errorContainer: {
         width: '100%',

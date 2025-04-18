@@ -89,7 +89,9 @@ const SignupScreen: React.FC = () => {
     };
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.contentContainer}
+        // contentContainerStyle={styles.contentContainer}
+        >
             <StatusBar barStyle="light-content" backgroundColor="#190F20" />
 
             {/* Header/Logo */}
@@ -161,7 +163,6 @@ const SignupScreen: React.FC = () => {
                 <PrimaryButton
                     title="Signup"
                     onPress={handleSignup}
-                    style={styles.signupButton}
                     loading={signUpMutation.isPending}
                     textStyle={undefined}
                 />
@@ -209,29 +210,31 @@ const SignupScreen: React.FC = () => {
                 </TouchableOpacity>
             </View>
 
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background.dark,
+
     },
     contentContainer: {
-        flexGrow: 1,
+        flex: 1,
         paddingHorizontal: wp(8),
-        paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
+        paddingTop: Platform.OS === 'android' ? hp(3) : hp(8),
         paddingBottom: hp(5),
+        backgroundColor: colors.background.dark,
     },
     headerContainer: {
         alignItems: 'center',
-        marginBottom: hp(4),
+        marginBottom: hp(2),
+
     },
     logoImage: {
         width: wp(40),
         height: hp(6),
-        marginBottom: hp(2),
+        marginBottom: hp(1),
     },
     title: {
         color: colors.text.light,
@@ -243,7 +246,7 @@ const styles = StyleSheet.create({
     subtitleContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: hp(4),
+        marginBottom: hp(3),
         alignSelf: "flex-start"
     },
     subtitleText: {
@@ -256,7 +259,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     formContainer: {
-        marginBottom: hp(2),
+        marginBottom: hp(1),
     },
     nameRow: {
         flexDirection: 'row',
@@ -266,12 +269,12 @@ const styles = StyleSheet.create({
         width: '48%',
     },
     signupButton: {
-        marginTop: hp(3),
+        marginTop: hp(0),
     },
     termsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: hp(2),
+        marginTop: hp(1.5),
         alignSelf: 'flex-start',
     },
     termsText: {
@@ -285,7 +288,8 @@ const styles = StyleSheet.create({
     dividerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: hp(4),
+        marginBottom: hp(3),
+        marginTop: hp(1)
     },
     dividerLine: {
         flex: 1,
@@ -323,11 +327,10 @@ const styles = StyleSheet.create({
     },
     errorMessage: {
         color: colors.status.error,
-        marginBottom: hp(0),
     },
     successMessage: {
         color: colors.gold,
-        marginBottom: hp(2),
+        marginBottom: hp(1),
     },
 });
 

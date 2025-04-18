@@ -48,7 +48,7 @@ const ForgotPasswordScreen = () => {
     };
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.contentContainer}>
             <StatusBar barStyle="light-content" backgroundColor={colors.background.dark} />
             <View style={{ marginTop: hp(15) }}>
                 {/* Header/Logo */}
@@ -91,20 +91,20 @@ const ForgotPasswordScreen = () => {
                 </View>
 
             </View>
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background.dark,
     },
     contentContainer: {
-        flexGrow: 1,
+        flex: 1,
         paddingHorizontal: wp(8),
         paddingTop: Platform.OS === 'android' ? hp(2) : hp(8),
         paddingBottom: hp(5),
+        backgroundColor: colors.background.dark,
     },
     headerContainer: {
         alignItems: 'center',
